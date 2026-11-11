@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_Name" xml:space="preserve"><value>Maia</value></data>
+  <data name="Common_Error" xml:space="preserve"><value>Κάτι πήγε στραβά. Δοκίμασε ξανά.</value></data>
+  <data name="Common_Back" xml:space="preserve"><value>Πίσω</value></data>
+  <data name="Common_CharactersLeft" xml:space="preserve"><value>Απομένουν {0} χαρακτήρες</value></data>
+  <data name="Common_OneCharacterLeft" xml:space="preserve"><value>Απομένει 1 χαρακτήρας</value></data>
+  <data name="Common_LimitReached" xml:space="preserve"><value>Ως εδώ χωράει: {0} χαρακτήρες.</value></data>
+  <data name="Common_LoadError" xml:space="preserve"><value>Η Maia δεν μπόρεσε να το δείξει αυτή τη στιγμή. Δοκίμασε ξανά σε λίγο.</value></data>
+  <data name="Error_RoleFull" xml:space="preserve"><value>Μπορείς να συνδέσεις έως {0} επαφές εδώ. Αποσύνδεσε μία για να προσθέσεις άλλη.</value></data>
+  <data name="Error_ContactGone" xml:space="preserve"><value>Αυτή η επαφή δεν είναι πια συνδεδεμένη.</value></data>
+  <data name="Error_ContactTooLong" xml:space="preserve"><value>Το όνομα ή ο αριθμός αυτής της επαφής είναι πολύ μεγάλος για να συνδεθεί.</value></data>
+  <data name="Error_DueDateNotACheck" xml:space="preserve"><value>Η ημερομηνία τοκετού είναι ορόσημο, όχι εξέταση για ραντεβού.</value></data>
+  <data name="Error_CheckGone" xml:space="preserve"><value>Αυτή η εξέταση δεν είναι πια στο πλάνο σου.</value></data>
+  <data name="Error_ChecksFull" xml:space="preserve"><value>Το πλάνο σου χωράει έως {0} εξετάσεις και είναι γεμάτο.</value></data>
+  <data name="Error_TasksFull" xml:space="preserve"><value>Η λίστα σου γέμισε: η Maia κρατά έως {0} εργασίες, μαζί με όσες έγιναν. Άνοιξε το «Όλες οι εργασίες» για να φύγουν όσες έγιναν.</value></data>
+  <data name="Error_QuestionsFull" xml:space="preserve"><value>Η Maia κρατά έως {0} ερωτήσεις, και η λίστα σου είναι γεμάτη.</value></data>
+  <data name="Error_TaskTooLong" xml:space="preserve"><value>Είναι λίγο μεγάλο. Κράτα το έως {0} χαρακτήρες.</value></data>
+  <data name="Error_EntryTooLong" xml:space="preserve"><value>Το όνομα είναι λίγο μεγάλο. Κράτα το έως {0} χαρακτήρες.</value></data>
+  <data name="Error_NoteTooLong" xml:space="preserve"><value>Η σημείωση είναι λίγο μεγάλη. Κράτα την έως {0} χαρακτήρες.</value></data>
+  <data name="Error_TaskNeedsDay" xml:space="preserve"><value>Διάλεξε και μέρα, όχι μόνο ώρα.</value></data>
+  <data name="Error_TaskGone" xml:space="preserve"><value>Αυτό δεν είναι πια στη λίστα σου.</value></data>
+  <data name="Error_QuestionTooLong" xml:space="preserve"><value>Η ερώτηση είναι λίγο μεγάλη. Κράτα τη έως {0} χαρακτήρες.</value></data>
+  <data name="Error_QuestionGone" xml:space="preserve"><value>Αυτή η ερώτηση δεν είναι πια στη λίστα σου.</value></data>
+  <data name="Error_PlaceTooLong" xml:space="preserve"><value>Το όνομα του χώρου είναι λίγο μεγάλο. Κράτα το έως {0} χαρακτήρες.</value></data>
+  <data name="Error_ResultFiled" xml:space="preserve"><value>Αυτό το αποτέλεσμα είναι ήδη σε αυτή την εξέταση.</value></data>
+  <data name="Error_ResultGone" xml:space="preserve"><value>Αυτό το αποτέλεσμα δεν είναι πια εδώ.</value></data>
+  <data name="Error_NoPlan" xml:space="preserve"><value>Δεν υπάρχει ακόμη πλάνο σε αυτό το κινητό. Φτιάξε πρώτα ένα.</value></data>
+  <data name="Error_PlanExists" xml:space="preserve"><value>Το πλάνο σου υπάρχει ήδη σε αυτό το κινητό.</value></data>
+  <data name="Error_PlanFromNewerMaia" xml:space="preserve"><value>Το πλάνο σου αποθηκεύτηκε από νεότερη έκδοση της Maia. Ενημέρωσε τη Maia για να το ανοίξεις.</value></data>
+  <data name="Error_PlanUnreadable" xml:space="preserve"><value>Η Maia δεν μπορεί να ανοίξει το πλάνο σου αυτή τη στιγμή.</value></data>
+  <data name="Diagnostics_Title" xml:space="preserve"><value>Διαγνωστικά</value></data>
+  <data name="Diagnostics_Note" xml:space="preserve"><value>Αν κάτι πάει στραβά, η Maia σημειώνει έναν κωδικό σφάλματος σε αυτό το κινητό, ποτέ κάτι από το πλάνο σου. Τίποτα δεν στέλνεται αν δεν το κοινοποιήσεις εσύ, και η διαγραφή όλων των δεδομένων το σβήνει.</value></data>
+  <data name="Diagnostics_Open" xml:space="preserve"><value>Κοινοποίηση διαγνωστικών</value></data>
+  <data name="Diagnostics_Nothing" xml:space="preserve"><value>Δεν υπάρχει κάτι για κοινοποίηση. Η Maia δεν έχει σημειώσει κανένα πρόβλημα.</value></data>
+  <data name="Diagnostics_ShareTitle" xml:space="preserve"><value>Διαγνωστικά Maia</value></data>
+  <data name="Setup_Welcome" xml:space="preserve"><value>Καλώς ήρθες στη Maia</value></data>
+  <data name="Setup_Title" xml:space="preserve"><value>Ας οργανώσουμε την εγκυμοσύνη σου</value></data>
+  <data name="Setup_Intro" xml:space="preserve"><value>Πες στη Maia πότε περιμένεις το μωρό. Σου προτείνει τις εξετάσεις που χρειάζονται οι περισσότερες εγκυμοσύνες, κι εσύ τις προσαρμόζεις όπως σου λέει ο γιατρός σου.</value></data>
+  <data name="Setup_DueDateLabel" xml:space="preserve"><value>Πότε περιμένεις το μωρό;</value></data>
+  <data name="Setup_LastPeriodLabel" xml:space="preserve"><value>Πρώτη μέρα της τελευταίας περιόδου</value></data>
+  <data name="Setup_UseLastPeriod" xml:space="preserve"><value>Δεν είσαι σίγουρη; Χρησιμοποίησε την τελευταία περίοδο</value></data>
+  <data name="Setup_UseDueDate" xml:space="preserve"><value>Ξέρω πότε περιμένω το μωρό</value></data>
+  <data name="Setup_Summary" xml:space="preserve"><value>Σήμερα είσαι {0}. Τοκετός {1}.</value></data>
+  <data name="Setup_OutOfRange" xml:space="preserve"><value>Αυτή η ημερομηνία δεν ταιριάζει με μια τρέχουσα εγκυμοσύνη. Έλεγξέ τη και δοκίμασε ξανά.</value></data>
+  <data name="Setup_Suggest" xml:space="preserve"><value>Πρότεινέ μου πλάνο</value></data>
+  <data name="SetupPlan_Title" xml:space="preserve"><value>Ένα συνηθισμένο πλάνο</value></data>
+  <data name="SetupPlan_BlockedTitle" xml:space="preserve"><value>Το συνηθισμένο πλάνο δεν είναι ακόμη έτοιμο</value></data>
+  <data name="SetupPlan_Intro" xml:space="preserve"><value>Οι συνηθισμένες εξετάσεις για εγκυμοσύνη με τοκετό {0}. Ο γιατρός σου μπορεί να προτείνει άλλες. Κλείσε όσες δεν σε αφορούν· μπορείς να το αλλάξεις όποτε θέλεις.</value></data>
+  <data name="SetupPlan_Start" xml:space="preserve"><value>Μια χαρά</value></data>
+  <data name="SetupPlan_NotReviewed" xml:space="preserve"><value>Αυτό το πλάνο περιμένει ιατρικό έλεγχο και δεν μπορεί να χρησιμοποιηθεί ακόμη.</value></data>
+  <data name="SetupPlan_NotReviewedHelp" xml:space="preserve"><value>Χρησιμοποιούσες τη Maia σε άλλο κινητό; Μπορείς να φέρεις εδώ το πλάνο σου με ένα αντίγραφο ασφαλείας.</value></data>
+  <data name="SetupPlan_Restore" xml:space="preserve"><value>Επαναφορά αντιγράφου</value></data>
+  <data name="Tag_Routine" xml:space="preserve"><value>Βασική</value></data>
+  <data name="Tag_Offered" xml:space="preserve"><value>Προαιρετική</value></data>
+  <data name="Tag_IfAdvised" xml:space="preserve"><value>Αν σου προταθεί</value></data>
+  <data name="Tag_WhereOffered" xml:space="preserve"><value>Όπου προσφέρεται</value></data>
+  <data name="Tag_Milestone" xml:space="preserve"><value>Ορόσημο</value></data>
+  <data name="Section_trimester1" xml:space="preserve"><value>1ο τρίμηνο</value></data>
+  <data name="Section_trimester2" xml:space="preserve"><value>2ο τρίμηνο</value></data>
+  <data name="Section_trimester3" xml:space="preserve"><value>3ο τρίμηνο</value></data>
+  <data name="Section_after_birth" xml:space="preserve"><value>Μετά τη γέννα</value></data>
+  <data name="Week_Label" xml:space="preserve"><value>Εβδομάδα {0} + {1}</value></data>
+  <data name="Week_WeeksAndDays" xml:space="preserve"><value>{0} εβδομάδων και {1} ημερών</value></data>
+  <data name="Week_WeeksAndOneDay" xml:space="preserve"><value>{0} εβδομάδων και 1 ημέρας</value></data>
+  <data name="Week_Title" xml:space="preserve"><value>Σήμερα</value></data>
+  <data name="Week_Due" xml:space="preserve"><value>Τοκετός {0}</value></data>
+  <data name="Week_NextUpNone" xml:space="preserve"><value>Επόμενο</value></data>
+  <data name="Week_NothingBooked" xml:space="preserve"><value>Δεν έχεις κλείσει ραντεβού ακόμη</value></data>
+  <data name="Week_Tasks" xml:space="preserve"><value>Αυτή την εβδομάδα</value></data>
+  <data name="Week_NoTasks" xml:space="preserve"><value>Τίποτα για αυτή την εβδομάδα.</value></data>
+  <data name="Status_Booked" xml:space="preserve"><value>Κλεισμένο</value></data>
+  <data name="Status_Done" xml:space="preserve"><value>Έγινε</value></data>
+  <data name="Status_ProbablyDone" xml:space="preserve"><value>Μάλλον έγινε</value></data>
+  <data name="Status_Milestone" xml:space="preserve"><value>Τοκετός</value></data>
+  <data name="Tab_Week" xml:space="preserve"><value>Σήμερα</value></data>
+  <data name="Tab_Journey" xml:space="preserve"><value>Πλάνο</value></data>
+  <data name="Tab_Add" xml:space="preserve"><value>Νέο</value></data>
+  <data name="Tab_AddHint" xml:space="preserve"><value>Νέο, κάτι για το πλάνο σου</value></data>
+  <data name="Tab_Results" xml:space="preserve"><value>Αποτελέσματα</value></data>
+  <data name="Tab_Settings" xml:space="preserve"><value>Ρυθμίσεις</value></data>
+  <data name="Plan_Title" xml:space="preserve"><value>Πλάνο</value></data>
+  <data name="Plan_Intro" xml:space="preserve"><value>Πάτησε ό,τι θέλεις για να κλείσεις ραντεβού, να το αλλάξεις ή να το διαγράψεις.</value></data>
+  <data name="Plan_Here" xml:space="preserve"><value>Είσαι εδώ</value></data>
+  <data name="Plan_Weeks" xml:space="preserve"><value>Εβδομάδες {0}–{1}</value></data>
+  <data name="Plan_Week" xml:space="preserve"><value>Εβδομάδα {0}</value></data>
+  <data name="Plan_WeekSpoken" xml:space="preserve"><value>{0}, {1}</value></data>
+  <data name="Plan_EmptyWeek" xml:space="preserve"><value>Τίποτα αυτή την εβδομάδα</value></data>
+  <data name="Plan_Around" xml:space="preserve"><value>γύρω στις {0}</value></data>
+  <data name="Plan_Booked" xml:space="preserve"><value>{0} στις {1}</value></data>
+  <data name="Plan_BookedShort" xml:space="preserve"><value>{0}, {1}</value></data>
+  <data name="Plan_NoteFallback" xml:space="preserve"><value>Το πρόσθεσες εσύ στο πλάνο σου.</value></data>
+  <data name="Plan_NameWithWeek" xml:space="preserve"><value>{0} · εβδομάδα {1}</value></data>
+  <data name="Check_Book" xml:space="preserve"><value>Κλείσε</value></data>
+  <data name="Plan_ShowTasks" xml:space="preserve"><value>Εργασίες</value></data>
+  <data name="Kind_DoctorVisit" xml:space="preserve"><value>Επίσκεψη σε γιατρό</value></data>
+  <data name="Kind_Exam" xml:space="preserve"><value>Εξέταση</value></data>
+  <data name="Kind_HospitalVisit" xml:space="preserve"><value>Επίσκεψη σε νοσοκομείο</value></data>
+  <data name="Kind_Other" xml:space="preserve"><value>Κάτι άλλο</value></data>
+  <data name="Plan_TaskSpoken" xml:space="preserve"><value>{0}, {1}</value></data>
+  <data name="Book_Date" xml:space="preserve"><value>Ημερομηνία</value></data>
+  <data name="Book_Time" xml:space="preserve"><value>Ώρα</value></data>
+  <data name="Toast_Booked" xml:space="preserve"><value>{0}: ραντεβού {1} στις {2}.</value></data>
+  <data name="Reminder_TwoHoursBefore" xml:space="preserve"><value>2 ώρες πριν</value></data>
+  <data name="Reminder_Both" xml:space="preserve"><value>Και τα δύο</value></data>
+  <data name="Results_Title" xml:space="preserve"><value>Αποτελέσματα</value></data>
+  <data name="Team_Title" xml:space="preserve"><value>Ομάδα φροντίδας</value></data>
+  <data name="Add_Title" xml:space="preserve"><value>Νέο</value></data>
+  <data name="SetupCare_Title" xml:space="preserve"><value>Γιατρός και υπενθυμίσεις</value></data>
+  <data name="SetupCare_Intro" xml:space="preserve"><value>Σύνδεσε τον γυναικολόγο σου από τις επαφές του κινητού, και η Maia σου θυμίζει κάθε ραντεβού.</value></data>
+  <data name="SetupCare_YourObGyn" xml:space="preserve"><value>Γυναικολόγος</value></data>
+  <data name="SetupCare_Choose" xml:space="preserve"><value>Επίλεξε από τις επαφές</value></data>
+  <data name="SetupCare_LinkAnother" xml:space="preserve"><value>Σύνδεσε κι άλλη επαφή</value></data>
+  <data name="SetupCare_Start" xml:space="preserve"><value>Ξεκίνα το πλάνο μου</value></data>
+  <data name="SetupCare_Skip" xml:space="preserve"><value>Όχι τώρα</value></data>
+  <data name="Toast_PlanReady" xml:space="preserve"><value>Το πλάνο σου είναι έτοιμο.</value></data>
+  <data name="Team_Intro" xml:space="preserve"><value>Σύνδεσε τους γιατρούς σου από τις επαφές του κινητού, για κλήσεις και ραντεβού.</value></data>
+  <data name="Team_ObGyn" xml:space="preserve"><value>Γυναικολόγος</value></data>
+  <data name="Team_ObGynUse" xml:space="preserve"><value>Για ραντεβού και κλήσεις</value></data>
+  <data name="Team_LinkFromContacts" xml:space="preserve"><value>Σύνδεση από τις επαφές</value></data>
+  <data name="Team_NoNumber" xml:space="preserve"><value>Αυτή η επαφή δεν έχει αριθμό τηλεφώνου. Διάλεξε μία που έχει.</value></data>
+  <data name="Team_Doctors" xml:space="preserve"><value>Άλλοι γιατροί</value></data>
+  <data name="Team_Link" xml:space="preserve"><value>Σύνδεση</value></data>
+  <data name="Team_Call" xml:space="preserve"><value>Κλήση: {0}</value></data>
+  <data name="Team_Unlink" xml:space="preserve"><value>Αποσύνδεση: {0}</value></data>
+  <data name="Team_UnlinkConfirm" xml:space="preserve"><value>Να αποσυνδεθεί η επαφή «{0}»; Τα ραντεβού σου μένουν στο πλάνο σου.</value></data>
+  <data name="Team_UnlinkYes" xml:space="preserve"><value>Αποσύνδεση γιατρού</value></data>
+  <data name="Role_Dentist" xml:space="preserve"><value>Οδοντίατρος</value></data>
+  <data name="Role_Internist" xml:space="preserve"><value>Παθολόγος</value></data>
+  <data name="Role_Endocrinologist" xml:space="preserve"><value>Ενδοκρινολόγος</value></data>
+  <data name="Role_Haematologist" xml:space="preserve"><value>Αιματολόγος</value></data>
+  <data name="Role_Cardiologist" xml:space="preserve"><value>Καρδιολόγος</value></data>
+  <data name="Role_Dermatologist" xml:space="preserve"><value>Δερματολόγος</value></data>
+  <data name="Role_Gastroenterologist" xml:space="preserve"><value>Γαστρεντερολόγος</value></data>
+  <data name="Toast_Calling" xml:space="preserve"><value>Κλήση: {0}…</value></data>
+  <data name="Toast_Unlinked" xml:space="preserve"><value>{0}: αποσυνδέθηκε.</value></data>
+  <data name="Toast_LinkedContact" xml:space="preserve"><value>{0}: συνδέθηκε.</value></data>
+  <data name="Toast_LinkedOne" xml:space="preserve"><value>1 επαφή συνδέθηκε με τον γυναικολόγο σου.</value></data>
+  <data name="Toast_Linked" xml:space="preserve"><value>{0} επαφές συνδέθηκαν με τον γυναικολόγο σου.</value></data>
+  <data name="Week_With" xml:space="preserve"><value>με {0}</value></data>
+  <data name="Add_What" xml:space="preserve"><value>Τι είναι;</value></data>
+  <data name="Add_Name" xml:space="preserve"><value>Όνομα</value></data>
+  <data name="Add_When" xml:space="preserve"><value>Πότε;</value></data>
+  <data name="Add_Note" xml:space="preserve"><value>Σημειώσεις</value></data>
+  <data name="Add_NotePlaceholder" xml:space="preserve"><value>Προαιρετικά, π.χ. πάρε το παραπεμπτικό</value></data>
+  <data name="Add_WhenBooked" xml:space="preserve"><value>Κλεισμένο</value></data>
+  <data name="Add_WhenDone" xml:space="preserve"><value>Έγινε ήδη</value></data>
+  <data name="Add_WhenNotBooked" xml:space="preserve"><value>Δεν έχει κλειστεί ακόμα</value></data>
+  <data name="Add_ChooseWhat" xml:space="preserve"><value>Διάλεξε τι προσθέτεις.</value></data>
+  <data name="Add_NameMissing" xml:space="preserve"><value>Δώσε του ένα όνομα.</value></data>
+  <data name="Add_ChooseWhen" xml:space="preserve"><value>Διάλεξε πότε είναι.</value></data>
+  <data name="Toast_EntryBooked" xml:space="preserve"><value>{0}: προστέθηκε στο πλάνο σου για {1} στις {2}.</value></data>
+  <data name="Toast_EntryDone" xml:space="preserve"><value>{0}: προστέθηκε στο πλάνο σου, έγινε {1}.</value></data>
+  <data name="Toast_EntryWaiting" xml:space="preserve"><value>{0}: προστέθηκε στο πλάνο σου και περιμένει ημερομηνία.</value></data>
+  <data name="Extra_Ultrasound" xml:space="preserve"><value>Επιπλέον υπερηχογράφημα</value></data>
+  <data name="Extra_Iron" xml:space="preserve"><value>Επανέλεγχος σιδήρου</value></data>
+  <data name="Extra_Urine" xml:space="preserve"><value>Καλλιέργεια ούρων</value></data>
+  <data name="Extra_Doppler" xml:space="preserve"><value>Υπερηχογράφημα Doppler</value></data>
+  <data name="Extra_Thyroid" xml:space="preserve"><value>Έλεγχος θυρεοειδούς</value></data>
+  <data name="Extra_BloodPressure" xml:space="preserve"><value>Έλεγχοι πίεσης</value></data>
+  <data name="Results_Intro" xml:space="preserve"><value>Κάθε γνωμάτευση και φωτογραφία υπερήχου, σε ένα σημείο, έτοιμες να τις δείξεις στον γιατρό σου.</value></data>
+  <data name="Results_Add" xml:space="preserve"><value>Ανέβασε αποτελέσματα</value></data>
+  <data name="Results_EmptyAll" xml:space="preserve"><value>Δεν υπάρχουν αποτελέσματα ακόμη. Πρόσθεσε τη γνωμάτευση ή μια φωτογραφία της.</value></data>
+  <data name="Results_Remove" xml:space="preserve"><value>Αφαίρεση: {0}</value></data>
+  <data name="Results_RemoveConfirm" xml:space="preserve"><value>Να αφαιρεθεί το «{0}» από αυτό το κινητό; Δεν αναιρείται.</value></data>
+  <data name="Results_RemoveOpen" xml:space="preserve"><value>Αφαίρεση</value></data>
+  <data name="Results_RemoveYes" xml:space="preserve"><value>Αφαίρεση αποτελέσματος</value></data>
+  <data name="Results_KindPdf" xml:space="preserve"><value>PDF</value></data>
+  <data name="Results_KindPhoto" xml:space="preserve"><value>Φωτογραφία</value></data>
+  <data name="Results_SizeMb" xml:space="preserve"><value>{0} MB</value></data>
+  <data name="Results_SizeKb" xml:space="preserve"><value>{0} KB</value></data>
+  <data name="Results_TooLarge" xml:space="preserve"><value>Μπορείς να προσθέσεις αρχεία έως 25 MB.</value></data>
+  <data name="Results_Empty" xml:space="preserve"><value>Αυτό το αρχείο είναι κενό.</value></data>
+  <data name="Results_Unsupported" xml:space="preserve"><value>Η Maia κρατά PDF και φωτογραφίες. Αυτός ο τύπος αρχείου δεν μπορεί να προστεθεί.</value></data>
+  <data name="Toast_ResultRemoved" xml:space="preserve"><value>{0}: αφαιρέθηκε.</value></data>
+  <data name="Week_AddTask" xml:space="preserve"><value>Πρόσθεσε εργασία</value></data>
+  <data name="Week_TaskLabel" xml:space="preserve"><value>Εργασία</value></data>
+  <data name="Week_TaskPlaceholder" xml:space="preserve"><value>π.χ. Τηλεφώνησε στην κλινική για τα αποτελέσματα</value></data>
+  <data name="Week_TaskAdd" xml:space="preserve"><value>Προσθήκη εργασίας</value></data>
+  <data name="Week_TaskToggle" xml:space="preserve"><value>Τσέκαρε</value></data>
+  <data name="Week_QuestionsTileTitle" xml:space="preserve"><value>Ερωτήσεις</value></data>
+  <data name="Week_QuestionsTile" xml:space="preserve"><value>Έτοιμες όποτε τις χρειαστείς</value></data>
+  <data name="Week_BreatheTileTitle" xml:space="preserve"><value>Χρονόμετρο</value></data>
+  <data name="Week_BreatheTile" xml:space="preserve"><value>Αναπνοή και ασκήσεις</value></data>
+  <data name="Toast_TaskAdded" xml:space="preserve"><value>Η εργασία προστέθηκε για {0} στις {1}.</value></data>
+  <data name="Questions_Title" xml:space="preserve"><value>Ερωτήσεις</value></data>
+  <data name="Questions_Intro" xml:space="preserve"><value>Σημείωσέ τες όταν σου έρχονται, όλες σε ένα σημείο.</value></data>
+  <data name="Questions_Placeholder" xml:space="preserve"><value>Γράψε μια ερώτηση</value></data>
+  <data name="Questions_Add" xml:space="preserve"><value>Προσθήκη ερώτησης</value></data>
+  <data name="Questions_Left" xml:space="preserve"><value>Τσέκαρε όποια απαντηθεί.</value></data>
+  <data name="Questions_AllAsked" xml:space="preserve"><value>Τις ρώτησες όλες. Πρόσθεσε κι άλλη όταν σου έρθει.</value></data>
+  <data name="Questions_Empty" xml:space="preserve"><value>Καμία ερώτηση ακόμη. Πρόσθεσε μία όταν σου έρθει.</value></data>
+  <data name="Breathe_Title" xml:space="preserve"><value>Χρονόμετρο</value></data>
+  <data name="Breathe_Ready" xml:space="preserve"><value>Έτοιμη;</value></data>
+  <data name="Breathe_Pause" xml:space="preserve"><value>Παύση</value></data>
+  <data name="Breathe_Paused" xml:space="preserve"><value>Σε παύση</value></data>
+  <data name="Breathe_Resume" xml:space="preserve"><value>Συνέχεια</value></data>
+  <data name="Breathe_StartOver" xml:space="preserve"><value>Από την αρχή</value></data>
+  <data name="Breathe_TimeLeft" xml:space="preserve"><value>Χρόνος που μένει: {0}</value></data>
+  <data name="Breathe_OneMinute" xml:space="preserve"><value>1 λεπτό</value></data>
+  <data name="Breathe_Minutes" xml:space="preserve"><value>{0} λεπτά</value></data>
+  <data name="Breathe_OneSecond" xml:space="preserve"><value>1 δευτερόλεπτο</value></data>
+  <data name="Breathe_Seconds" xml:space="preserve"><value>{0} δευτερόλεπτα</value></data>
+  <data name="Breathe_MinutesAndSeconds" xml:space="preserve"><value>{0} και {1}</value></data>
+  <data name="Timer_Intro" xml:space="preserve"><value>{0}, μετά {1}, {2}. Για ήρεμη αναπνοή ή για τις ασκήσεις που σου πρότεινε ο γιατρός σου.</value></data>
+  <data name="Timer_First" xml:space="preserve"><value>Πρώτα</value></data>
+  <data name="Timer_Then" xml:space="preserve"><value>Μετά</value></data>
+  <data name="Timer_Start" xml:space="preserve"><value>Ξεκίνα</value></data>
+  <data name="Timer_Again" xml:space="preserve"><value>Ξεκίνα ξανά</value></data>
+  <data name="Timer_Caution" xml:space="preserve"><value>Ζαλίζεσαι, πονάς ή δεν νιώθεις καλά; Σταμάτα και ξεκουράσου.</value></data>
+  <data name="Timer_VibrationHint" xml:space="preserve"><value>Ένας απαλός παλμός όταν αρχίζει το πρώτο μέρος, δύο όταν αρχίζει το δεύτερο, ώστε να μπορείς να κλείσεις τα μάτια. Ακολουθεί τις ρυθμίσεις δόνησης του κινητού σου και σταματά στη σίγαση ή στο «Μην ενοχλείτε».</value></data>
+  <data name="Timer_SoundHint" xml:space="preserve"><value>Ένας χαμηλός τόνος στην αρχή κάθε μέρους, στην ένταση πολυμέσων. Όχι στη σίγαση ή στο «Μην ενοχλείτε».</value></data>
+  <data name="Timer_OneTime" xml:space="preserve"><value>1 φορά</value></data>
+  <data name="Timer_Times" xml:space="preserve"><value>{0} φορές</value></data>
+  <data name="Timer_Rounds" xml:space="preserve"><value>Επαναλήψεις</value></data>
+  <data name="Timer_Setting" xml:space="preserve"><value>{0}, {1}</value></data>
+  <data name="Timer_FewerSeconds" xml:space="preserve"><value>Λιγότερα δευτερόλεπτα</value></data>
+  <data name="Timer_MoreSeconds" xml:space="preserve"><value>Περισσότερα δευτερόλεπτα</value></data>
+  <data name="Timer_FewerRounds" xml:space="preserve"><value>Λιγότερες επαναλήψεις</value></data>
+  <data name="Timer_MoreRounds" xml:space="preserve"><value>Περισσότερες επαναλήψεις</value></data>
+  <data name="Breathe_Vibration" xml:space="preserve"><value>Απαλή δόνηση</value></data>
+  <data name="Breathe_Sound" xml:space="preserve"><value>Απαλός ήχος</value></data>
+  <data name="Week_QuestionsTileNone" xml:space="preserve"><value>Σημείωσε μία όταν σου έρθει</value></data>
+  <data name="Settings_Title" xml:space="preserve"><value>Ρυθμίσεις</value></data>
+  <data name="Settings_Intro" xml:space="preserve"><value>Η εγκυμοσύνη σου, οι υπενθυμίσεις σου, η γλώσσα σου και τα δεδομένα σου.</value></data>
+  <data name="Settings_Language" xml:space="preserve"><value>Γλώσσα</value></data>
+  <data name="Settings_Animations" xml:space="preserve"><value>Κινούμενα εφέ</value></data>
+  <data name="Settings_AnimationsHint" xml:space="preserve"><value>Απαλή κίνηση στις οθόνες. Αν το κλείσεις, όλα μένουν ακίνητα.</value></data>
+  <data name="Settings_LanguageHint" xml:space="preserve"><value>Και τα ονόματα των εξετάσεων και των υπενθυμίσεων.</value></data>
+  <data name="Settings_English" xml:space="preserve"><value>English</value></data>
+  <data name="Settings_Greek" xml:space="preserve"><value>Ελληνικά</value></data>
+  <data name="Settings_Data" xml:space="preserve"><value>Δεδομένα</value></data>
+  <data name="Settings_DataNote" xml:space="preserve"><value>Το πλάνο και τα αποτελέσματά σου μένουν σε αυτό το κινητό, κρυπτογραφημένα.</value></data>
+  <data name="Settings_Delete" xml:space="preserve"><value>Διαγραφή όλων των δεδομένων</value></data>
+  <data name="Settings_DeleteConfirm" xml:space="preserve"><value>Να διαγραφούν το πλάνο και τα αποτελέσματά σου; Δεν αναιρείται.</value></data>
+  <data name="Settings_DeleteYes" xml:space="preserve"><value>Διαγραφή όλων</value></data>
+  <data name="Toast_Deleted" xml:space="preserve"><value>Όλα διαγράφηκαν από αυτό το κινητό.</value></data>
+  <data name="Backup_Title" xml:space="preserve"><value>Αντίγραφο ασφαλείας</value></data>
+  <data name="Backup_Note" xml:space="preserve"><value>Ένα κρυπτογραφημένο αρχείο με το πλάνο και τα αποτελέσματά σου, για νέο κινητό. Φύλαξέ το κάπου ασφαλές, όπως στο email ή στο Drive.</value></data>
+  <data name="Backup_Create" xml:space="preserve"><value>Δημιουργία αντιγράφου</value></data>
+  <data name="Backup_Password" xml:space="preserve"><value>Κωδικός αντιγράφου</value></data>
+  <data name="Backup_PasswordAgain" xml:space="preserve"><value>Ξανά ο κωδικός</value></data>
+  <data name="Backup_PasswordShort" xml:space="preserve"><value>Τουλάχιστον {0} χαρακτήρες. Λίγες λέξεις που θα θυμάσαι κάνουν καλό κωδικό.</value></data>
+  <data name="Backup_PasswordMismatch" xml:space="preserve"><value>Οι δύο κωδικοί δεν ταιριάζουν ακόμη.</value></data>
+  <data name="Backup_PasswordKeep" xml:space="preserve"><value>Φύλαξε αυτόν τον κωδικό: χωρίς αυτόν το αντίγραφο δεν ανοίγει, ούτε από τη Maia.</value></data>
+  <data name="Backup_PasswordRepeated" xml:space="preserve"><value>Είναι οι ίδιοι λίγοι χαρακτήρες ξανά και ξανά. Δοκίμασε λίγες λέξεις που θα θυμάσαι.</value></data>
+  <data name="Backup_PasswordSequence" xml:space="preserve"><value>Σειρές όπως abcd ή 1234 μαντεύονται εύκολα. Δοκίμασε λίγες λέξεις που θα θυμάσαι.</value></data>
+  <data name="Backup_PasswordDigits" xml:space="preserve"><value>Σκέτοι αριθμοί, όπως ημερομηνίες ή τηλέφωνα, μαντεύονται εύκολα. Πρόσθεσε λίγες λέξεις ή βάλε τουλάχιστον {0} ψηφία.</value></data>
+  <data name="Backup_PasswordCommon" xml:space="preserve"><value>Αυτόν τον κωδικό τον χρησιμοποιούν πολλοί, οπότε μαντεύεται εύκολα. Δοκίμασε λίγες λέξεις που μόνο εσύ θα έβαζες μαζί.</value></data>
+  <data name="Backup_PasswordGood" xml:space="preserve"><value>Καλός κωδικός.</value></data>
+  <data name="Backup_PasswordStrong" xml:space="preserve"><value>Δυνατός κωδικός.</value></data>
+  <data name="Backup_Share" xml:space="preserve"><value>Δημιουργία και κοινοποίηση</value></data>
+  <data name="Backup_Creating" xml:space="preserve"><value>Ετοιμάζεται το αντίγραφό σου… μπορεί να πάρει λίγα δευτερόλεπτα.</value></data>
+  <data name="Backup_Cancel" xml:space="preserve"><value>Ακύρωση</value></data>
+  <data name="Backup_WrongPassword" xml:space="preserve"><value>Αυτός ο κωδικός δεν ανοίγει το αντίγραφο. Έλεγξέ τον και δοκίμασε ξανά.</value></data>
+  <data name="Backup_NotABackup" xml:space="preserve"><value>Αυτό το αρχείο δεν είναι αντίγραφο της Maia.</value></data>
+  <data name="Backup_Damaged" xml:space="preserve"><value>Αυτό το αντίγραφο είναι κατεστραμμένο ή ελλιπές. Δοκίμασε άλλο αντίγραφό του.</value></data>
+  <data name="Backup_NewerApp" xml:space="preserve"><value>Αυτό το αντίγραφο είναι από νεότερη έκδοση της Maia. Ενημέρωσε την εφαρμογή και δοκίμασε ξανά.</value></data>
+  <data name="Setup_Restore" xml:space="preserve"><value>Έρχεσαι από άλλο κινητό; Επαναφορά αντιγράφου</value></data>
+  <data name="Settings_Pregnancy" xml:space="preserve"><value>Εγκυμοσύνη</value></data>
+  <data name="Settings_DueDateCurrent" xml:space="preserve"><value>Τοκετός {0} · {1}</value></data>
+  <data name="Settings_DueDateHint" xml:space="preserve"><value>Αν ο γιατρός σου σού δώσει νέα ημερομηνία τοκετού, για παράδειγμα μετά από υπερηχογράφημα, άλλαξέ τη εδώ.</value></data>
+  <data name="Settings_DueDateChange" xml:space="preserve"><value>Αλλαγή ημερομηνίας τοκετού</value></data>
+  <data name="Settings_DueDateNote" xml:space="preserve"><value>Οι εβδομάδες των εξετάσεών σου μετακινούνται με τη νέα ημερομηνία. Τα ραντεβού σου μένουν στις μέρες που τα έκλεισες.</value></data>
+  <data name="Settings_DueDateSave" xml:space="preserve"><value>Αποθήκευση ημερομηνίας</value></data>
+  <data name="Settings_DueDateCancel" xml:space="preserve"><value>Ακύρωση</value></data>
+  <data name="Toast_DueDateChanged" xml:space="preserve"><value>Η ημερομηνία τοκετού είναι πλέον {0}. Το πλάνο σου προσαρμόστηκε.</value></data>
+  <data name="Settings_Lock" xml:space="preserve"><value>Κλείδωμα οθόνης</value></data>
+  <data name="Settings_LockHint" xml:space="preserve"><value>Όταν λείπεις πάνω από ένα λεπτό, η Maia ζητά το PIN, το μοτίβο ή το δακτυλικό αποτύπωμα του κινητού σου.</value></data>
+  <data name="Settings_LockNeedsScreenLock" xml:space="preserve"><value>Το κινητό σου δεν έχει ακόμη κλείδωμα οθόνης. Όρισε PIN, μοτίβο ή κωδικό στις ρυθμίσεις του κινητού και μετά ενεργοποίησέ το.</value></data>
+  <data name="Settings_LockOpenSettings" xml:space="preserve"><value>Άνοιξε τις ρυθμίσεις του κινητού</value></data>
+  <data name="Toast_LockOn" xml:space="preserve"><value>Η Maia κλειδώνει πλέον με το κλείδωμα οθόνης.</value></data>
+  <data name="Toast_LockOff" xml:space="preserve"><value>Η Maia δεν κλειδώνει πια.</value></data>
+  <data name="Lock_Title" xml:space="preserve"><value>Η Maia είναι κλειδωμένη</value></data>
+  <data name="Lock_Intro" xml:space="preserve"><value>Το πλάνο σου είναι ασφαλές. Ξεκλείδωσε με το κλείδωμα οθόνης του κινητού σου για να συνεχίσεις.</value></data>
+  <data name="Lock_Unlock" xml:space="preserve"><value>Ξεκλείδωμα</value></data>
+  <data name="Lock_NotUnlocked" xml:space="preserve"><value>Η Maia μένει κλειδωμένη. Πάτησε Ξεκλείδωμα όποτε είσαι έτοιμη.</value></data>
+  <data name="Lock_PromptTitle" xml:space="preserve"><value>Ξεκλείδωμα της Maia</value></data>
+  <data name="Lock_TurnOnTitle" xml:space="preserve"><value>Ενεργοποίηση κλειδώματος για τη Maia</value></data>
+  <data name="Lock_PromptSubtitle" xml:space="preserve"><value>Χρησιμοποίησε το κλείδωμα οθόνης του κινητού σου</value></data>
+  <data name="Settings_About" xml:space="preserve"><value>Σχετικά με τη Maia</value></data>
+  <data name="Settings_AboutHint" xml:space="preserve"><value>Έκδοση, απόρρητο, όροι και άδειες χρήσης</value></data>
+  <data name="About_Title" xml:space="preserve"><value>Σχετικά με τη Maia</value></data>
+  <data name="About_Intro" xml:space="preserve"><value>Η Maia οργανώνει την εγκυμοσύνη σου: εξετάσεις, ραντεβού και αποτελέσματα, σε ένα ήρεμο σημείο. Ο γιατρός σου αποφασίζει τι είναι σωστό για σένα.</value></data>
+  <data name="About_Version" xml:space="preserve"><value>Έκδοση {0} ({1})</value></data>
+  <data name="About_Privacy" xml:space="preserve"><value>Ενημέρωση για το απόρρητο</value></data>
+  <data name="About_PrivacyHint" xml:space="preserve"><value>Τι κρατά η Maia, πού, και τα δικαιώματά σου</value></data>
+  <data name="About_Terms" xml:space="preserve"><value>Όροι χρήσης</value></data>
+  <data name="About_TermsHint" xml:space="preserve"><value>Τι αποδέχεσαι όταν χρησιμοποιείς τη Maia</value></data>
+  <data name="About_Licences" xml:space="preserve"><value>Άδειες χρήσης</value></data>
+  <data name="About_LicencesHint" xml:space="preserve"><value>Γραμματοσειρές, εικονίδια και βιβλιοθήκες της Maia</value></data>
+  <data name="Privacy_Title" xml:space="preserve"><value>Ενημέρωση για το απόρρητο</value></data>
+  <data name="Privacy_Intro" xml:space="preserve"><value>Η Maia κρατά το πλάνο της εγκυμοσύνης σου σε αυτό το κινητό, για σένα. Δες τι κρατά, πού, και τι μπορείς να κάνεις.</value></data>
+  <data name="Privacy_Updated" xml:space="preserve"><value>Τελευταία ενημέρωση: 11 Οκτωβρίου 2026</value></data>
+  <data name="Privacy_KeepsTitle" xml:space="preserve"><value>Τι κρατά η Maia</value></data>
+  <data name="Privacy_KeepsBody" xml:space="preserve"><value>Την ημερομηνία τοκετού και τις εξετάσεις στο πλάνο σου, τα ραντεβού, τις εργασίες και τις ερωτήσεις για τον γιατρό σου, τις μετρήσεις πίεσης που καταγράφεις, και τα αποτελέσματα που προσθέτεις: αρχεία και φωτογραφίες. Αν συνδέσεις τους γιατρούς σου, η Maia κρατά τα ονόματα, τις ετικέτες και τα τηλέφωνά τους. Αυτά είναι δεδομένα υγείας και η Maia τα χειρίζεται ανάλογα. Οι ρυθμίσεις σου, όπως η γλώσσα και οι χρόνοι που ορίζεις στο χρονόμετρο, φυλάσσονται χωριστά, στις ρυθμίσεις του κινητού για τη Maia.</value></data>
+  <data name="Privacy_WhereTitle" xml:space="preserve"><value>Μόνο σε αυτό το κινητό, κρυπτογραφημένα</value></data>
+  <data name="Privacy_WhereBody" xml:space="preserve"><value>Το πλάνο και τα αποτελέσματά σου μένουν σε αυτό το κινητό, κρυπτογραφημένα με κλειδί που φυλάσσεται στον ασφαλή χώρο κλειδιών του κινητού σου. Δεν αντιγράφονται σε αντίγραφα ασφαλείας στο cloud ούτε σε νέο κινητό. Η Maia δεν έχει λογαριασμό ούτε διακομιστή, οπότε κανείς άλλος, ούτε ο δημιουργός της Maia, δεν βλέπει το πλάνο σου.</value></data>
+  <data name="Privacy_NetworkTitle" xml:space="preserve"><value>Χωρίς διαφημίσεις, χωρίς παρακολούθηση</value></data>
+  <data name="Privacy_NetworkBody" xml:space="preserve"><value>Η δωρεάν εφαρμογή δεν χρησιμοποιεί καθόλου το διαδίκτυο. Δεν έχει διαφημίσεις, στατιστικά χρήσης ή εργαλεία παρακολούθησης, και η Maia δεν στέλνει τίποτα πουθενά από μόνη της. Τα αποτελέσματα που στέλνεις πηγαίνουν στην εφαρμογή που διαλέγεις, η οποία κρατά δικό της αντίγραφο.</value></data>
+  <data name="Privacy_RemindersTitle" xml:space="preserve"><value>Υπενθυμίσεις σε αυτό το κινητό</value></data>
+  <data name="Privacy_RemindersBody" xml:space="preserve"><value>Μόνο αν τις ενεργοποιήσεις, στο ξεκίνημα ή στις Ρυθμίσεις. Τότε η Maia βάζει ειδοποιήσεις σε αυτό το κινητό για τα ραντεβού σου και για ό,τι έχεις να κάνεις με ώρα, και στην οθόνη κλειδώματος φαίνεται μόνο «Υπενθύμιση από τη Maia». Για να ξαναμπούν όταν το κινητό επανεκκινηθεί, η Maia κρατά μια σύντομη λίστα με τις ώρες τους, με απλές λέξεις που δεν αναφέρουν ποτέ εξέταση ή εργασία. Η Maia δεν γράφει ποτέ στο ημερολόγιό σου.</value></data>
+  <data name="Privacy_ContactsTitle" xml:space="preserve"><value>Οι επαφές και η κάμερά σου</value></data>
+  <data name="Privacy_ContactsBody" xml:space="preserve"><value>Η Maia δεν διαβάζει τις επαφές σου. Όταν συνδέεις τον γιατρό σου, ανοίγει η επιλογή επαφών του κινητού σου και η Maia παίρνει μόνο την επαφή που διαλέγεις. Οι φωτογραφίες έρχονται από την κάμερα ή τη συλλογή σου, μόνο όταν τις προσθέτεις.</value></data>
+  <data name="Privacy_FilesTitle" xml:space="preserve"><value>Αρχεία από και προς άλλες εφαρμογές</value></data>
+  <data name="Privacy_FilesBody" xml:space="preserve"><value>Όταν μοιράζεσαι ένα PDF ή μια φωτογραφία με τη Maia από άλλη εφαρμογή, η Maia παίρνει μόνο αυτό το αρχείο και το κρατά, κρυπτογραφημένο, στα αποτελέσματά σου· μπορείς να το αφαιρέσεις από εκεί. Το «Άνοιγμα σε άλλη εφαρμογή» δίνει στην εφαρμογή που διαλέγεις ένα αντίγραφο του αποτελέσματος που μπορεί να ανοίξει. Η Maia σβήνει το δικό της αντίγραφο όταν επιστρέψεις, αλλά η άλλη εφαρμογή μπορεί να κρατήσει δικό της ή να δείχνει το αρχείο στα πρόσφατά της.</value></data>
+  <data name="Privacy_BackupTitle" xml:space="preserve"><value>Τα αντίγραφα είναι δικά σου</value></data>
+  <data name="Privacy_BackupBody" xml:space="preserve"><value>Ένα αντίγραφο είναι αρχείο που δημιουργείς εσύ από τις Ρυθμίσεις, κρυπτογραφημένο με κωδικό που ξέρεις μόνο εσύ. Εσύ διαλέγεις πού θα πάει, για παράδειγμα στο email ή στο Drive, και για το αρχείο ισχύουν τότε οι όροι αυτής της υπηρεσίας. Χωρίς τον κωδικό δεν το ανοίγει κανείς, ούτε η Maia. Στις ρυθμίσεις του κινητού, η Maia σημειώνει πότε έκανες τελευταία φορά αντίγραφο και πότε έκλεισες τελευταία φορά την υπενθύμισή του, για να σου το θυμίζει πού και πού. Αυτές οι δύο ημερομηνίες δεν λένε τίποτα για το πλάνο σου.</value></data>
+  <data name="Privacy_LockTitle" xml:space="preserve"><value>Κλείδωμα της Maia</value></data>
+  <data name="Privacy_LockBody" xml:space="preserve"><value>Αν ενεργοποιήσεις το κλείδωμα στις Ρυθμίσεις, η Maia ζητά το κλείδωμα οθόνης του κινητού σου όταν ανοίγει και όταν λείπεις πάνω από ένα λεπτό. Το PIN, το μοτίβο ή το δακτυλικό σου αποτύπωμα τα ελέγχει το κινητό σου· η Maia δεν τα βλέπει ποτέ. Η οθόνη των πρόσφατων εφαρμογών δεν δείχνει τι έχει η Maia (σε Android 12 και παλαιότερα, μόνο όσο είναι ενεργό το κλείδωμα).</value></data>
+  <data name="Privacy_DiagnosticsTitle" xml:space="preserve"><value>Διαγνωστικά</value></data>
+  <data name="Privacy_DiagnosticsBody" xml:space="preserve"><value>Αν κάτι πάει στραβά, η Maia σημειώνει έναν κωδικό σφάλματος σε αυτό το κινητό, με την ώρα και την έκδοση της Maia, ποτέ κάτι από το πλάνο σου. Τίποτα δεν στέλνεται από μόνο του: μόνο όταν πατάς Κοινοποίηση διαγνωστικών στις Ρυθμίσεις, η Maia δίνει αυτούς τους κωδικούς, τις ώρες τους και τις εκδόσεις της Maia και του Android στο μενού κοινοποίησης του κινητού σου, κι εσύ διαλέγεις πού θα πάνε. Η Διαγραφή όλων των δεδομένων το σβήνει.</value></data>
+  <data name="Privacy_ControlTitle" xml:space="preserve"><value>Τα δεδομένα σου, στα χέρια σου</value></data>
+  <data name="Privacy_ControlBody" xml:space="preserve"><value>Ό,τι έχει το πλάνο σου φαίνεται στις οθόνες της Maia, όπου μπορείς να το αλλάξεις. Στις Ρυθμίσεις, η Δημιουργία αντιγράφου τα εξάγει όλα σε ένα κρυπτογραφημένο αρχείο και η Διαγραφή όλων των δεδομένων αφαιρεί το πλάνο και τα αποτελέσματά σου από αυτό το κινητό και ακυρώνει τις υπενθυμίσεις της Maia. Αν απεγκαταστήσεις τη Maia, φεύγουν και τα δεδομένα της.</value></data>
+  <data name="Privacy_RightsTitle" xml:space="preserve"><value>Τα δικαιώματά σου</value></data>
+  <data name="Privacy_RightsBody" xml:space="preserve"><value>Σύμφωνα με τον ΓΚΠΔ έχεις δικαίωμα να βλέπεις, να διορθώνεις, να διαγράφεις και να παίρνεις μαζί σου τα δεδομένα σου, καθώς και να περιορίζεις τη χρήση τους ή να αντιτίθεσαι σε αυτήν. Τα δεδομένα σου μένουν στο κινητό σου, οπότε ασκείς αυτά τα δικαιώματα απευθείας στη Maia, όπως παραπάνω. Μπορείς επίσης να υποβάλεις καταγγελία σε αρχή προστασίας δεδομένων· στην Ελλάδα, είναι η Αρχή Προστασίας Δεδομένων Προσωπικού Χαρακτήρα.</value></data>
+  <data name="Privacy_ChangesTitle" xml:space="preserve"><value>Αλλαγές σε αυτή την ενημέρωση</value></data>
+  <data name="Privacy_ChangesBody" xml:space="preserve"><value>Αυτή η ενημέρωση έρχεται μαζί με την εφαρμογή. Αν αλλάξει, η νέα έρχεται με μια νέα έκδοση της Maia, με νέα ημερομηνία στην αρχή.</value></data>
+  <data name="Privacy_CareTitle" xml:space="preserve"><value>Η Maia οργανώνει, ο γιατρός σου αποφασίζει</value></data>
+  <data name="Privacy_CareBody" xml:space="preserve"><value>Η Maia κρατά το πλάνο σου σε τάξη. Δεν δίνει ιατρικές συμβουλές και δεν ερμηνεύει τα αποτελέσματα ή τις μετρήσεις σου. Δεν είναι για επείγοντα: αν χρειάζεσαι άμεση βοήθεια, κάλεσε το {0}.</value></data>
+  <data name="Setup_PrivacyLine" xml:space="preserve"><value>Το πλάνο σου μένει σε αυτό το κινητό, κρυπτογραφημένο.</value></data>
+  <data name="Setup_PrivacyLink" xml:space="preserve"><value>Ενημέρωση για το απόρρητο</value></data>
+  <data name="Setup_TermsLine" xml:space="preserve"><value>Χρησιμοποιώντας τη Maia, αποδέχεσαι τους</value></data>
+  <data name="Setup_TermsLink" xml:space="preserve"><value>Όρους χρήσης</value></data>
+  <data name="Terms_Title" xml:space="preserve"><value>Όροι χρήσης</value></data>
+  <data name="Terms_Intro" xml:space="preserve"><value>Τι συμφωνείτε εσύ και ο δημιουργός της Maia όταν χρησιμοποιείς τη Maia, με απλά λόγια.</value></data>
+  <data name="Terms_Updated" xml:space="preserve"><value>Τελευταία ενημέρωση: 11 Οκτωβρίου 2026</value></data>
+  <data name="Terms_AgreementTitle" xml:space="preserve"><value>Αυτοί οι όροι</value></data>
+  <data name="Terms_AgreementBody" xml:space="preserve"><value>Αυτοί οι όροι είναι μια συμφωνία ανάμεσα σε σένα και τον δημιουργό της Maia για τη χρήση της. Όταν ξεκινάς ή χρησιμοποιείς τη Maia, τους αποδέχεσαι· αν δεν συμφωνείς, παρακαλούμε μη χρησιμοποιείς τη Maia. Η Maia είναι για ενήλικες, 18 ετών και άνω, και για να οργανώνεις τη δική σου εγκυμοσύνη.</value></data>
+  <data name="Terms_OrganiserTitle" xml:space="preserve"><value>Τι είναι η Maia</value></data>
+  <data name="Terms_OrganiserBody" xml:space="preserve"><value>Η Maia οργανώνει την εγκυμοσύνη σου: τις εξετάσεις, τα ραντεβού, τα αποτελέσματα, τις υπενθυμίσεις, τις εργασίες και τις σημειώσεις σου. Δεν είναι ιατροτεχνολογικό προϊόν και δεν διαγιγνώσκει, δεν θεραπεύει, δεν γιατρεύει και δεν προλαμβάνει καμία πάθηση. Δεν δίνει ιατρικές συμβουλές και δεν ερμηνεύει τα αποτελέσματα ή τις μετρήσεις σου. Αποφασίζει ο γιατρός σου: ρώτα τον γιατρό ή τη μαία σου για τη δική σου υγεία και του μωρού σου, και ακολούθησε τις συμβουλές τους, ακόμη κι όταν η Maia δείχνει κάτι διαφορετικό.</value></data>
+  <data name="Terms_JourneyTitle" xml:space="preserve"><value>Ένα συνηθισμένο πλάνο</value></data>
+  <data name="Terms_JourneyBody" xml:space="preserve"><value>Οι εξετάσεις ενός συνηθισμένου πλάνου είναι ένα κοινό σημείο εκκίνησης, από την πρακτική στην Ελλάδα, και είναι ίδιες για κάθε εγκυμοσύνη με την ίδια πιθανή ημερομηνία τοκετού. Μπορεί να μην ταιριάζουν στη δική σου, και μπορεί να είναι ελλιπείς ή παλιές. Οι εβδομάδες και οι ημερομηνίες υπολογίζονται από την ημερομηνία που δίνεις. Ο γιατρός σου αποφασίζει ποιες εξετάσεις χρειάζεσαι και πότε· άλλαξε το πλάνο σου ανάλογα.</value></data>
+  <data name="Terms_EmergenciesTitle" xml:space="preserve"><value>Όχι για επείγοντα</value></data>
+  <data name="Terms_EmergenciesBody" xml:space="preserve"><value>Η Maia δεν είναι για επείγοντα. Αν δεν νιώθεις καλά ή χρειάζεσαι βοήθεια γρήγορα, μην περιμένεις μια υπενθύμιση ή ένα ραντεβού στη Maia: κάλεσε τον γιατρό σου ή, σε επείγουσα ανάγκη, το {0}.</value></data>
+  <data name="Terms_RemindersTitle" xml:space="preserve"><value>Υπενθυμίσεις και χρονόμετρο</value></data>
+  <data name="Terms_RemindersBody" xml:space="preserve"><value>Οι υπενθυμίσεις εξαρτώνται από το κινητό σου. Μπορεί να έρθουν έως και μία ώρα αργότερα, και η εξοικονόμηση μπαταρίας, η λειτουργία «Μην ενοχλείτε» ή οι απενεργοποιημένες ειδοποιήσεις μπορεί να τις καθυστερήσουν ή να τις σταματήσουν, οπότε κράτα και δική σου σημείωση για ό,τι έχει σημασία. Το χρονόμετρο μόνο μετρά χρόνο: χρησιμοποίησέ το για ήρεμη αναπνοή ή για τις ασκήσεις που σου πρότεινε ο γιατρός σου, και σταμάτα αν ζαλίζεσαι, πονάς ή δεν νιώθεις καλά.</value></data>
+  <data name="Terms_EntriesTitle" xml:space="preserve"><value>Ό,τι καταχωρίζεις</value></data>
+  <data name="Terms_EntriesBody" xml:space="preserve"><value>Είσαι υπεύθυνη για ό,τι καταχωρίζεις στη Maia και για τον έλεγχό του: ημερομηνίες, ραντεβού, μετρήσεις, αποτελέσματα και σημειώσεις. Η Maia δείχνει τις μετρήσεις πίεσης ακριβώς όπως τις έγραψες και δεν λέει τίποτα για το τι σημαίνουν· ρώτα τον γιατρό σου.</value></data>
+  <data name="Terms_DataTitle" xml:space="preserve"><value>Τα δεδομένα και τα αντίγραφά σου</value></data>
+  <data name="Terms_DataBody" xml:space="preserve"><value>Το πλάνο και τα αποτελέσματά σου υπάρχουν μόνο σε αυτό το κινητό, και τα φροντίζεις εσύ. Αν χάσεις το κινητό, διαγράψεις τη Maia ή τα δεδομένα της, ή ξεχάσεις τον κωδικό του αντιγράφου σου, δεν μπορούν να επανέλθουν: ο δημιουργός της Maia δεν έχει αντίγραφο. Κάνε αντίγραφα ασφαλείας και κράτα δικά σου αντίγραφα από τα αποτελέσματα που έχουν σημασία. Η Ενημέρωση για το απόρρητο λέει τι κρατά η Maia και πού.</value></data>
+  <data name="Terms_AsIsTitle" xml:space="preserve"><value>Η Maia όπως είναι</value></data>
+  <data name="Terms_AsIsBody" xml:space="preserve"><value>Η Maia είναι δωρεάν και παρέχεται ως έχει και όπως είναι διαθέσιμη. Ο δημιουργός της φροντίζει να είναι σωστή και να λειτουργεί, αλλά δεν εγγυάται ότι δεν έχει λάθη, ότι είναι πάντα διαθέσιμη ή ότι ταιριάζει στις ανάγκες σου. Η Maia μπορεί να αλλάξει ή να πάψει να διατίθεται οποιαδήποτε στιγμή.</value></data>
+  <data name="Terms_LiabilityTitle" xml:space="preserve"><value>Όρια ευθύνης</value></data>
+  <data name="Terms_LiabilityBody" xml:space="preserve"><value>Στον βαθμό που επιτρέπει ο νόμος, ο δημιουργός της Maia δεν ευθύνεται για καμία απώλεια, ζημία ή βλάβη που προκύπτει από τη χρήση της Maia ή από την αδυναμία χρήσης της. Αυτό περιλαμβάνει ό,τι κάνεις ή δεν κάνεις εξαιτίας όσων δείχνει η Maia, μια υπενθύμιση που έρχεται αργά ή δεν έρχεται, ένα λάθος σε μια ημερομηνία ή σε όσα καταχώρισες, και δεδομένα που χάθηκαν. Τίποτα σε αυτούς τους όρους δεν περιορίζει ευθύνη που ο νόμος δεν επιτρέπει να περιοριστεί, όπως για βλάβη από δόλο ή βαριά αμέλεια, ούτε σου στερεί τα δικαιώματά σου ως καταναλώτρια.</value></data>
+  <data name="Terms_UseTitle" xml:space="preserve"><value>Χρήση της Maia</value></data>
+  <data name="Terms_UseBody" xml:space="preserve"><value>Μπορείς να χρησιμοποιείς τη Maia στα δικά σου κινητά, για τον εαυτό σου, δωρεάν. Τα κείμενα, ο σχεδιασμός και ο κώδικας της Maia ανήκουν στον δημιουργό της: μην τα αντιγράφεις, μην τα αλλάζεις και μην τα πουλάς, πέρα από όσα επιτρέπει ο νόμος. Οι γραμματοσειρές, τα εικονίδια και οι βιβλιοθήκες της Maia έχουν τις δικές τους άδειες, στις Άδειες χρήσης.</value></data>
+  <data name="Terms_ChangesTitle" xml:space="preserve"><value>Αλλαγές σε αυτούς τους όρους</value></data>
+  <data name="Terms_ChangesBody" xml:space="preserve"><value>Αυτοί οι όροι έρχονται μαζί με την εφαρμογή, οπότε κάθε έκδοση της Maia έχει τους δικούς της. Αν αλλάξουν, οι νέοι όροι έρχονται με μια νέα έκδοση της Maia, με νέα ημερομηνία στην αρχή. Αν χρησιμοποιείς αυτή την έκδοση, τους αποδέχεσαι.</value></data>
+  <data name="Terms_LawTitle" xml:space="preserve"><value>Ελληνικό δίκαιο</value></data>
+  <data name="Terms_LawBody" xml:space="preserve"><value>Για αυτούς τους όρους ισχύει το ελληνικό δίκαιο, και κάθε διαφορά πηγαίνει στα δικαστήρια της Ελλάδας, εκτός αν ο νόμος σου δίνει το δικαίωμα να προσφύγεις στα δικαστήρια του τόπου όπου ζεις. Αν κάποιο μέρος αυτών των όρων δεν μπορεί να ισχύσει, τα υπόλοιπα ισχύουν κανονικά.</value></data>
+  <data name="Licences_Title" xml:space="preserve"><value>Άδειες χρήσης</value></data>
+  <data name="Licences_Intro" xml:space="preserve"><value>Η Maia είναι φτιαγμένη με αυτές τις γραμματοσειρές, τα εικονίδια και τις βιβλιοθήκες ανοιχτού κώδικα. Ευχαριστούμε όλους όσοι τα φτιάχνουν.</value></data>
+  <data name="Licences_Fonts" xml:space="preserve"><value>Γραμματοσειρές</value></data>
+  <data name="Licences_Icons" xml:space="preserve"><value>Εικονίδια</value></data>
+  <data name="Licences_Libraries" xml:space="preserve"><value>Βιβλιοθήκες</value></data>
+  <data name="Licences_Packages" xml:space="preserve"><value>Πακέτα: {0}</value></data>
+  <data name="Licences_Show" xml:space="preserve"><value>Εμφάνιση άδειας</value></data>
+  <data name="Licences_Hide" xml:space="preserve"><value>Απόκρυψη άδειας</value></data>
+  <data name="Licences_Unreadable" xml:space="preserve"><value>Το κείμενο της άδειας δεν άνοιξε.</value></data>
+  <data name="Startup_CannotOpenTitle" xml:space="preserve"><value>Η Maia δεν μπορεί να ανοίξει το πλάνο σου</value></data>
+  <data name="Startup_CannotOpenIntro" xml:space="preserve"><value>Το πλάνο σου είναι αποθηκευμένο σε αυτό το κινητό, αλλά η Maia δεν μπορεί να το ανοίξει. Αυτό μπορεί να συμβεί μετά από αλλαγή κινητού. Αν έχεις κρατήσει αντίγραφο, κάνε επαναφορά και το πλάνο και τα αποτελέσματά σου επιστρέφουν.</value></data>
+  <data name="Startup_Restore" xml:space="preserve"><value>Επαναφορά αντιγράφου</value></data>
+  <data name="Startup_StartAgainTitle" xml:space="preserve"><value>Δεν έχεις αντίγραφο;</value></data>
+  <data name="Startup_StartAgainNote" xml:space="preserve"><value>Μπορείς να ξεκινήσεις ξανά με ένα νέο πλάνο σε αυτό το κινητό.</value></data>
+  <data name="Startup_StartAgain" xml:space="preserve"><value>Ξεκίνα από την αρχή</value></data>
+  <data name="Startup_StartAgainConfirm" xml:space="preserve"><value>Να ξεκινήσεις από την αρχή; Αυτό αφαιρεί από αυτό το κινητό το πλάνο που δεν ανοίγει και τα αποτελέσματά του. Δεν αναιρείται.</value></data>
+  <data name="Startup_StartAgainYes" xml:space="preserve"><value>Ξεκίνα από την αρχή</value></data>
+  <data name="Startup_TryAgain" xml:space="preserve"><value>Δοκίμασε ξανά</value></data>
+  <data name="Startup_UpdateTitle" xml:space="preserve"><value>Χρειάζεται νεότερη Maia</value></data>
+  <data name="Startup_UpdateIntro" xml:space="preserve"><value>Το πλάνο σου αποθηκεύτηκε από νεότερη έκδοση της Maia. Ενημέρωσε τη Maia και το πλάνο σου ανοίγει όπως το άφησες.</value></data>
+  <data name="Startup_UpdateSafe" xml:space="preserve"><value>Το πλάνο σου είναι ασφαλές σε αυτό το κινητό. Δεν άλλαξε τίποτα.</value></data>
+  <data name="Startup_OpenFailedTitle" xml:space="preserve"><value>Το πλάνο σου δεν άνοιξε αυτή τη φορά</value></data>
+  <data name="Startup_OpenFailedIntro" xml:space="preserve"><value>Κάτι μπήκε εμπόδιο. Η Maia δεν άλλαξε ούτε αφαίρεσε τίποτα, οπότε δοκίμασε ξανά σε λίγο. Αν συμβαίνει συνέχεια, κάνε επανεκκίνηση στο κινητό σου και άνοιξε ξανά τη Maia.</value></data>
+  <data name="Restore_Title" xml:space="preserve"><value>Αντίγραφο ασφαλείας</value></data>
+  <data name="Restore_Intro" xml:space="preserve"><value>Διάλεξε το αρχείο αντιγράφου που φύλαξες και γράψε τον κωδικό του. Το πλάνο και τα αποτελέσματά σου επιστρέφουν σε αυτό το κινητό.</value></data>
+  <data name="Restore_Choose" xml:space="preserve"><value>Επιλογή αρχείου αντιγράφου</value></data>
+  <data name="Restore_NoFile" xml:space="preserve"><value>Δεν έχεις διαλέξει ακόμη αρχείο</value></data>
+  <data name="Restore_Password" xml:space="preserve"><value>Κωδικός αντιγράφου</value></data>
+  <data name="Restore_Button" xml:space="preserve"><value>Επαναφορά</value></data>
+  <data name="Toast_Restored" xml:space="preserve"><value>Καλώς ήρθες πίσω. Το πλάνο σου επανήλθε.</value></data>
+  <data name="Backup_LeftOutOne" xml:space="preserve"><value>Το αντίγραφο είναι έτοιμο, αλλά ένα αποτέλεσμα δεν μπήκε, γιατί το αρχείο του δεν ανοίγει πια σε αυτό το κινητό: {0}.</value></data>
+  <data name="Backup_LeftOut" xml:space="preserve"><value>Το αντίγραφο είναι έτοιμο, αλλά {0} αποτελέσματα δεν μπήκαν, γιατί τα αρχεία τους δεν ανοίγουν πια σε αυτό το κινητό: {1}.</value></data>
+  <data name="Results_SkipType" xml:space="preserve"><value>δεν είναι PDF ή φωτογραφία</value></data>
+  <data name="Results_SkipTooLarge" xml:space="preserve"><value>πάνω από 25 MB</value></data>
+  <data name="Results_SkipEmpty" xml:space="preserve"><value>κενό</value></data>
+  <data name="Results_SkipUnreadable" xml:space="preserve"><value>δεν διαβάστηκε</value></data>
+  <data name="Results_Unreadable" xml:space="preserve"><value>Αυτό το αρχείο δεν διαβάστηκε. Δοκίμασε να το διαλέξεις ξανά.</value></data>
+  <data name="Results_SkippedOne" xml:space="preserve"><value>Ένα αρχείο δεν προστέθηκε: {0}.</value></data>
+  <data name="Results_Skipped" xml:space="preserve"><value>Αυτά τα αρχεία δεν προστέθηκαν: {0}.</value></data>
+  <data name="Results_TakePhoto" xml:space="preserve"><value>Τράβηξε φωτογραφία</value></data>
+  <data name="Results_CameraUnavailable" xml:space="preserve"><value>Η κάμερα δεν είναι διαθέσιμη τώρα. Μπορείς να προσθέσεις μια φωτογραφία από τη συλλογή σου.</value></data>
+  <data name="Results_PhotoName" xml:space="preserve"><value>Φωτογραφία {0}, {1}.jpg</value></data>
+  <data name="Share_NoPlan" xml:space="preserve"><value>Φτιάξε πρώτα το πλάνο σου και μετά μοιράσου ξανά το αρχείο με τη Maia.</value></data>
+  <data name="Toast_AddedToResultsOne" xml:space="preserve"><value>1 αρχείο προστέθηκε στα αποτελέσματά σου.</value></data>
+  <data name="Toast_AddedToResults" xml:space="preserve"><value>{0} αρχεία προστέθηκαν στα αποτελέσματά σου.</value></data>
+  <data name="Viewer_PageOne" xml:space="preserve"><value>1 σελίδα</value></data>
+  <data name="Viewer_Pages" xml:space="preserve"><value>{0} σελίδες</value></data>
+  <data name="Viewer_PageOf" xml:space="preserve"><value>Σελίδα {0} από {1}</value></data>
+  <data name="Viewer_PhotoHint" xml:space="preserve"><value>Άνοιξε με δύο δάχτυλα ή πάτησε δύο φορές για μεγέθυνση.</value></data>
+  <data name="Viewer_PdfHint" xml:space="preserve"><value>Πάτησε μια σελίδα για μεγέθυνση.</value></data>
+  <data name="Viewer_FirstPages" xml:space="preserve"><value>Φαίνονται οι πρώτες {0} σελίδες. Για να τις δεις όλες, άνοιξέ το σε άλλη εφαρμογή.</value></data>
+  <data name="Viewer_CantShow" xml:space="preserve"><value>Η Maia δεν μπορεί να δείξει αυτό το αρχείο εδώ, αλλά ίσως μπορεί μια άλλη εφαρμογή του κινητού σου.</value></data>
+  <data name="Viewer_OpenOutside" xml:space="preserve"><value>Άνοιγμα σε άλλη εφαρμογή</value></data>
+  <data name="Viewer_OutsideNote" xml:space="preserve"><value>Η άλλη εφαρμογή μπορεί να κρατήσει δικό της αντίγραφο ή να δείχνει το αρχείο στα πρόσφατά της.</value></data>
+  <data name="Viewer_Unreadable" xml:space="preserve"><value>Αυτό το αρχείο δεν ανοίγει πια. Ίσως έχει καταστραφεί σε αυτό το κινητό.</value></data>
+  <data name="Viewer_CloseZoom" xml:space="preserve"><value>Πίσω σε όλες τις σελίδες</value></data>
+  <data name="Common_Save" xml:space="preserve"><value>Αποθήκευση</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>Ακύρωση</value></data>
+  <data name="Common_KeepIt" xml:space="preserve"><value>Να μείνει</value></data>
+  <data name="Common_KeepThem" xml:space="preserve"><value>Να μείνουν</value></data>
+  <data name="Common_ChangeOrDelete" xml:space="preserve"><value>Πάτησε για αλλαγή ή διαγραφή</value></data>
+  <data name="Common_On" xml:space="preserve"><value>Ενεργό</value></data>
+  <data name="Common_Off" xml:space="preserve"><value>Ανενεργό</value></data>
+  <data name="Common_Ticked" xml:space="preserve"><value>Τσεκαρισμένο</value></data>
+  <data name="Common_NotTicked" xml:space="preserve"><value>Δεν έχει τσεκαριστεί</value></data>
+  <data name="Common_Selected" xml:space="preserve"><value>Επιλεγμένο</value></data>
+  <data name="Common_NotSelected" xml:space="preserve"><value>Μη επιλεγμένο</value></data>
+  <data name="Common_Expanded" xml:space="preserve"><value>Ανοιχτό</value></data>
+  <data name="Common_Collapsed" xml:space="preserve"><value>Κλειστό</value></data>
+  <data name="Common_Tab" xml:space="preserve"><value>Καρτέλα</value></data>
+  <data name="Week_TasksLater" xml:space="preserve"><value>Αργότερα</value></data>
+  <data name="Week_TasksNoDate" xml:space="preserve"><value>Χωρίς ημερομηνία</value></data>
+  <data name="Week_TasksShowAll" xml:space="preserve"><value>Δείξε όλες</value></data>
+  <data name="Week_AllTasks" xml:space="preserve"><value>Όλες οι εργασίες</value></data>
+  <data name="Week_Loading" xml:space="preserve"><value>Ετοιμάζονται όλα</value></data>
+  <data name="Tasks_Title" xml:space="preserve"><value>Όλες οι εργασίες</value></data>
+  <data name="Tasks_Earlier" xml:space="preserve"><value>Περασμένες</value></data>
+  <data name="Tasks_ThisWeek" xml:space="preserve"><value>Αυτή την εβδομάδα</value></data>
+  <data name="Tasks_Empty" xml:space="preserve"><value>Η λίστα σου είναι άδεια.</value></data>
+  <data name="Week_TaskHasDate" xml:space="preserve"><value>Ημερομηνία και ώρα</value></data>
+  <data name="Week_TaskDelete" xml:space="preserve"><value>Διαγραφή εργασίας</value></data>
+  <data name="Week_TaskDeleteConfirm" xml:space="preserve"><value>Να διαγραφεί αυτή η εργασία;</value></data>
+  <data name="Week_TaskDeleteYes" xml:space="preserve"><value>Διαγραφή εργασίας</value></data>
+  <data name="Toast_TaskAddedNoDate" xml:space="preserve"><value>Η εργασία προστέθηκε.</value></data>
+  <data name="Toast_TaskSaved" xml:space="preserve"><value>Η εργασία ενημερώθηκε.</value></data>
+  <data name="Toast_TaskDeleted" xml:space="preserve"><value>Η εργασία διαγράφηκε.</value></data>
+  <data name="Questions_Tick" xml:space="preserve"><value>Τσέκαρέ την όταν απαντηθεί</value></data>
+  <data name="Questions_Delete" xml:space="preserve"><value>Διαγραφή ερώτησης</value></data>
+  <data name="Questions_DeleteConfirm" xml:space="preserve"><value>Να διαγραφεί αυτή η ερώτηση;</value></data>
+  <data name="Questions_DeleteYes" xml:space="preserve"><value>Διαγραφή ερώτησης</value></data>
+  <data name="Toast_QuestionDeleted" xml:space="preserve"><value>Η ερώτηση διαγράφηκε.</value></data>
+  <data name="Questions_ClearAnswered" xml:space="preserve"><value>Καθάρισε τις απαντημένες</value></data>
+  <data name="Questions_ClearConfirm" xml:space="preserve"><value>Να καθαριστούν οι απαντημένες ερωτήσεις; Όσες δεν έχεις ρωτήσει μένουν.</value></data>
+  <data name="Questions_ClearYes" xml:space="preserve"><value>Καθάρισμα απαντημένων</value></data>
+  <data name="Toast_QuestionsCleared" xml:space="preserve"><value>Σβήστηκαν {0} απαντημένες ερωτήσεις.</value></data>
+  <data name="Toast_QuestionsClearedOne" xml:space="preserve"><value>Σβήστηκε 1 απαντημένη ερώτηση.</value></data>
+  <data name="Week_BackupTitle" xml:space="preserve"><value>Αντίγραφο ασφαλείας</value></data>
+  <data name="Week_BackupNever" xml:space="preserve"><value>Το πλάνο σου υπάρχει μόνο σε αυτό το κινητό. Ένα αντίγραφο ασφαλείας το κρατά, μαζί με τα αποτελέσματά σου, για ένα νέο κινητό.</value></data>
+  <data name="Week_BackupOld" xml:space="preserve"><value>Το τελευταίο σου αντίγραφο είναι από {0}. Ένα νέο κρατά και ό,τι πρόσθεσες από τότε.</value></data>
+  <data name="Week_BackupNow" xml:space="preserve"><value>Φτιάξε αντίγραφο</value></data>
+  <data name="Week_BackupLater" xml:space="preserve"><value>Όχι τώρα</value></data>
+  <data name="Backup_Last" xml:space="preserve"><value>Τελευταίο αντίγραφο: {0}</value></data>
+  <data name="Backup_None" xml:space="preserve"><value>Δεν έχεις φτιάξει ακόμη αντίγραφο.</value></data>
+  <data name="Settings_RemindersHint" xml:space="preserve"><value>Ραντεβού και ό,τι έχεις να κάνεις με ώρα.</value></data>
+  <data name="Reminders_Denied" xml:space="preserve"><value>Η Maia δεν μπορεί ακόμη να δείχνει ειδοποιήσεις. Μπορείς να τις επιτρέψεις στις ρυθμίσεις του κινητού σου.</value></data>
+  <data name="Reminders_Blocked" xml:space="preserve"><value>Οι υπενθυμίσεις είναι ενεργές, αλλά οι ειδοποιήσεις της Maia είναι κλειστές στις ρυθμίσεις του κινητού σου.</value></data>
+  <data name="Reminders_OpenPhoneSettings" xml:space="preserve"><value>Άνοιξε τις ρυθμίσεις του κινητού</value></data>
+  <data name="Reminders_Channel" xml:space="preserve"><value>Υπενθυμίσεις</value></data>
+  <data name="Reminders_ChannelDescription" xml:space="preserve"><value>Ραντεβού και ό,τι έχεις να κάνεις με ώρα. Στην οθόνη κλειδώματος φαίνεται μόνο «Υπενθύμιση από τη Maia».</value></data>
+  <data name="Backup_KeptQuestion" xml:space="preserve"><value>Αποθήκευσες το αρχείο κάπου ασφαλές, όπως στο email ή στο Drive σου; Η Maia δεν βλέπει πού πήγε.</value></data>
+  <data name="Backup_KeptYes" xml:space="preserve"><value>Ναι, το αποθήκευσα</value></data>
+  <data name="Backup_KeptNo" xml:space="preserve"><value>Όχι ακόμη</value></data>
+  <data name="Toast_BackupKept" xml:space="preserve"><value>Ωραία. Κράτα ασφαλή και τον κωδικό του αντιγράφου.</value></data>
+  <data name="Toast_PlanReadyWithGaps" xml:space="preserve"><value>Το πλάνο σου είναι έτοιμο. Ο γιατρός σου δεν προστέθηκε αυτή τη φορά· μπορείς να τον προσθέσεις στις Ρυθμίσεις.</value></data>
+  <data name="Toast_PlanWordingUpdated" xml:space="preserve"><value>Η Maia ενημέρωσε την περιγραφή των εξετάσεών σου. Τα ραντεβού και τα αποτελέσματά σου μένουν όπως ήταν.</value></data>
+  <data name="Breathe_Finished" xml:space="preserve"><value>Μπράβο σου</value></data>
+  <data name="Team_WhichDoctor" xml:space="preserve"><value>Ποιος γιατρός;</value></data>
+  <data name="Team_LinkAnother" xml:space="preserve"><value>Σύνδεσε άλλον γιατρό</value></data>
+  <data name="Results_Search" xml:space="preserve"><value>Αναζήτηση με όνομα ή μήνα</value></data>
+  <data name="Results_SearchPhotoWords" xml:space="preserve"><value>φωτογραφία υπέρηχος υπερηχογράφημα εικόνα</value></data>
+  <data name="Results_SearchReportWords" xml:space="preserve"><value>γνωμάτευση έγγραφο αρχείο εξέταση</value></data>
+  <data name="Results_EmptySearch" xml:space="preserve"><value>Τίποτα δεν ταιριάζει με την αναζήτηση.</value></data>
+  <data name="Settings_RemindersTitle" xml:space="preserve"><value>Υπενθυμίσεις</value></data>
+  <data name="Questions_Move" xml:space="preserve"><value>Σύρε για να μετακινήσεις την ερώτηση</value></data>
+  <data name="Reminder_DayBefore" xml:space="preserve"><value>24 ώρες πριν</value></data>
+  <data name="Results_RenameButton" xml:space="preserve"><value>Μετονομασία</value></data>
+  <data name="Results_Rename" xml:space="preserve"><value>Μετονομασία {0}</value></data>
+  <data name="Results_RenameField" xml:space="preserve"><value>Νέο όνομα</value></data>
+  <data name="Toast_ResultRenamed" xml:space="preserve"><value>Μετονομάστηκε.</value></data>
+  <data name="Error_ResultNoFile" xml:space="preserve"><value>Το αρχείο αυτού του αποτελέσματος δεν υπάρχει πια στο κινητό.</value></data>
+  <data name="Results_Select" xml:space="preserve"><value>Επιλογή</value></data>
+  <data name="Results_SelectHint" xml:space="preserve"><value>Διάλεξε αποτελέσματα για αποστολή</value></data>
+  <data name="Results_Selected" xml:space="preserve"><value>{0} επιλεγμένα</value></data>
+  <data name="Results_SelectAll" xml:space="preserve"><value>Επιλογή όλων</value></data>
+  <data name="Results_Share" xml:space="preserve"><value>Αποστολή</value></data>
+  <data name="Results_StopSelecting" xml:space="preserve"><value>Τέλος επιλογής</value></data>
+  <data name="Results_ShareNote" xml:space="preserve"><value>Η εφαρμογή που θα διαλέξεις κρατά δικό της αντίγραφο.</value></data>
+  <data name="Results_ShareTitle" xml:space="preserve"><value>Αποστολή αποτελεσμάτων</value></data>
+  <data name="Reminders_When" xml:space="preserve"><value>Πότε;</value></data>
+  <data name="Reminders_Discreet" xml:space="preserve"><value>Διακριτική οθόνη κλειδώματος</value></data>
+  <data name="Reminders_DiscreetHint" xml:space="preserve"><value>Οι ειδοποιήσεις λένε μόνο «Ραντεβού» ή «Υπενθύμιση», χωρίς όνομα, ακόμη κι όταν το κινητό είναι ξεκλείδωτο. Στην οθόνη κλειδώματος φαίνεται πάντα μόνο «Υπενθύμιση από τη Maia».</value></data>
+  <data name="SetupCare_RemindersTile" xml:space="preserve"><value>Υπενθυμίσεις στο κινητό</value></data>
+  <data name="SetupCare_RemindersNote" xml:space="preserve"><value>Ειδοποιήσεις της Maia σε αυτό το κινητό, για τα ραντεβού σου και ό,τι έχεις να κάνεις με ώρα. Στην οθόνη κλειδώματος φαίνεται μόνο «Υπενθύμιση από τη Maia».</value></data>
+  <data name="Restore_RemindersNote" xml:space="preserve"><value>Οι υπενθυμίσεις ρυθμίζονται σε κάθε κινητό. Ενεργοποίησέ τις ξανά στις Ρυθμίσεις και τα ραντεβού σου θα σε ειδοποιούν κι εδώ.</value></data>
+  <data name="Status_NotBooked" xml:space="preserve"><value>Δεν έχει κλειστεί</value></data>
+  <data name="Check_Edit" xml:space="preserve"><value>Επεξεργασία</value></data>
+  <data name="Check_Delete" xml:space="preserve"><value>Διαγραφή</value></data>
+  <data name="Check_DeleteConfirm" xml:space="preserve"><value>{0}: να διαγραφεί από το πλάνο σου;</value></data>
+  <data name="Check_DeleteYes" xml:space="preserve"><value>Διαγραφή</value></data>
+  <data name="Toast_EntryDeleted" xml:space="preserve"><value>{0}: διαγράφηκε από το πλάνο σου.</value></data>
+  <data name="Toast_EntryUpdated" xml:space="preserve"><value>{0}: ενημερώθηκε.</value></data>
+  <data name="Toast_BookedDone" xml:space="preserve"><value>{0}: έγινε {1}.</value></data>
+  <data name="Toast_EntryDoneNoDate" xml:space="preserve"><value>{0}: προστέθηκε στο πλάνο σου, έγινε ήδη.</value></data>
+  <data name="Add_DoneAfterNow" xml:space="preserve"><value>Διάλεξε μια μέρα και ώρα που έχει περάσει.</value></data>
+  <data name="Timing_DateTime" xml:space="preserve"><value>Ημερομηνία και ώρα</value></data>
+  <data name="Timing_Trimester" xml:space="preserve"><value>Τρίμηνο</value></data>
+  <data name="Timing_Week" xml:space="preserve"><value>Εβδομάδα</value></data>
+  <data name="Timing_EarlierWeek" xml:space="preserve"><value>Προηγούμενη εβδομάδα</value></data>
+  <data name="Timing_LaterWeek" xml:space="preserve"><value>Επόμενη εβδομάδα</value></data>
+  <data name="Kind_BloodPressure" xml:space="preserve"><value>Πίεση</value></data>
+  <data name="Reading_Systolic" xml:space="preserve"><value>Συστολική</value></data>
+  <data name="Reading_Diastolic" xml:space="preserve"><value>Διαστολική</value></data>
+  <data name="Reading_Unit" xml:space="preserve"><value>mmHg</value></data>
+  <data name="Reading_Value" xml:space="preserve"><value>{0}/{1} mmHg</value></data>
+  <data name="Reading_Spoken" xml:space="preserve"><value>Πίεση {0} με {1}, {2}</value></data>
+  <data name="Reading_SwipeHint" xml:space="preserve"><value>Σύρε αριστερά ή δεξιά για διαγραφή</value></data>
+  <data name="Error_ReadingMissing" xml:space="preserve"><value>Γράψε και τους δύο αριθμούς.</value></data>
+  <data name="Error_ReadingInvalid" xml:space="preserve"><value>Έλεγξε τους δύο αριθμούς όπως τους δείχνει το πιεσόμετρό σου.</value></data>
+  <data name="Error_ReadingsFull" xml:space="preserve"><value>Η Maia κρατά έως {0} μετρήσεις, και η λίστα σου είναι γεμάτη.</value></data>
+  <data name="Error_ReadingGone" xml:space="preserve"><value>Αυτή η μέτρηση δεν είναι πια στο πλάνο σου.</value></data>
+  <data name="Toast_ReadingLogged" xml:space="preserve"><value>Πίεση {0}: προστέθηκε στο πλάνο σου.</value></data>
+  <data name="Toast_ReadingDeleted" xml:space="preserve"><value>Πίεση {0}: διαγράφηκε από το πλάνο σου.</value></data>
+  <data name="Calendar_Title" xml:space="preserve"><value>Ημερολόγιο</value></data>
+  <data name="Calendar_TodaySpoken" xml:space="preserve"><value>σήμερα</value></data>
+  <data name="Calendar_Nothing" xml:space="preserve"><value>Τίποτα αυτή τη μέρα.</value></data>
+  <data name="Calendar_Previous" xml:space="preserve"><value>Προηγούμενος μήνας</value></data>
+  <data name="Calendar_Next" xml:space="preserve"><value>Επόμενος μήνας</value></data>
+  <data name="Week_PillSpoken" xml:space="preserve"><value>Ημερολόγιο, {0}</value></data>
+</root>

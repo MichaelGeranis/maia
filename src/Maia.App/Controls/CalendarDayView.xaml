@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  One day in Calendar's month grid: its number, in a circle when chosen (Pine, or Sea for today), Sea for today, faded
+  for a day of the month before or after; under it a dot for each kind of thing that day: Sun the due date, Sea booked,
+  Sage done, Muted a task (the status colours of docs/design/README.md). One tap chooses it.
+-->
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Maia.App.Controls"
+             xmlns:vm="clr-namespace:Maia.Presentation.Calendar;assembly=Maia.Presentation"
+             x:Class="Maia.App.Controls.CalendarDayView"
+             x:DataType="vm:CalendarDay">
+    <Grid RowDefinitions="36,8" RowSpacing="2" Padding="0,2" MinimumHeightRequest="48"
+          SemanticProperties.Description="{Binding SpokenName}" controls:Accessible.Role="Button">
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding SelectCommand}" />
+        </Grid.GestureRecognizers>
+        <controls:LightBorder WidthRequest="36" HeightRequest="36" StrokeThickness="0" StrokeShape="RoundRectangle 18"
+                              HorizontalOptions="Center" BackgroundColor="Transparent">
+            <controls:LightBorder.Triggers>
+                <DataTrigger TargetType="controls:LightBorder" Binding="{Binding Look}" Value="Selected">
+                    <Setter Property="BackgroundColor" Value="{StaticResource Pine}" />
+                </DataTrigger>
+                <DataTrigger TargetType="controls:LightBorder" Binding="{Binding Look}" Value="TodaySelected">
+                    <Setter Property="BackgroundColor" Value="{StaticResource Sea}" />
+                </DataTrigger>
+            </controls:LightBorder.Triggers>
+            <Label Text="{Binding Number}" Style="{StaticResource Body}" TextColor="{StaticResource Ink}"
+                   HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding Look}" Value="Today">
+                        <Setter Property="TextColor" Value="{StaticResource Sea}" />
+                        <Setter Property="FontFamily" Value="{DynamicResource FontTextBold}" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding Look}" Value="Selected">
+                        <Setter Property="TextColor" Value="{StaticResource White}" />
+                        <Setter Property="FontFamily" Value="{DynamicResource FontTextBold}" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding Look}" Value="TodaySelected">
+                        <Setter Property="TextColor" Value="{StaticResource White}" />
+                        <Setter Property="FontFamily" Value="{DynamicResource FontTextBold}" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding Look}" Value="OtherMonth">
+                        <Setter Property="TextColor" Value="{StaticResource Muted}" />
+                        <Setter Property="Opacity" Value="0.5" />
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+        </controls:LightBorder>
+        <HorizontalStackLayout Grid.Row="1" Spacing="3" HorizontalOptions="Center">
+            <BoxView WidthRequest="6" HeightRequest="6" CornerRadius="3" Color="{StaticResource Sun}" IsVisible="{Binding IsDueDate}" />
+            <BoxView WidthRequest="6" HeightRequest="6" CornerRadius="3" Color="{StaticResource Sea}" IsVisible="{Binding HasBooked}" />
+            <BoxView WidthRequest="6" HeightRequest="6" CornerRadius="3" Color="{StaticResource Sage}" IsVisible="{Binding HasDone}" />
+            <BoxView WidthRequest="6" HeightRequest="6" CornerRadius="3" Color="{StaticResource Muted}" IsVisible="{Binding HasTask}" />
+        </HorizontalStackLayout>
+    </Grid>
+</ContentView>

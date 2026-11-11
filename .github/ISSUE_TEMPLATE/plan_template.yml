@@ -1,0 +1,35 @@
+name: Plan template (checks and timing)
+description: Review, correct or add the checks a country's journey proposes.
+labels: ["plan-template"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Plan templates are clinical content: changes are merged only with a named reviewer
+        (see docs/adr/0003-plan-templates-as-reviewed-data.md). Please never include anyone's health data.
+  - type: input
+    id: country
+    attributes:
+      label: Country
+      placeholder: Greece
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: What should change
+      description: Which check, its timing window, or its wording, and what it should be.
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Source
+      description: The national guideline or other source this follows.
+    validations:
+      required: true
+  - type: input
+    id: reviewer
+    attributes:
+      label: Your role
+      description: For example obstetrician, midwife, GP. Optional, but a clinical reviewer can sign off the template.

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Her questions, tied to no appointment. Design: docs/design/screens/13-questions.jpg (pushed from Week, with a Back pill and no bottom bar, as About Maia). -->
+<controls:MaiaPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:loc="clr-namespace:Maia.App.Localization"
+                   xmlns:controls="clr-namespace:Maia.App.Controls"
+                   xmlns:vm="clr-namespace:Maia.Presentation.Questions;assembly=Maia.Presentation"
+                   x:Class="Maia.App.Views.QuestionsPage"
+                   x:DataType="vm:QuestionsViewModel">
+    <controls:MaiaPage.Resources>
+        <!-- A question opened in place: reword it, then save, cancel or delete (asked once more, Sand). -->
+        <DataTemplate x:Key="QuestionEditorTemplate" x:DataType="vm:QuestionItem">
+            <!-- 1 dp here and the question's own 11 dp below its words make the 12 dp gap above the field. -->
+            <VerticalStackLayout Spacing="8" Padding="0,1,0,0">
+                <Border Style="{StaticResource Field}" Padding="12,0">
+                    <Entry Keyboard="Text" Text="{Binding EditText}" Placeholder="{loc:Translate Questions_Placeholder}" TextColor="{StaticResource Ink}"
+                           MaxLength="{x:Static vm:QuestionsViewModel.MaxLength}" ReturnType="Done" ReturnCommand="{Binding SaveCommand}"
+                           SemanticProperties.Description="{loc:Translate Questions_Placeholder}"/>
+                </Border>
+                <FlexLayout Wrap="Wrap" IsVisible="{Binding IsConfirmingDelete, Converter={StaticResource InvertedBool}}" controls:Accessible.FocusWhenShown="True">
+                    <Button Text="{loc:Translate Common_Save}" Style="{StaticResource PrimaryButtonSmall}" MinimumHeightRequest="44"
+                            CornerRadius="22" Padding="18,0" Margin="0,0,8,8" Command="{Binding SaveCommand}"/>
+                    <Button Text="{loc:Translate Common_Cancel}" Style="{StaticResource OutlineButton}" CornerRadius="22" Padding="18,0" Margin="0,0,8,8"
+                            Command="{Binding CancelCommand}" />
+                    <Button Text="{loc:Translate Questions_Delete}" Style="{StaticResource OutlineButton}" TextColor="{StaticResource SandDeep}"
+                            BorderColor="{StaticResource Sun}" CornerRadius="22" Padding="18,0" Margin="0,0,0,8" Command="{Binding AskDeleteCommand}" />
+                </FlexLayout>
+                <Border BackgroundColor="{StaticResource Sand}" Stroke="{StaticResource Sun}" StrokeThickness="1" StrokeShape="RoundRectangle 14"
+                        Padding="14" IsVisible="{Binding IsConfirmingDelete}" controls:Accessible.FocusWhenShown="True">
+                    <VerticalStackLayout Spacing="12">
+                        <Label Style="{StaticResource Body}" Text="{loc:Translate Questions_DeleteConfirm}" TextColor="{StaticResource SandDeep}" />
+                        <FlexLayout Wrap="Wrap">
+                            <Button Text="{loc:Translate Questions_DeleteYes}" Style="{StaticResource ConfirmButton}" Command="{Binding DeleteCommand}" />
+                            <Button Text="{loc:Translate Common_KeepIt}" Style="{StaticResource KeepButton}" Command="{Binding KeepItCommand}" />
+                        </FlexLayout>
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+        </DataTemplate>
+    </controls:MaiaPage.Resources>
+    <ScrollView>
+        <VerticalStackLayout Padding="20,44,20,28" Spacing="16" controls:Motions.Rise="True">
+            <controls:BackPill Command="{Binding BackCommand}" HorizontalOptions="Start" />
+            <VerticalStackLayout Spacing="8">
+                <Label Text="{loc:Translate Questions_Title}" Style="{StaticResource Title}" />
+                <Label Text="{loc:Translate Questions_Intro}" Style="{StaticResource Body}" />
+            </VerticalStackLayout>
+
+            <!-- New question: a white pill with a round add button, faded and doing nothing until she has written one. -->
+            <Border BackgroundColor="{StaticResource White}" Stroke="{StaticResource Line}" StrokeThickness="1" StrokeShape="RoundRectangle 28" Padding="14,6,6,6">
+                <Border.Shadow>
+                    <Shadow Brush="{StaticResource Pine}" Offset="0,10" Radius="26" Opacity="0.07" />
+                </Border.Shadow>
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                    <Entry Keyboard="Text" Text="{Binding Draft}" Placeholder="{loc:Translate Questions_Placeholder}" TextColor="{StaticResource Ink}"
+                           MaxLength="{x:Static vm:QuestionsViewModel.MaxLength}" ReturnType="Done" ReturnCommand="{Binding AddCommand}" VerticalOptions="Center"
+                           SemanticProperties.Description="{loc:Translate Questions_Placeholder}"/>
+                    <Border Grid.Column="1" WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 22" Opacity="0.45"
+                            BackgroundColor="{StaticResource Pine}" SemanticProperties.Description="{loc:Translate Questions_Add}" controls:Motions.Press="True" controls:Accessible.Role="Button">
+                        <Border.Triggers>
+                            <DataTrigger TargetType="Border" Binding="{Binding CanAddDraft}" Value="True">
+                                <Setter Property="Opacity" Value="1" />
+                            </DataTrigger>
+                        </Border.Triggers>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AddCommand}" />
+                        </Border.GestureRecognizers>
+                        <controls:Icon Data="{StaticResource IconNew}" Size="18" Color="{StaticResource White}"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!--
+              The checklist: tap the box to tick a question, its words to reword or delete it, and hold its handle on the
+              right and drag it to another place. The whole question follows her finger (code-behind draws the row, not the
+              handle), faded in its place meanwhile. Held over another question for a moment, that one slides up or down
+              (code-behind) and the faded question slides into the gap: where it lands when she lets go. Answered ones stay, struck through, until she clears them. The card's 16,15 padding is mostly inside the box's 44 dp touch area and around
+              the words, so both are at least 44 dp tall inside the card (a touch outside a layout never reaches its children).
+            -->
+            <VerticalStackLayout x:Name="QuestionList" BindableLayout.ItemsSource="{Binding Questions}" Spacing="8">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="vm:QuestionItem">
+                        <Border BackgroundColor="{StaticResource White}" Stroke="{StaticResource Line}" StrokeThickness="1" StrokeShape="RoundRectangle 22"
+                                Padding="4" MinimumHeightRequest="52" controls:Motions.Pop="True" ClassId="QuestionRow">
+                            <Border.GestureRecognizers>
+                                <DropGestureRecognizer AllowDrop="True" DropCommandParameter="{Binding .}"
+                                                       DropCommand="{Binding DropOnCommand, Source={RelativeSource AncestorType={x:Type vm:QuestionsViewModel}}, x:DataType=vm:QuestionsViewModel}"
+                                                       DragOverCommandParameter="{Binding .}"
+                                                       DragOverCommand="{Binding DragOverCommand, Source={RelativeSource AncestorType={x:Type vm:QuestionsViewModel}}, x:DataType=vm:QuestionsViewModel}"
+                                                       DragLeaveCommandParameter="{Binding .}"
+                                                       DragLeaveCommand="{Binding DragLeaveCommand, Source={RelativeSource AncestorType={x:Type vm:QuestionsViewModel}}, x:DataType=vm:QuestionsViewModel}" />
+                            </Border.GestureRecognizers>
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border" Binding="{Binding IsAnswered}" Value="True">
+                                    <Setter Property="BackgroundColor" Value="{StaticResource CardDone}" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Border" Binding="{Binding IsDragged}" Value="True">
+                                    <Setter Property="Opacity" Value="0.4" />
+                                </DataTrigger>
+                            </Border.Triggers>
+                            <VerticalStackLayout>
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <!-- The box, centred in its 44 dp touch area. -->
+                                    <Grid WidthRequest="44" HeightRequest="44" VerticalOptions="Start"
+                                          SemanticProperties.Description="{Binding Text}" SemanticProperties.Hint="{loc:Translate Questions_Tick}"
+                                          controls:Accessible.Role="CheckBox" controls:Accessible.IsOn="{Binding IsAnswered}">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding ToggleCommand}" />
+                                        </Grid.GestureRecognizers>
+                                        <!-- The same tick circle as a task's (TaskRowView). -->
+                                        <Grid WidthRequest="24" HeightRequest="24" HorizontalOptions="Center" VerticalOptions="Center" controls:Celebrate.When="{Binding IsAnswered}">
+                                            <Ellipse Stroke="{StaticResource Muted}" StrokeThickness="2">
+                                                <Ellipse.Triggers>
+                                                    <DataTrigger TargetType="Ellipse" Binding="{Binding IsAnswered}" Value="True">
+                                                        <Setter Property="Stroke" Value="{StaticResource Sage}" />
+                                                        <Setter Property="Fill" Value="{StaticResource Sage}" />
+                                                    </DataTrigger>
+                                                </Ellipse.Triggers>
+                                            </Ellipse>
+                                            <controls:Icon Data="{StaticResource IconCheck}" Size="16" Color="{StaticResource White}"
+                                                           HorizontalOptions="Center" VerticalOptions="Center" IsVisible="{Binding IsAnswered}" controls:Motions.PopWhenShown="True" />
+                                        </Grid>
+                                    </Grid>
+                                    <Label Style="{StaticResource Body}" Grid.Column="1" Text="{Binding Text}" TextColor="{StaticResource Ink}"
+                                           Padding="0,11,12,11" MinimumHeightRequest="44"
+                                           SemanticProperties.Description="{Binding Text}" SemanticProperties.Hint="{loc:Translate Common_ChangeOrDelete}"
+                                           controls:Accessible.Role="Button">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding EditCommand}" />
+                                        </Label.GestureRecognizers>
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding IsAnswered}" Value="True">
+                                                <Setter Property="TextColor" Value="{StaticResource Muted}" />
+                                                <Setter Property="TextDecorations" Value="Strikethrough" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <!-- The handle: hold and drag onto another question to move this one there. -->
+                                    <Grid Grid.Column="2" WidthRequest="44" HeightRequest="44" VerticalOptions="Start"
+                                          SemanticProperties.Description="{loc:Translate Questions_Move}">
+                                        <Grid.GestureRecognizers>
+                                            <DragGestureRecognizer CanDrag="True" DragStarting="OnQuestionDragStarting" DragStartingCommandParameter="{Binding .}"
+                                                                   DragStartingCommand="{Binding StartDragCommand, Source={RelativeSource AncestorType={x:Type vm:QuestionsViewModel}}, x:DataType=vm:QuestionsViewModel}"
+                                                                   DropCompletedCommand="{Binding EndDragCommand, Source={RelativeSource AncestorType={x:Type vm:QuestionsViewModel}}, x:DataType=vm:QuestionsViewModel}" />
+                                        </Grid.GestureRecognizers>
+                                        <controls:Icon Data="{StaticResource IconGrip}" Size="18" Color="{StaticResource Muted}"
+                                                       HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Grid>
+                                </Grid>
+                                <!-- Built only while the question is open; its margin gives back the card's padding. -->
+                                <controls:LazyView IsActive="{Binding IsEditing}" ContentTemplate="{StaticResource QuestionEditorTemplate}" Margin="12,0,12,11" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+            <!-- Clear the answered ones: asked once more, in place (Sand, never red). -->
+            <Button Text="{loc:Translate Questions_ClearAnswered}" Style="{StaticResource LinkButton}" Command="{Binding AskClearCommand}"
+                    IsVisible="{Binding ShowClearAnswered}" />
+            <Border BackgroundColor="{StaticResource Sand}" Stroke="{StaticResource Sun}" StrokeThickness="1" StrokeShape="RoundRectangle 14"
+                    Padding="14" IsVisible="{Binding IsConfirmingClear}" controls:Accessible.FocusWhenShown="True">
+                <VerticalStackLayout Spacing="12">
+                    <Label Style="{StaticResource Body}" Text="{Binding ClearQuestion}" TextColor="{StaticResource SandDeep}" />
+                    <FlexLayout Wrap="Wrap">
+                        <Button Text="{loc:Translate Questions_ClearYes}" Style="{StaticResource ConfirmButton}" Command="{Binding ClearAnsweredCommand}" />
+                        <Button Text="{Binding KeepAnsweredLabel}" Style="{StaticResource KeepButton}" Command="{Binding KeepAnsweredCommand}" />
+                    </FlexLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="{Binding Footer}" Style="{StaticResource Caption}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</controls:MaiaPage>

@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_Name" xml:space="preserve"><value>Maia</value></data>
+  <data name="Common_Error" xml:space="preserve"><value>Something went wrong. Please try again.</value></data>
+  <data name="Common_Back" xml:space="preserve"><value>Back</value></data>
+  <data name="Common_CharactersLeft" xml:space="preserve"><value>{0} characters left</value></data>
+  <data name="Common_OneCharacterLeft" xml:space="preserve"><value>1 character left</value></data>
+  <data name="Common_LimitReached" xml:space="preserve"><value>That's all that fits: {0} characters.</value></data>
+  <data name="Common_LoadError" xml:space="preserve"><value>Maia couldn't show this just now. Try again in a moment.</value></data>
+  <data name="Error_RoleFull" xml:space="preserve"><value>You can link up to {0} contacts here. Unlink one to add another.</value></data>
+  <data name="Error_ContactGone" xml:space="preserve"><value>That contact isn't linked any more.</value></data>
+  <data name="Error_ContactTooLong" xml:space="preserve"><value>That contact's name or number is too long to link.</value></data>
+  <data name="Error_DueDateNotACheck" xml:space="preserve"><value>Your due date is a milestone, not a check to book.</value></data>
+  <data name="Error_CheckGone" xml:space="preserve"><value>This check isn't in your journey any more.</value></data>
+  <data name="Error_ChecksFull" xml:space="preserve"><value>Your journey can hold up to {0} checks, and it's full.</value></data>
+  <data name="Error_TasksFull" xml:space="preserve"><value>Your list is full: Maia keeps up to {0} tasks, done ones too. Open “All tasks” to clear the done ones.</value></data>
+  <data name="Error_QuestionsFull" xml:space="preserve"><value>Maia can keep up to {0} questions, and your list is full.</value></data>
+  <data name="Error_TaskTooLong" xml:space="preserve"><value>That's a little long. Keep it to {0} characters.</value></data>
+  <data name="Error_EntryTooLong" xml:space="preserve"><value>That name is a little long. Keep it to {0} characters.</value></data>
+  <data name="Error_NoteTooLong" xml:space="preserve"><value>That note is a little long. Keep it to {0} characters.</value></data>
+  <data name="Error_TaskNeedsDay" xml:space="preserve"><value>Pick a day for this as well as a time.</value></data>
+  <data name="Error_TaskGone" xml:space="preserve"><value>This isn't in your list any more.</value></data>
+  <data name="Error_QuestionTooLong" xml:space="preserve"><value>That question is a little long. Keep it to {0} characters.</value></data>
+  <data name="Error_QuestionGone" xml:space="preserve"><value>This question isn't in your list any more.</value></data>
+  <data name="Error_PlaceTooLong" xml:space="preserve"><value>That place name is a little long. Keep it to {0} characters.</value></data>
+  <data name="Error_ResultFiled" xml:space="preserve"><value>This result is already filed under this check.</value></data>
+  <data name="Error_ResultGone" xml:space="preserve"><value>This result isn't filed here any more.</value></data>
+  <data name="Error_NoPlan" xml:space="preserve"><value>There's no journey on this phone yet. Set one up first.</value></data>
+  <data name="Error_PlanExists" xml:space="preserve"><value>Your journey is already set up on this phone.</value></data>
+  <data name="Error_PlanFromNewerMaia" xml:space="preserve"><value>Your journey was saved by a newer Maia. Update Maia to open it.</value></data>
+  <data name="Error_PlanUnreadable" xml:space="preserve"><value>Maia can't open your journey right now.</value></data>
+  <data name="Diagnostics_Title" xml:space="preserve"><value>Diagnostics</value></data>
+  <data name="Diagnostics_Note" xml:space="preserve"><value>If something goes wrong, Maia notes an error code on this phone, never anything from your journey. Nothing is sent unless you share it, and deleting all data clears it.</value></data>
+  <data name="Diagnostics_Open" xml:space="preserve"><value>Share diagnostics</value></data>
+  <data name="Diagnostics_Nothing" xml:space="preserve"><value>Nothing to share. Maia hasn't noted any problems.</value></data>
+  <data name="Diagnostics_ShareTitle" xml:space="preserve"><value>Maia diagnostics</value></data>
+  <data name="Setup_Welcome" xml:space="preserve"><value>Welcome to Maia</value></data>
+  <data name="Setup_Title" xml:space="preserve"><value>Let's organise your pregnancy</value></data>
+  <data name="Setup_Intro" xml:space="preserve"><value>Tell Maia your due date. It suggests the checks most pregnancies need, and you adjust them as your doctor advises.</value></data>
+  <data name="Setup_DueDateLabel" xml:space="preserve"><value>When is your baby due?</value></data>
+  <data name="Setup_LastPeriodLabel" xml:space="preserve"><value>First day of your last period</value></data>
+  <data name="Setup_UseLastPeriod" xml:space="preserve"><value>Not sure? Use your last period instead</value></data>
+  <data name="Setup_UseDueDate" xml:space="preserve"><value>I know my due date</value></data>
+  <data name="Setup_Summary" xml:space="preserve"><value>You're {0} today. Due {1}.</value></data>
+  <data name="Setup_OutOfRange" xml:space="preserve"><value>That date doesn't match a current pregnancy. Check it and try again.</value></data>
+  <data name="Setup_Suggest" xml:space="preserve"><value>Suggest my journey</value></data>
+  <data name="SetupPlan_Title" xml:space="preserve"><value>A typical journey</value></data>
+  <data name="SetupPlan_BlockedTitle" xml:space="preserve"><value>The typical journey isn't ready yet</value></data>
+  <data name="SetupPlan_Intro" xml:space="preserve"><value>Common checks for a pregnancy due {0}. Your doctor may suggest a different set. Switch off what doesn't apply; you can change it any time.</value></data>
+  <data name="SetupPlan_Start" xml:space="preserve"><value>Looks good</value></data>
+  <data name="SetupPlan_NotReviewed" xml:space="preserve"><value>This journey is waiting for clinical review and can't be used yet.</value></data>
+  <data name="SetupPlan_NotReviewedHelp" xml:space="preserve"><value>Used Maia on another phone? You can bring your journey here with a backup.</value></data>
+  <data name="SetupPlan_Restore" xml:space="preserve"><value>Restore a backup</value></data>
+  <data name="Tag_Routine" xml:space="preserve"><value>Routine</value></data>
+  <data name="Tag_Offered" xml:space="preserve"><value>Offered</value></data>
+  <data name="Tag_IfAdvised" xml:space="preserve"><value>If advised</value></data>
+  <data name="Tag_WhereOffered" xml:space="preserve"><value>Where offered</value></data>
+  <data name="Tag_Milestone" xml:space="preserve"><value>Milestone</value></data>
+  <data name="Section_trimester1" xml:space="preserve"><value>1st trimester</value></data>
+  <data name="Section_trimester2" xml:space="preserve"><value>2nd trimester</value></data>
+  <data name="Section_trimester3" xml:space="preserve"><value>3rd trimester</value></data>
+  <data name="Section_after_birth" xml:space="preserve"><value>After birth</value></data>
+  <data name="Week_Label" xml:space="preserve"><value>Week {0} + {1}</value></data>
+  <data name="Week_WeeksAndDays" xml:space="preserve"><value>{0} weeks and {1} days</value></data>
+  <data name="Week_WeeksAndOneDay" xml:space="preserve"><value>{0} weeks and 1 day</value></data>
+  <data name="Week_Title" xml:space="preserve"><value>Today</value></data>
+  <data name="Week_Due" xml:space="preserve"><value>Due {0}</value></data>
+  <data name="Week_NextUpNone" xml:space="preserve"><value>Next up</value></data>
+  <data name="Week_NothingBooked" xml:space="preserve"><value>Nothing booked yet</value></data>
+  <data name="Week_Tasks" xml:space="preserve"><value>This week</value></data>
+  <data name="Week_NoTasks" xml:space="preserve"><value>Nothing due this week.</value></data>
+  <data name="Status_Booked" xml:space="preserve"><value>Booked</value></data>
+  <data name="Status_Done" xml:space="preserve"><value>Done</value></data>
+  <data name="Status_ProbablyDone" xml:space="preserve"><value>Probably done</value></data>
+  <data name="Status_Milestone" xml:space="preserve"><value>Due date</value></data>
+  <data name="Tab_Week" xml:space="preserve"><value>Today</value></data>
+  <data name="Tab_Journey" xml:space="preserve"><value>Journey</value></data>
+  <data name="Tab_Add" xml:space="preserve"><value>New</value></data>
+  <data name="Tab_AddHint" xml:space="preserve"><value>New, something for your journey</value></data>
+  <data name="Tab_Results" xml:space="preserve"><value>Results</value></data>
+  <data name="Tab_Settings" xml:space="preserve"><value>Settings</value></data>
+  <data name="Plan_Title" xml:space="preserve"><value>Journey</value></data>
+  <data name="Plan_Intro" xml:space="preserve"><value>Tap any entry to book, edit or delete it.</value></data>
+  <data name="Plan_Here" xml:space="preserve"><value>You are here</value></data>
+  <data name="Plan_Weeks" xml:space="preserve"><value>Weeks {0}–{1}</value></data>
+  <data name="Plan_Week" xml:space="preserve"><value>Week {0}</value></data>
+  <data name="Plan_WeekSpoken" xml:space="preserve"><value>{0}, {1}</value></data>
+  <data name="Plan_EmptyWeek" xml:space="preserve"><value>Nothing this week</value></data>
+  <data name="Plan_Around" xml:space="preserve"><value>around {0}</value></data>
+  <data name="Plan_Booked" xml:space="preserve"><value>{0} at {1}</value></data>
+  <data name="Plan_BookedShort" xml:space="preserve"><value>{0}, {1}</value></data>
+  <data name="Plan_NoteFallback" xml:space="preserve"><value>You added this to your journey.</value></data>
+  <data name="Plan_NameWithWeek" xml:space="preserve"><value>{0} · week {1}</value></data>
+  <data name="Check_Book" xml:space="preserve"><value>Book</value></data>
+  <data name="Plan_ShowTasks" xml:space="preserve"><value>Tasks</value></data>
+  <data name="Kind_DoctorVisit" xml:space="preserve"><value>Doctor visit</value></data>
+  <data name="Kind_Exam" xml:space="preserve"><value>Exam or test</value></data>
+  <data name="Kind_HospitalVisit" xml:space="preserve"><value>Hospital visit</value></data>
+  <data name="Kind_Other" xml:space="preserve"><value>Something else</value></data>
+  <data name="Plan_TaskSpoken" xml:space="preserve"><value>{0}, {1}</value></data>
+  <data name="Book_Date" xml:space="preserve"><value>Date</value></data>
+  <data name="Book_Time" xml:space="preserve"><value>Time</value></data>
+  <data name="Toast_Booked" xml:space="preserve"><value>{0} booked for {1} at {2}.</value></data>
+  <data name="Reminder_TwoHoursBefore" xml:space="preserve"><value>2 hours before</value></data>
+  <data name="Reminder_Both" xml:space="preserve"><value>Both</value></data>
+  <data name="Results_Title" xml:space="preserve"><value>Results</value></data>
+  <data name="Team_Title" xml:space="preserve"><value>Care team</value></data>
+  <data name="Add_Title" xml:space="preserve"><value>New</value></data>
+  <data name="SetupCare_Title" xml:space="preserve"><value>Doctor and reminders</value></data>
+  <data name="SetupCare_Intro" xml:space="preserve"><value>Link your OB-GYN from your phone contacts, and Maia reminds you of every booking.</value></data>
+  <data name="SetupCare_YourObGyn" xml:space="preserve"><value>OB-GYN</value></data>
+  <data name="SetupCare_Choose" xml:space="preserve"><value>Choose from contacts</value></data>
+  <data name="SetupCare_LinkAnother" xml:space="preserve"><value>Link another contact</value></data>
+  <data name="SetupCare_Start" xml:space="preserve"><value>Start my journey</value></data>
+  <data name="SetupCare_Skip" xml:space="preserve"><value>Skip for now</value></data>
+  <data name="Toast_PlanReady" xml:space="preserve"><value>Your journey is ready.</value></data>
+  <data name="Team_Intro" xml:space="preserve"><value>Link your doctors from your phone's contacts, to call and book.</value></data>
+  <data name="Team_ObGyn" xml:space="preserve"><value>OB-GYN</value></data>
+  <data name="Team_ObGynUse" xml:space="preserve"><value>Used for bookings and calls</value></data>
+  <data name="Team_LinkFromContacts" xml:space="preserve"><value>Link from contacts</value></data>
+  <data name="Team_NoNumber" xml:space="preserve"><value>That contact has no phone number. Pick one that does.</value></data>
+  <data name="Team_Doctors" xml:space="preserve"><value>Other doctors</value></data>
+  <data name="Team_Link" xml:space="preserve"><value>Link</value></data>
+  <data name="Team_Call" xml:space="preserve"><value>Call {0}</value></data>
+  <data name="Team_Unlink" xml:space="preserve"><value>Unlink {0}</value></data>
+  <data name="Team_UnlinkConfirm" xml:space="preserve"><value>Unlink {0}? Your bookings stay in your journey.</value></data>
+  <data name="Team_UnlinkYes" xml:space="preserve"><value>Unlink doctor</value></data>
+  <data name="Role_Dentist" xml:space="preserve"><value>Dentist</value></data>
+  <data name="Role_Internist" xml:space="preserve"><value>Internist</value></data>
+  <data name="Role_Endocrinologist" xml:space="preserve"><value>Endocrinologist</value></data>
+  <data name="Role_Haematologist" xml:space="preserve"><value>Haematologist</value></data>
+  <data name="Role_Cardiologist" xml:space="preserve"><value>Cardiologist</value></data>
+  <data name="Role_Dermatologist" xml:space="preserve"><value>Dermatologist</value></data>
+  <data name="Role_Gastroenterologist" xml:space="preserve"><value>Gastroenterologist</value></data>
+  <data name="Toast_Calling" xml:space="preserve"><value>Calling {0}…</value></data>
+  <data name="Toast_Unlinked" xml:space="preserve"><value>{0} unlinked.</value></data>
+  <data name="Toast_LinkedContact" xml:space="preserve"><value>{0} linked.</value></data>
+  <data name="Toast_LinkedOne" xml:space="preserve"><value>1 contact linked to your OB-GYN.</value></data>
+  <data name="Toast_Linked" xml:space="preserve"><value>{0} contacts linked to your OB-GYN.</value></data>
+  <data name="Week_With" xml:space="preserve"><value>with {0}</value></data>
+  <data name="Add_What" xml:space="preserve"><value>What is it?</value></data>
+  <data name="Add_Name" xml:space="preserve"><value>Name</value></data>
+  <data name="Add_When" xml:space="preserve"><value>When?</value></data>
+  <data name="Add_Note" xml:space="preserve"><value>Notes</value></data>
+  <data name="Add_NotePlaceholder" xml:space="preserve"><value>Optional, e.g. bring the referral</value></data>
+  <data name="Add_WhenBooked" xml:space="preserve"><value>Booked</value></data>
+  <data name="Add_WhenDone" xml:space="preserve"><value>Already done</value></data>
+  <data name="Add_WhenNotBooked" xml:space="preserve"><value>Not booked yet</value></data>
+  <data name="Add_ChooseWhat" xml:space="preserve"><value>Choose what you're adding.</value></data>
+  <data name="Add_NameMissing" xml:space="preserve"><value>Give it a name.</value></data>
+  <data name="Add_ChooseWhen" xml:space="preserve"><value>Choose when it is.</value></data>
+  <data name="Toast_EntryBooked" xml:space="preserve"><value>{0} added to your journey for {1} at {2}.</value></data>
+  <data name="Toast_EntryDone" xml:space="preserve"><value>{0} added to your journey, done on {1}.</value></data>
+  <data name="Toast_EntryWaiting" xml:space="preserve"><value>{0} added to your journey. It's waiting for a date.</value></data>
+  <data name="Extra_Ultrasound" xml:space="preserve"><value>Extra ultrasound</value></data>
+  <data name="Extra_Iron" xml:space="preserve"><value>Iron recheck</value></data>
+  <data name="Extra_Urine" xml:space="preserve"><value>Urine culture</value></data>
+  <data name="Extra_Doppler" xml:space="preserve"><value>Doppler scan</value></data>
+  <data name="Extra_Thyroid" xml:space="preserve"><value>Thyroid test</value></data>
+  <data name="Extra_BloodPressure" xml:space="preserve"><value>Blood pressure checks</value></data>
+  <data name="Results_Intro" xml:space="preserve"><value>Every report and scan photo, in one place and ready to show your doctor.</value></data>
+  <data name="Results_Add" xml:space="preserve"><value>Upload results</value></data>
+  <data name="Results_EmptyAll" xml:space="preserve"><value>No results yet. Add the report or a photo of it.</value></data>
+  <data name="Results_Remove" xml:space="preserve"><value>Remove {0}</value></data>
+  <data name="Results_RemoveConfirm" xml:space="preserve"><value>Remove {0} from this phone? This can't be undone.</value></data>
+  <data name="Results_RemoveOpen" xml:space="preserve"><value>Remove</value></data>
+  <data name="Results_RemoveYes" xml:space="preserve"><value>Remove result</value></data>
+  <data name="Results_KindPdf" xml:space="preserve"><value>PDF</value></data>
+  <data name="Results_KindPhoto" xml:space="preserve"><value>Photo</value></data>
+  <data name="Results_SizeMb" xml:space="preserve"><value>{0} MB</value></data>
+  <data name="Results_SizeKb" xml:space="preserve"><value>{0} KB</value></data>
+  <data name="Results_TooLarge" xml:space="preserve"><value>Files up to 25 MB can be added.</value></data>
+  <data name="Results_Empty" xml:space="preserve"><value>That file is empty.</value></data>
+  <data name="Results_Unsupported" xml:space="preserve"><value>Maia keeps PDFs and photos. That file type can't be added.</value></data>
+  <data name="Toast_ResultRemoved" xml:space="preserve"><value>{0} removed.</value></data>
+  <data name="Week_AddTask" xml:space="preserve"><value>Add a task</value></data>
+  <data name="Week_TaskLabel" xml:space="preserve"><value>Task</value></data>
+  <data name="Week_TaskPlaceholder" xml:space="preserve"><value>e.g. Call clinic about results</value></data>
+  <data name="Week_TaskAdd" xml:space="preserve"><value>Add task</value></data>
+  <data name="Week_TaskToggle" xml:space="preserve"><value>Tick off</value></data>
+  <data name="Week_QuestionsTileTitle" xml:space="preserve"><value>Questions</value></data>
+  <data name="Week_QuestionsTile" xml:space="preserve"><value>Ready when you need them</value></data>
+  <data name="Week_BreatheTileTitle" xml:space="preserve"><value>Timer</value></data>
+  <data name="Week_BreatheTile" xml:space="preserve"><value>Breathing and exercises</value></data>
+  <data name="Toast_TaskAdded" xml:space="preserve"><value>Task added for {0} at {1}.</value></data>
+  <data name="Questions_Title" xml:space="preserve"><value>Questions</value></data>
+  <data name="Questions_Intro" xml:space="preserve"><value>Jot them down when they come up, and keep them in one place.</value></data>
+  <data name="Questions_Placeholder" xml:space="preserve"><value>Type a question</value></data>
+  <data name="Questions_Add" xml:space="preserve"><value>Add question</value></data>
+  <data name="Questions_Left" xml:space="preserve"><value>Tick one off once it's answered.</value></data>
+  <data name="Questions_AllAsked" xml:space="preserve"><value>All asked. Add another when one comes up.</value></data>
+  <data name="Questions_Empty" xml:space="preserve"><value>No questions yet. Add one when it comes to mind.</value></data>
+  <data name="Breathe_Title" xml:space="preserve"><value>Timer</value></data>
+  <data name="Breathe_Ready" xml:space="preserve"><value>Ready?</value></data>
+  <data name="Breathe_Pause" xml:space="preserve"><value>Pause</value></data>
+  <data name="Breathe_Paused" xml:space="preserve"><value>Paused</value></data>
+  <data name="Breathe_Resume" xml:space="preserve"><value>Resume</value></data>
+  <data name="Breathe_StartOver" xml:space="preserve"><value>Start over</value></data>
+  <data name="Breathe_TimeLeft" xml:space="preserve"><value>Time left: {0}</value></data>
+  <data name="Breathe_OneMinute" xml:space="preserve"><value>1 minute</value></data>
+  <data name="Breathe_Minutes" xml:space="preserve"><value>{0} minutes</value></data>
+  <data name="Breathe_OneSecond" xml:space="preserve"><value>1 second</value></data>
+  <data name="Breathe_Seconds" xml:space="preserve"><value>{0} seconds</value></data>
+  <data name="Breathe_MinutesAndSeconds" xml:space="preserve"><value>{0} and {1}</value></data>
+  <data name="Timer_Intro" xml:space="preserve"><value>{0}, then {1}, {2}. For calm breathing, or the exercises your doctor suggested.</value></data>
+  <data name="Timer_First" xml:space="preserve"><value>First</value></data>
+  <data name="Timer_Then" xml:space="preserve"><value>Then</value></data>
+  <data name="Timer_Start" xml:space="preserve"><value>Start</value></data>
+  <data name="Timer_Again" xml:space="preserve"><value>Start again</value></data>
+  <data name="Timer_Caution" xml:space="preserve"><value>Feeling dizzy, in pain or unwell? Stop and rest.</value></data>
+  <data name="Timer_VibrationHint" xml:space="preserve"><value>One soft pulse as the first part begins, two as the second, so you can close your eyes. It follows your phone's vibration settings, and stops on silent or in Do not disturb.</value></data>
+  <data name="Timer_SoundHint" xml:space="preserve"><value>A quiet tone as each part begins, at your media volume. Not on silent or in Do not disturb.</value></data>
+  <data name="Timer_OneTime" xml:space="preserve"><value>once</value></data>
+  <data name="Timer_Times" xml:space="preserve"><value>{0} times</value></data>
+  <data name="Timer_Rounds" xml:space="preserve"><value>Rounds</value></data>
+  <data name="Timer_Setting" xml:space="preserve"><value>{0}, {1}</value></data>
+  <data name="Timer_FewerSeconds" xml:space="preserve"><value>Fewer seconds</value></data>
+  <data name="Timer_MoreSeconds" xml:space="preserve"><value>More seconds</value></data>
+  <data name="Timer_FewerRounds" xml:space="preserve"><value>Fewer rounds</value></data>
+  <data name="Timer_MoreRounds" xml:space="preserve"><value>More rounds</value></data>
+  <data name="Breathe_Vibration" xml:space="preserve"><value>Gentle vibration</value></data>
+  <data name="Breathe_Sound" xml:space="preserve"><value>Soft sound</value></data>
+  <data name="Week_QuestionsTileNone" xml:space="preserve"><value>Jot one down when it comes up</value></data>
+  <data name="Settings_Title" xml:space="preserve"><value>Settings</value></data>
+  <data name="Settings_Intro" xml:space="preserve"><value>Your pregnancy, your reminders, your language and your data.</value></data>
+  <data name="Settings_Language" xml:space="preserve"><value>Language</value></data>
+  <data name="Settings_Animations" xml:space="preserve"><value>Animations</value></data>
+  <data name="Settings_AnimationsHint" xml:space="preserve"><value>Gentle movement on the screens. Off, everything stays still.</value></data>
+  <data name="Settings_LanguageHint" xml:space="preserve"><value>Also the names of your checks and reminders.</value></data>
+  <data name="Settings_English" xml:space="preserve"><value>English</value></data>
+  <data name="Settings_Greek" xml:space="preserve"><value>Ελληνικά</value></data>
+  <data name="Settings_Data" xml:space="preserve"><value>Data</value></data>
+  <data name="Settings_DataNote" xml:space="preserve"><value>Your journey and results stay on this phone, encrypted.</value></data>
+  <data name="Settings_Delete" xml:space="preserve"><value>Delete all data</value></data>
+  <data name="Settings_DeleteConfirm" xml:space="preserve"><value>Delete your journey and results? This can't be undone.</value></data>
+  <data name="Settings_DeleteYes" xml:space="preserve"><value>Delete everything</value></data>
+  <data name="Toast_Deleted" xml:space="preserve"><value>Everything is deleted from this phone.</value></data>
+  <data name="Backup_Title" xml:space="preserve"><value>Backup</value></data>
+  <data name="Backup_Note" xml:space="preserve"><value>One encrypted file with your journey and results, for a new phone. Keep it somewhere safe, like your email or Drive.</value></data>
+  <data name="Backup_Create" xml:space="preserve"><value>Create a backup</value></data>
+  <data name="Backup_Password" xml:space="preserve"><value>Backup password</value></data>
+  <data name="Backup_PasswordAgain" xml:space="preserve"><value>Password again</value></data>
+  <data name="Backup_PasswordShort" xml:space="preserve"><value>At least {0} characters. A few words you'll remember work well.</value></data>
+  <data name="Backup_PasswordMismatch" xml:space="preserve"><value>The two passwords don't match yet.</value></data>
+  <data name="Backup_PasswordKeep" xml:space="preserve"><value>Keep this password safe: without it the backup can't be opened, not even by Maia.</value></data>
+  <data name="Backup_PasswordRepeated" xml:space="preserve"><value>That's the same few characters over and over. Try a few words you'll remember.</value></data>
+  <data name="Backup_PasswordSequence" xml:space="preserve"><value>Runs like abcd or 1234 are easy to guess. Try a few words you'll remember.</value></data>
+  <data name="Backup_PasswordDigits" xml:space="preserve"><value>Numbers alone, like dates or phone numbers, are easy to guess. Add a few words, or use at least {0} digits.</value></data>
+  <data name="Backup_PasswordCommon" xml:space="preserve"><value>Lots of people use that one, so it's guessed early. Try a few words only you would put together.</value></data>
+  <data name="Backup_PasswordGood" xml:space="preserve"><value>Good password.</value></data>
+  <data name="Backup_PasswordStrong" xml:space="preserve"><value>Strong password.</value></data>
+  <data name="Backup_Share" xml:space="preserve"><value>Create and share</value></data>
+  <data name="Backup_Creating" xml:space="preserve"><value>Making your backup… this can take a few seconds.</value></data>
+  <data name="Backup_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Backup_WrongPassword" xml:space="preserve"><value>That password doesn't open this backup. Check it and try again.</value></data>
+  <data name="Backup_NotABackup" xml:space="preserve"><value>That file isn't a Maia backup.</value></data>
+  <data name="Backup_Damaged" xml:space="preserve"><value>This backup is damaged or incomplete. Try another copy of it.</value></data>
+  <data name="Backup_NewerApp" xml:space="preserve"><value>This backup is from a newer version of Maia. Update the app, then try again.</value></data>
+  <data name="Setup_Restore" xml:space="preserve"><value>Moving from another phone? Restore a backup</value></data>
+  <data name="Settings_Pregnancy" xml:space="preserve"><value>Pregnancy</value></data>
+  <data name="Settings_DueDateCurrent" xml:space="preserve"><value>Due {0} · {1}</value></data>
+  <data name="Settings_DueDateHint" xml:space="preserve"><value>If your doctor gives you a new due date, for example after a scan, change it here.</value></data>
+  <data name="Settings_DueDateChange" xml:space="preserve"><value>Change due date</value></data>
+  <data name="Settings_DueDateNote" xml:space="preserve"><value>Your checks' weeks move with the new date. Bookings stay on the days you booked.</value></data>
+  <data name="Settings_DueDateSave" xml:space="preserve"><value>Save due date</value></data>
+  <data name="Settings_DueDateCancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Toast_DueDateChanged" xml:space="preserve"><value>Your due date is now {0}. Your journey moved with it.</value></data>
+  <data name="Settings_Lock" xml:space="preserve"><value>Screen lock</value></data>
+  <data name="Settings_LockHint" xml:space="preserve"><value>When you've been away for more than a minute, Maia asks for your phone's PIN, pattern or fingerprint.</value></data>
+  <data name="Settings_LockNeedsScreenLock" xml:space="preserve"><value>Your phone has no screen lock yet. Set a PIN, pattern or password in your phone's settings, then turn this on.</value></data>
+  <data name="Settings_LockOpenSettings" xml:space="preserve"><value>Open phone settings</value></data>
+  <data name="Toast_LockOn" xml:space="preserve"><value>Maia now locks with your screen lock.</value></data>
+  <data name="Toast_LockOff" xml:space="preserve"><value>Maia no longer locks.</value></data>
+  <data name="Lock_Title" xml:space="preserve"><value>Maia is locked</value></data>
+  <data name="Lock_Intro" xml:space="preserve"><value>Your journey is safe. Unlock with your phone's screen lock to carry on.</value></data>
+  <data name="Lock_Unlock" xml:space="preserve"><value>Unlock</value></data>
+  <data name="Lock_NotUnlocked" xml:space="preserve"><value>Maia stays locked. Tap Unlock when you're ready.</value></data>
+  <data name="Lock_PromptTitle" xml:space="preserve"><value>Unlocking Maia</value></data>
+  <data name="Lock_TurnOnTitle" xml:space="preserve"><value>Turning on the lock for Maia</value></data>
+  <data name="Lock_PromptSubtitle" xml:space="preserve"><value>Use your phone's screen lock</value></data>
+  <data name="Settings_About" xml:space="preserve"><value>About Maia</value></data>
+  <data name="Settings_AboutHint" xml:space="preserve"><value>Version, privacy notice, terms and licences</value></data>
+  <data name="About_Title" xml:space="preserve"><value>About Maia</value></data>
+  <data name="About_Intro" xml:space="preserve"><value>Maia organises your pregnancy: your checks, bookings and results, in one calm place. Your doctor decides what's right for you.</value></data>
+  <data name="About_Version" xml:space="preserve"><value>Version {0} ({1})</value></data>
+  <data name="About_Privacy" xml:space="preserve"><value>Privacy notice</value></data>
+  <data name="About_PrivacyHint" xml:space="preserve"><value>What Maia keeps, where, and your rights</value></data>
+  <data name="About_Terms" xml:space="preserve"><value>Terms of use</value></data>
+  <data name="About_TermsHint" xml:space="preserve"><value>What you accept when you use Maia</value></data>
+  <data name="About_Licences" xml:space="preserve"><value>Licences</value></data>
+  <data name="About_LicencesHint" xml:space="preserve"><value>Fonts, icons and libraries in Maia</value></data>
+  <data name="Privacy_Title" xml:space="preserve"><value>Privacy notice</value></data>
+  <data name="Privacy_Intro" xml:space="preserve"><value>Maia keeps your pregnancy journey on this phone, for you. Here's what it keeps, where, and what you can do with it.</value></data>
+  <data name="Privacy_Updated" xml:space="preserve"><value>Last updated 11 October 2026</value></data>
+  <data name="Privacy_KeepsTitle" xml:space="preserve"><value>What Maia keeps</value></data>
+  <data name="Privacy_KeepsBody" xml:space="preserve"><value>Your due date and the checks in your journey, your bookings, tasks and questions for your doctor, the blood pressure readings you log, and the results you add: files and photos. If you link your doctors, Maia keeps their names, labels and phone numbers. This is health data, and Maia treats it that way. Your settings, such as the language and the times you set on the timer, are kept apart, in the phone's settings for Maia.</value></data>
+  <data name="Privacy_WhereTitle" xml:space="preserve"><value>Only on this phone, encrypted</value></data>
+  <data name="Privacy_WhereBody" xml:space="preserve"><value>Your journey and results stay on this phone, encrypted with a key kept in your phone's secure keystore. They aren't copied to cloud backups or to a new phone. Maia has no account and no server, so nobody else, not even Maia's maker, can see your journey.</value></data>
+  <data name="Privacy_NetworkTitle" xml:space="preserve"><value>No ads, no trackers</value></data>
+  <data name="Privacy_NetworkBody" xml:space="preserve"><value>The free app doesn't use the internet at all. There are no ads, no analytics and no trackers, and Maia sends nothing anywhere by itself. Results you share go to the app you choose, which keeps its own copy.</value></data>
+  <data name="Privacy_RemindersTitle" xml:space="preserve"><value>Reminders on this phone</value></data>
+  <data name="Privacy_RemindersBody" xml:space="preserve"><value>Only if you turn them on, in setup or in Settings. Maia then sets notifications on this phone for your bookings and your timed tasks, and the lock screen only shows “Maia reminder”. So they come back after the phone restarts, Maia keeps a short list of their times, in plain words that never name a check or a task. Maia never writes to your calendar.</value></data>
+  <data name="Privacy_ContactsTitle" xml:space="preserve"><value>Your contacts and camera</value></data>
+  <data name="Privacy_ContactsBody" xml:space="preserve"><value>Maia doesn't read your contacts. When you link your doctor, your phone's own picker opens and Maia gets only the contact you choose. Photos come from your camera app or your gallery, only when you add them.</value></data>
+  <data name="Privacy_FilesTitle" xml:space="preserve"><value>Files from and to other apps</value></data>
+  <data name="Privacy_FilesBody" xml:space="preserve"><value>When you share a PDF or a photo with Maia from another app, Maia gets only that file, and keeps it, encrypted, with your results; you can remove it there. “Open in another app” gives the app you choose a copy of a result that it can open. Maia removes its own copy when you come back, but that app may keep one, or list the file in its recent files.</value></data>
+  <data name="Privacy_BackupTitle" xml:space="preserve"><value>Backups are yours</value></data>
+  <data name="Privacy_BackupBody" xml:space="preserve"><value>A backup is a file you create in Settings, encrypted with a password only you know. You choose where it goes, such as your email or Drive, and that service's own terms then apply to the file. Without the password nobody can open it, not even Maia. In the phone's settings, Maia notes when you last made a backup and when you last put its reminder away, so it can remind you now and then. Those two dates say nothing about your journey.</value></data>
+  <data name="Privacy_LockTitle" xml:space="preserve"><value>Locking Maia</value></data>
+  <data name="Privacy_LockBody" xml:space="preserve"><value>If you turn on the lock in Settings, Maia asks for your phone's screen lock when it opens and after you've been away for more than a minute. Your phone checks your PIN, pattern or fingerprint; Maia never sees them. The recent apps screen doesn't show what's in Maia (on Android 12 and older, only while the lock is on).</value></data>
+  <data name="Privacy_DiagnosticsTitle" xml:space="preserve"><value>Diagnostics</value></data>
+  <data name="Privacy_DiagnosticsBody" xml:space="preserve"><value>If something goes wrong, Maia notes an error code on this phone, with the time and Maia's version, never anything from your journey. Nothing is sent by itself: only when you tap Share diagnostics in Settings does Maia hand these codes, their times and the versions of Maia and Android to your phone's share sheet, and you choose where they go. Delete all data clears it.</value></data>
+  <data name="Privacy_ControlTitle" xml:space="preserve"><value>Your data, in your hands</value></data>
+  <data name="Privacy_ControlBody" xml:space="preserve"><value>Everything in your journey is on Maia's screens, where you can change it. In Settings, Create a backup exports it all as one encrypted file, and Delete all data removes your journey and your results from this phone and cancels Maia's reminders. Uninstalling Maia removes its data too.</value></data>
+  <data name="Privacy_RightsTitle" xml:space="preserve"><value>Your rights</value></data>
+  <data name="Privacy_RightsBody" xml:space="preserve"><value>Under the GDPR you have the right to see, correct, delete and take your data, and to limit or object to how it's used. Your data stays on your phone, so you use these rights directly in Maia, as above. You can also complain to a data protection authority; in Greece, that's the Hellenic Data Protection Authority.</value></data>
+  <data name="Privacy_ChangesTitle" xml:space="preserve"><value>Changes to this notice</value></data>
+  <data name="Privacy_ChangesBody" xml:space="preserve"><value>This notice comes with the app. If it changes, the new one comes with a new version of Maia, with a new date at the top.</value></data>
+  <data name="Privacy_CareTitle" xml:space="preserve"><value>Maia organises, your doctor decides</value></data>
+  <data name="Privacy_CareBody" xml:space="preserve"><value>Maia keeps your journey in order. It gives no medical advice and doesn't interpret your results or readings. It isn't for emergencies: if you need urgent help, call {0}.</value></data>
+  <data name="Setup_PrivacyLine" xml:space="preserve"><value>Your journey stays on this phone, encrypted.</value></data>
+  <data name="Setup_PrivacyLink" xml:space="preserve"><value>Privacy notice</value></data>
+  <data name="Setup_TermsLine" xml:space="preserve"><value>By using Maia, you accept the</value></data>
+  <data name="Setup_TermsLink" xml:space="preserve"><value>Terms of use</value></data>
+  <data name="Terms_Title" xml:space="preserve"><value>Terms of use</value></data>
+  <data name="Terms_Intro" xml:space="preserve"><value>What you and Maia's maker agree to when you use Maia, in plain words.</value></data>
+  <data name="Terms_Updated" xml:space="preserve"><value>Last updated 11 October 2026</value></data>
+  <data name="Terms_AgreementTitle" xml:space="preserve"><value>These terms</value></data>
+  <data name="Terms_AgreementBody" xml:space="preserve"><value>These terms are an agreement between you and Maia's maker about using Maia. When you set up or use Maia, you accept them; if you don't agree, please don't use Maia. Maia is for adults, 18 and over, and for organising your own pregnancy.</value></data>
+  <data name="Terms_OrganiserTitle" xml:space="preserve"><value>What Maia is</value></data>
+  <data name="Terms_OrganiserBody" xml:space="preserve"><value>Maia organises your pregnancy: your checks, bookings, results, reminders, tasks and notes. It isn't a medical device and doesn't diagnose, treat, cure or prevent any condition. It gives no medical advice and doesn't interpret your results or readings. Your doctor decides: ask your doctor or midwife about your health and your baby's, and follow their advice, even where Maia shows something different.</value></data>
+  <data name="Terms_JourneyTitle" xml:space="preserve"><value>A typical journey</value></data>
+  <data name="Terms_JourneyBody" xml:space="preserve"><value>The checks in a typical journey are a common starting point, taken from practice in Greece, and the same for every pregnancy with the same due date. They may not suit yours, and they may be incomplete or out of date. Weeks and dates are worked out from the date you give. Your doctor decides which checks you need and when; change your journey to match.</value></data>
+  <data name="Terms_EmergenciesTitle" xml:space="preserve"><value>Not for emergencies</value></data>
+  <data name="Terms_EmergenciesBody" xml:space="preserve"><value>Maia isn't for emergencies. If you feel unwell or need help quickly, don't wait for a reminder or a booking in Maia: call your doctor, or {0} in an emergency.</value></data>
+  <data name="Terms_RemindersTitle" xml:space="preserve"><value>Reminders and the timer</value></data>
+  <data name="Terms_RemindersBody" xml:space="preserve"><value>Reminders depend on your phone. They can come up to an hour late, and battery saving, Do Not Disturb or notifications turned off can delay or stop them, so keep your own note of what matters. The timer only counts time: use it for calm breathing or the exercises your doctor suggested, and stop if you feel dizzy, in pain or unwell.</value></data>
+  <data name="Terms_EntriesTitle" xml:space="preserve"><value>What you enter</value></data>
+  <data name="Terms_EntriesBody" xml:space="preserve"><value>You're responsible for what you enter in Maia and for checking it: dates, bookings, readings, results and notes. Maia shows your blood pressure readings just as you typed them and says nothing about what they mean; ask your doctor.</value></data>
+  <data name="Terms_DataTitle" xml:space="preserve"><value>Your data and backups</value></data>
+  <data name="Terms_DataBody" xml:space="preserve"><value>Your journey and results are only on this phone, and you look after them. If you lose the phone, delete Maia or its data, or forget your backup password, they can't be brought back: Maia's maker has no copy. Make backups, and keep your own copies of the results that matter. The Privacy notice says what Maia keeps and where.</value></data>
+  <data name="Terms_AsIsTitle" xml:space="preserve"><value>Maia as it is</value></data>
+  <data name="Terms_AsIsBody" xml:space="preserve"><value>Maia is free, and it comes as it is and as available. Its maker works to keep it correct and working, but doesn't promise that it's free of mistakes, always available or right for your needs. Maia may change, or stop being offered, at any time.</value></data>
+  <data name="Terms_LiabilityTitle" xml:space="preserve"><value>Limits of liability</value></data>
+  <data name="Terms_LiabilityBody" xml:space="preserve"><value>As far as the law allows, Maia's maker isn't liable for any loss, damage or harm that comes from using Maia or from not being able to use it. That includes anything you do or don't do because of what Maia shows, a reminder that comes late or not at all, a mistake in a date or in what you entered, and lost data. Nothing in these terms limits liability that the law doesn't allow to be limited, such as for harm caused on purpose or through gross negligence, or takes away your rights as a consumer.</value></data>
+  <data name="Terms_UseTitle" xml:space="preserve"><value>Using Maia</value></data>
+  <data name="Terms_UseBody" xml:space="preserve"><value>You may use Maia on your own phones, for yourself, free of charge. Maia's words, design and code belong to its maker: don't copy, change or sell them, beyond what the law allows. The fonts, icons and libraries in Maia come under their own licences, listed in Licences.</value></data>
+  <data name="Terms_ChangesTitle" xml:space="preserve"><value>Changes to these terms</value></data>
+  <data name="Terms_ChangesBody" xml:space="preserve"><value>These terms come with the app, so each version of Maia carries its own. If they change, the new terms come with a new version of Maia, with a new date at the top. Using that version means you accept them.</value></data>
+  <data name="Terms_LawTitle" xml:space="preserve"><value>Greek law</value></data>
+  <data name="Terms_LawBody" xml:space="preserve"><value>Greek law applies to these terms, and any dispute goes to the courts of Greece, unless the law gives you the right to go to the courts where you live. If a part of these terms can't apply, the rest still does.</value></data>
+  <data name="Licences_Title" xml:space="preserve"><value>Licences</value></data>
+  <data name="Licences_Intro" xml:space="preserve"><value>Maia is built with these fonts, icons and open-source libraries. Thank you to everyone who makes them.</value></data>
+  <data name="Licences_Fonts" xml:space="preserve"><value>Fonts</value></data>
+  <data name="Licences_Icons" xml:space="preserve"><value>Icons</value></data>
+  <data name="Licences_Libraries" xml:space="preserve"><value>Libraries</value></data>
+  <data name="Licences_Packages" xml:space="preserve"><value>Packages: {0}</value></data>
+  <data name="Licences_Show" xml:space="preserve"><value>Show licence</value></data>
+  <data name="Licences_Hide" xml:space="preserve"><value>Hide licence</value></data>
+  <data name="Licences_Unreadable" xml:space="preserve"><value>The licence text couldn't be opened.</value></data>
+  <data name="Startup_CannotOpenTitle" xml:space="preserve"><value>Maia can't open your journey</value></data>
+  <data name="Startup_CannotOpenIntro" xml:space="preserve"><value>Your journey is saved on this phone, but Maia can't open it. This can happen after moving to a new phone. If you made a backup, restore it and your journey and results come back.</value></data>
+  <data name="Startup_Restore" xml:space="preserve"><value>Restore a backup</value></data>
+  <data name="Startup_StartAgainTitle" xml:space="preserve"><value>No backup?</value></data>
+  <data name="Startup_StartAgainNote" xml:space="preserve"><value>You can start again with a new journey on this phone.</value></data>
+  <data name="Startup_StartAgain" xml:space="preserve"><value>Start again</value></data>
+  <data name="Startup_StartAgainConfirm" xml:space="preserve"><value>Start again? This removes the journey Maia can't open and its results from this phone. This can't be undone.</value></data>
+  <data name="Startup_StartAgainYes" xml:space="preserve"><value>Start again</value></data>
+  <data name="Startup_TryAgain" xml:space="preserve"><value>Try again</value></data>
+  <data name="Startup_UpdateTitle" xml:space="preserve"><value>A newer Maia is needed</value></data>
+  <data name="Startup_UpdateIntro" xml:space="preserve"><value>Your journey was saved by a newer version of Maia. Update Maia and your journey opens just as you left it.</value></data>
+  <data name="Startup_UpdateSafe" xml:space="preserve"><value>Your journey is safe on this phone. Nothing has changed.</value></data>
+  <data name="Startup_OpenFailedTitle" xml:space="preserve"><value>Your journey didn't open this time</value></data>
+  <data name="Startup_OpenFailedIntro" xml:space="preserve"><value>Something got in the way. Maia hasn't changed or removed anything, so try again in a moment. If it keeps happening, restart your phone and open Maia again.</value></data>
+  <data name="Restore_Title" xml:space="preserve"><value>Backup</value></data>
+  <data name="Restore_Intro" xml:space="preserve"><value>Choose the backup file you saved, then type its password. Your journey and results come back on this phone.</value></data>
+  <data name="Restore_Choose" xml:space="preserve"><value>Choose the backup file</value></data>
+  <data name="Restore_NoFile" xml:space="preserve"><value>No file chosen yet</value></data>
+  <data name="Restore_Password" xml:space="preserve"><value>Backup password</value></data>
+  <data name="Restore_Button" xml:space="preserve"><value>Restore</value></data>
+  <data name="Toast_Restored" xml:space="preserve"><value>Welcome back. Your journey is restored.</value></data>
+  <data name="Backup_LeftOutOne" xml:space="preserve"><value>Your backup is ready, but one result couldn't go in because its file no longer opens on this phone: {0}.</value></data>
+  <data name="Backup_LeftOut" xml:space="preserve"><value>Your backup is ready, but {0} results couldn't go in because their files no longer open on this phone: {1}.</value></data>
+  <data name="Results_SkipType" xml:space="preserve"><value>not a PDF or photo</value></data>
+  <data name="Results_SkipTooLarge" xml:space="preserve"><value>over 25 MB</value></data>
+  <data name="Results_SkipEmpty" xml:space="preserve"><value>empty</value></data>
+  <data name="Results_SkipUnreadable" xml:space="preserve"><value>couldn't be read</value></data>
+  <data name="Results_Unreadable" xml:space="preserve"><value>That file couldn't be read. Try choosing it again.</value></data>
+  <data name="Results_SkippedOne" xml:space="preserve"><value>One file couldn't be added: {0}.</value></data>
+  <data name="Results_Skipped" xml:space="preserve"><value>These files couldn't be added: {0}.</value></data>
+  <data name="Results_TakePhoto" xml:space="preserve"><value>Take a photo</value></data>
+  <data name="Results_CameraUnavailable" xml:space="preserve"><value>The camera isn't available right now. You can add a photo from your gallery instead.</value></data>
+  <data name="Results_PhotoName" xml:space="preserve"><value>Photo {0}, {1}.jpg</value></data>
+  <data name="Share_NoPlan" xml:space="preserve"><value>Set up your journey first, then share the file with Maia again.</value></data>
+  <data name="Toast_AddedToResultsOne" xml:space="preserve"><value>1 file added to your results.</value></data>
+  <data name="Toast_AddedToResults" xml:space="preserve"><value>{0} files added to your results.</value></data>
+  <data name="Viewer_PageOne" xml:space="preserve"><value>1 page</value></data>
+  <data name="Viewer_Pages" xml:space="preserve"><value>{0} pages</value></data>
+  <data name="Viewer_PageOf" xml:space="preserve"><value>Page {0} of {1}</value></data>
+  <data name="Viewer_PhotoHint" xml:space="preserve"><value>Pinch or double-tap to zoom in.</value></data>
+  <data name="Viewer_PdfHint" xml:space="preserve"><value>Tap a page to zoom in.</value></data>
+  <data name="Viewer_FirstPages" xml:space="preserve"><value>Showing the first {0} pages. To see them all, open it in another app.</value></data>
+  <data name="Viewer_CantShow" xml:space="preserve"><value>Maia can't show this file here, but another app on your phone may.</value></data>
+  <data name="Viewer_OpenOutside" xml:space="preserve"><value>Open in another app</value></data>
+  <data name="Viewer_OutsideNote" xml:space="preserve"><value>The other app may keep its own copy, or list the file in its recent files.</value></data>
+  <data name="Viewer_Unreadable" xml:space="preserve"><value>This file doesn't open any more. It may have been damaged on this phone.</value></data>
+  <data name="Viewer_CloseZoom" xml:space="preserve"><value>Back to all pages</value></data>
+  <data name="Common_Save" xml:space="preserve"><value>Save</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Common_KeepIt" xml:space="preserve"><value>Keep it</value></data>
+  <data name="Common_KeepThem" xml:space="preserve"><value>Keep them</value></data>
+  <data name="Common_ChangeOrDelete" xml:space="preserve"><value>Tap to change or delete</value></data>
+  <data name="Common_On" xml:space="preserve"><value>On</value></data>
+  <data name="Common_Off" xml:space="preserve"><value>Off</value></data>
+  <data name="Common_Ticked" xml:space="preserve"><value>Ticked off</value></data>
+  <data name="Common_NotTicked" xml:space="preserve"><value>Not ticked off</value></data>
+  <data name="Common_Selected" xml:space="preserve"><value>Selected</value></data>
+  <data name="Common_NotSelected" xml:space="preserve"><value>Not selected</value></data>
+  <data name="Common_Expanded" xml:space="preserve"><value>Expanded</value></data>
+  <data name="Common_Collapsed" xml:space="preserve"><value>Collapsed</value></data>
+  <data name="Common_Tab" xml:space="preserve"><value>Tab</value></data>
+  <data name="Week_TasksLater" xml:space="preserve"><value>Later</value></data>
+  <data name="Week_TasksNoDate" xml:space="preserve"><value>No date</value></data>
+  <data name="Week_TasksShowAll" xml:space="preserve"><value>Show all</value></data>
+  <data name="Week_AllTasks" xml:space="preserve"><value>All tasks</value></data>
+  <data name="Week_Loading" xml:space="preserve"><value>Getting things ready</value></data>
+  <data name="Tasks_Title" xml:space="preserve"><value>All tasks</value></data>
+  <data name="Tasks_Earlier" xml:space="preserve"><value>Past</value></data>
+  <data name="Tasks_ThisWeek" xml:space="preserve"><value>This week</value></data>
+  <data name="Tasks_Empty" xml:space="preserve"><value>Nothing on your list.</value></data>
+  <data name="Week_TaskHasDate" xml:space="preserve"><value>Date and time</value></data>
+  <data name="Week_TaskDelete" xml:space="preserve"><value>Delete task</value></data>
+  <data name="Week_TaskDeleteConfirm" xml:space="preserve"><value>Delete this task?</value></data>
+  <data name="Week_TaskDeleteYes" xml:space="preserve"><value>Delete task</value></data>
+  <data name="Toast_TaskAddedNoDate" xml:space="preserve"><value>Task added.</value></data>
+  <data name="Toast_TaskSaved" xml:space="preserve"><value>Task updated.</value></data>
+  <data name="Toast_TaskDeleted" xml:space="preserve"><value>Task deleted.</value></data>
+  <data name="Questions_Tick" xml:space="preserve"><value>Tick off once it's answered</value></data>
+  <data name="Questions_Delete" xml:space="preserve"><value>Delete question</value></data>
+  <data name="Questions_DeleteConfirm" xml:space="preserve"><value>Delete this question?</value></data>
+  <data name="Questions_DeleteYes" xml:space="preserve"><value>Delete question</value></data>
+  <data name="Toast_QuestionDeleted" xml:space="preserve"><value>Question deleted.</value></data>
+  <data name="Questions_ClearAnswered" xml:space="preserve"><value>Clear answered</value></data>
+  <data name="Questions_ClearConfirm" xml:space="preserve"><value>Clear the answered questions? The ones still to ask stay.</value></data>
+  <data name="Questions_ClearYes" xml:space="preserve"><value>Clear answered</value></data>
+  <data name="Toast_QuestionsCleared" xml:space="preserve"><value>{0} answered questions cleared.</value></data>
+  <data name="Toast_QuestionsClearedOne" xml:space="preserve"><value>1 answered question cleared.</value></data>
+  <data name="Week_BackupTitle" xml:space="preserve"><value>Backup</value></data>
+  <data name="Week_BackupNever" xml:space="preserve"><value>Your journey lives only on this phone. A backup file keeps it and your results safe for a new phone.</value></data>
+  <data name="Week_BackupOld" xml:space="preserve"><value>Your last backup is from {0}. A new one keeps everything added since.</value></data>
+  <data name="Week_BackupNow" xml:space="preserve"><value>Make a backup</value></data>
+  <data name="Week_BackupLater" xml:space="preserve"><value>Not now</value></data>
+  <data name="Backup_Last" xml:space="preserve"><value>Last backup: {0}</value></data>
+  <data name="Backup_None" xml:space="preserve"><value>No backup yet.</value></data>
+  <data name="Settings_RemindersHint" xml:space="preserve"><value>Bookings and timed tasks.</value></data>
+  <data name="Reminders_Denied" xml:space="preserve"><value>Maia can't show notifications yet. You can allow them for Maia in your phone's settings.</value></data>
+  <data name="Reminders_Blocked" xml:space="preserve"><value>Reminders are on, but notifications for Maia are off in your phone's settings.</value></data>
+  <data name="Reminders_OpenPhoneSettings" xml:space="preserve"><value>Open phone settings</value></data>
+  <data name="Reminders_Channel" xml:space="preserve"><value>Reminders</value></data>
+  <data name="Reminders_ChannelDescription" xml:space="preserve"><value>Bookings and timed tasks. The lock screen only shows “Maia reminder”.</value></data>
+  <data name="Backup_KeptQuestion" xml:space="preserve"><value>Did you save the file somewhere safe, like your email or Drive? Maia can't see where it went.</value></data>
+  <data name="Backup_KeptYes" xml:space="preserve"><value>Yes, it's saved</value></data>
+  <data name="Backup_KeptNo" xml:space="preserve"><value>Not yet</value></data>
+  <data name="Toast_BackupKept" xml:space="preserve"><value>Good. Keep the backup password safe too.</value></data>
+  <data name="Toast_PlanReadyWithGaps" xml:space="preserve"><value>Your journey is ready. Your doctor couldn't be added this time; you can add them in Settings.</value></data>
+  <data name="Toast_PlanWordingUpdated" xml:space="preserve"><value>Maia has updated how your checks are described. Your bookings and results stay as they are.</value></data>
+  <data name="Breathe_Finished" xml:space="preserve"><value>Well done</value></data>
+  <data name="Team_WhichDoctor" xml:space="preserve"><value>Which doctor?</value></data>
+  <data name="Team_LinkAnother" xml:space="preserve"><value>Link another doctor</value></data>
+  <data name="Results_Search" xml:space="preserve"><value>Search by name or month</value></data>
+  <data name="Results_SearchPhotoWords" xml:space="preserve"><value>photo scan image picture ultrasound</value></data>
+  <data name="Results_SearchReportWords" xml:space="preserve"><value>report document file lab</value></data>
+  <data name="Results_EmptySearch" xml:space="preserve"><value>Nothing matches your search.</value></data>
+  <data name="Settings_RemindersTitle" xml:space="preserve"><value>Reminders</value></data>
+  <data name="Questions_Move" xml:space="preserve"><value>Drag to move this question</value></data>
+  <data name="Reminder_DayBefore" xml:space="preserve"><value>24 hours before</value></data>
+  <data name="Results_RenameButton" xml:space="preserve"><value>Rename</value></data>
+  <data name="Results_Rename" xml:space="preserve"><value>Rename {0}</value></data>
+  <data name="Results_RenameField" xml:space="preserve"><value>New name</value></data>
+  <data name="Toast_ResultRenamed" xml:space="preserve"><value>Renamed.</value></data>
+  <data name="Error_ResultNoFile" xml:space="preserve"><value>This result's file isn't on this phone any more.</value></data>
+  <data name="Results_Select" xml:space="preserve"><value>Select</value></data>
+  <data name="Results_SelectHint" xml:space="preserve"><value>Choose results to share</value></data>
+  <data name="Results_Selected" xml:space="preserve"><value>{0} selected</value></data>
+  <data name="Results_SelectAll" xml:space="preserve"><value>Select all</value></data>
+  <data name="Results_Share" xml:space="preserve"><value>Share</value></data>
+  <data name="Results_StopSelecting" xml:space="preserve"><value>Stop selecting</value></data>
+  <data name="Results_ShareNote" xml:space="preserve"><value>The app you choose keeps its own copy.</value></data>
+  <data name="Results_ShareTitle" xml:space="preserve"><value>Sharing results</value></data>
+  <data name="Reminders_When" xml:space="preserve"><value>When?</value></data>
+  <data name="Reminders_Discreet" xml:space="preserve"><value>Discreet lock screen</value></data>
+  <data name="Reminders_DiscreetHint" xml:space="preserve"><value>Notifications say just “Appointment” or “Reminder”, with no name, even when your phone is unlocked. The lock screen only ever shows “Maia reminder”.</value></data>
+  <data name="SetupCare_RemindersTile" xml:space="preserve"><value>Reminders on this phone</value></data>
+  <data name="SetupCare_RemindersNote" xml:space="preserve"><value>Maia's own notifications on this phone, for your bookings and timed tasks. The lock screen only shows “Maia reminder”.</value></data>
+  <data name="Restore_RemindersNote" xml:space="preserve"><value>Reminders are set on each phone. Turn them on again in Settings and your bookings ring here too.</value></data>
+  <data name="Status_NotBooked" xml:space="preserve"><value>Not booked</value></data>
+  <data name="Check_Edit" xml:space="preserve"><value>Edit</value></data>
+  <data name="Check_Delete" xml:space="preserve"><value>Delete</value></data>
+  <data name="Check_DeleteConfirm" xml:space="preserve"><value>Delete {0} from your journey?</value></data>
+  <data name="Check_DeleteYes" xml:space="preserve"><value>Delete</value></data>
+  <data name="Toast_EntryDeleted" xml:space="preserve"><value>{0} deleted from your journey.</value></data>
+  <data name="Toast_EntryUpdated" xml:space="preserve"><value>{0} updated.</value></data>
+  <data name="Toast_BookedDone" xml:space="preserve"><value>{0} done on {1}.</value></data>
+  <data name="Toast_EntryDoneNoDate" xml:space="preserve"><value>{0} added to your journey, already done.</value></data>
+  <data name="Add_DoneAfterNow" xml:space="preserve"><value>Choose a day and time that has passed.</value></data>
+  <data name="Timing_DateTime" xml:space="preserve"><value>Date and time</value></data>
+  <data name="Timing_Trimester" xml:space="preserve"><value>Trimester</value></data>
+  <data name="Timing_Week" xml:space="preserve"><value>Week</value></data>
+  <data name="Timing_EarlierWeek" xml:space="preserve"><value>Earlier week</value></data>
+  <data name="Timing_LaterWeek" xml:space="preserve"><value>Later week</value></data>
+  <data name="Kind_BloodPressure" xml:space="preserve"><value>Blood pressure</value></data>
+  <data name="Reading_Systolic" xml:space="preserve"><value>Systolic</value></data>
+  <data name="Reading_Diastolic" xml:space="preserve"><value>Diastolic</value></data>
+  <data name="Reading_Unit" xml:space="preserve"><value>mmHg</value></data>
+  <data name="Reading_Value" xml:space="preserve"><value>{0}/{1} mmHg</value></data>
+  <data name="Reading_Spoken" xml:space="preserve"><value>Blood pressure {0} over {1}, {2}</value></data>
+  <data name="Reading_SwipeHint" xml:space="preserve"><value>Slide left or right to delete</value></data>
+  <data name="Error_ReadingMissing" xml:space="preserve"><value>Write both numbers.</value></data>
+  <data name="Error_ReadingInvalid" xml:space="preserve"><value>Check the two numbers as your monitor shows them.</value></data>
+  <data name="Error_ReadingsFull" xml:space="preserve"><value>Maia can keep up to {0} readings, and your list is full.</value></data>
+  <data name="Error_ReadingGone" xml:space="preserve"><value>This reading isn't on your journey any more.</value></data>
+  <data name="Toast_ReadingLogged" xml:space="preserve"><value>Blood pressure {0} added to your journey.</value></data>
+  <data name="Toast_ReadingDeleted" xml:space="preserve"><value>Blood pressure {0} deleted from your journey.</value></data>
+  <data name="Calendar_Title" xml:space="preserve"><value>Calendar</value></data>
+  <data name="Calendar_TodaySpoken" xml:space="preserve"><value>today</value></data>
+  <data name="Calendar_Nothing" xml:space="preserve"><value>Nothing on this day.</value></data>
+  <data name="Calendar_Previous" xml:space="preserve"><value>Month before</value></data>
+  <data name="Calendar_Next" xml:space="preserve"><value>Month after</value></data>
+  <data name="Week_PillSpoken" xml:space="preserve"><value>Calendar, {0}</value></data>
+</root>

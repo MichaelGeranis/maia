@@ -1,0 +1,91 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    The MAUI shell: views, platform adapters and the composition root.
+    Screen logic lives in Maia.Presentation so it can be unit-tested without a device.
+  -->
+  <PropertyGroup>
+    <TargetFrameworks>net10.0-android</TargetFrameworks>
+    <TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('linux'))">$(TargetFrameworks);net10.0-ios</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
+
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Maia.App</RootNamespace>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <MauiXamlInflator>SourceGen</MauiXamlInflator>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+
+    <!--
+      App code awaits on the UI thread, so ConfigureAwait(false) is wrong here (CA2007).
+      XAML-bound types must be public (CA1515). Platform entry points are instantiated by the OS (CA1812).
+    -->
+    <NoWarn>$(NoWarn);CA2007;CA1515;CA1812</NoWarn>
+
+    <ApplicationTitle>Maia</ApplicationTitle>
+    <ApplicationId>com.michailgeranis.maia</ApplicationId>
+    <ApplicationDisplayVersion>0.4</ApplicationDisplayVersion>
+    <ApplicationVersion>1</ApplicationVersion>
+
+    <WindowsPackageType>None</WindowsPackageType>
+
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+    <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+  </PropertyGroup>
+
+  <!--
+    Release Android: R8 shrinks the Java/AndroidX code and AndroidLinkResources drops unused resource fields (about
+    2.8 MB off an android-x64 APK). Checked on an API 34 emulator with a Release APK: setup, Your week, Plan (a
+    booking), Results (file picker, photo viewer, a link in a Custom Tab), Team (contact picker, dialer),
+    Settings (Greek, backup share sheet) and a restart that reads the plan back. If a Java type goes missing at run
+    time, add a keep rule in a ProguardConfiguration item rather than turning R8 off.
+  -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release' and $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+    <AndroidLinkTool>r8</AndroidLinkTool>
+    <AndroidLinkResources>true</AndroidLinkResources>
+  </PropertyGroup>
+
+  <!--
+    For personal sideloaded builds only (ADR 0003). Release builds refuse Draft plan templates, so until gr.json is
+    clinically reviewed a Release build cannot start a new plan. -p:MaiaAllowDraftTemplates=true lets a Release
+    Android APK that you build yourself, for your own phone, use the draft template. MaiaStoreGate refuses the
+    switch for an AAB, for any build on CI, and for iOS and Windows, so draft content can never reach a store. It
+    runs in every configuration except Debug (which shows drafts anyway), so a Staging AAB is refused like a Release
+    one; a personal APK outside CI is allowed in Release or a custom configuration alike.
+  -->
+  <PropertyGroup>
+    <MaiaAllowDraftTemplates Condition="'$(MaiaAllowDraftTemplates)' == ''">false</MaiaAllowDraftTemplates>
+    <DefineConstants Condition="'$(MaiaAllowDraftTemplates)' == 'true'">$(DefineConstants);MAIA_ALLOW_DRAFT_TEMPLATES</DefineConstants>
+    <!-- Named on the home screen as a build that shows draft content, so it is never mistaken for a store build. -->
+    <ApplicationTitle Condition="'$(MaiaAllowDraftTemplates)' == 'true'">Maia (internal)</ApplicationTitle>
+  </PropertyGroup>
+
+  <Target Name="MaiaStoreGate" BeforeTargets="BeforeBuild" Condition="'$(MaiaAllowDraftTemplates)' == 'true' and '$(Configuration)' != 'Debug'">
+    <Error Code="MAIA0001"
+           Condition="'$(ContinuousIntegrationBuild)' == 'true' or '$(AndroidPackageFormat)' != 'apk' or $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'android'"
+           Text="MaiaAllowDraftTemplates=true is only for a personal Android APK built outside CI. Store, iOS, Windows and CI builds use clinically reviewed templates only (ADR 0003)." />
+    <Message Importance="high" Text="Maia personal build: draft plan templates are enabled. Do not distribute this APK." />
+  </Target>
+
+  <ItemGroup>
+    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#2E5A4C" />
+    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#2E5A4C" BaseSize="128,128" />
+    <MauiImage Include="Resources\Images\*" />
+    <MauiFont Include="Resources\Fonts\*" />
+    <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+    <!-- The licence texts shown under About Maia, Licences (THIRD-PARTY-NOTICES.md says what each one covers). -->
+    <MauiAsset Include="..\..\licenses\**\*.txt" LogicalName="licences/%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Maui.Controls" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Maia.Presentation\Maia.Presentation.csproj" />
+    <ProjectReference Include="..\Maia.Infrastructure\Maia.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Maia.Application\Maia.Application.csproj" />
+    <ProjectReference Include="..\Maia.Testing\Maia.Testing.csproj" />
+  </ItemGroup>
+</Project>

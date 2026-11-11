@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  A result opened inside Maia (no screenshot in the design): a photo to pinch and zoom, or a PDF's pages to scroll,
+  tapping one to zoom in. Built from the design's back pill, title and caption styles, white cards and Sand notices,
+  in the layout of the pushed screens (Settings, About). No bottom bar.
+-->
+<controls:MaiaPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:loc="clr-namespace:Maia.App.Localization"
+                   xmlns:controls="clr-namespace:Maia.App.Controls"
+                   xmlns:vm="clr-namespace:Maia.Presentation.Results;assembly=Maia.Presentation"
+                   x:Class="Maia.App.Views.ResultViewerPage"
+                   x:DataType="vm:ResultViewerViewModel">
+    <Grid RowDefinitions="Auto,*">
+        <VerticalStackLayout Padding="20,44,20,14" Spacing="10">
+            <!-- Back, and "Rename" and "Remove" at the other end: both happen here, where she sees what it is. -->
+            <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
+                <controls:BackPill Command="{Binding BackCommand}" HorizontalOptions="Start" />
+                <Button Grid.Column="1" Text="{loc:Translate Results_RenameButton}" Style="{StaticResource OutlineButton}" CornerRadius="22" Padding="16,0"
+                        VerticalOptions="Center" SemanticProperties.Description="{Binding RenameLabel}" Command="{Binding AskRenameCommand}" IsVisible="{Binding CanRemove}" />
+                <Button Grid.Column="2" Text="{loc:Translate Results_RemoveOpen}" Style="{StaticResource OutlineButton}" TextColor="{StaticResource SandDeep}"
+                        BorderColor="{StaticResource Sun}" CornerRadius="22" Padding="16,0" VerticalOptions="Center"
+                        SemanticProperties.Description="{Binding RemovalLabel}" Command="{Binding AskRemoveCommand}" IsVisible="{Binding CanRemove}" />
+            </Grid>
+            <!-- Renaming: the name in place, then Save or Cancel. -->
+            <VerticalStackLayout Spacing="8" IsVisible="{Binding IsRenaming}" controls:Accessible.FocusWhenShown="True">
+                <Border Style="{StaticResource Field}" Padding="12,0">
+                    <Entry Keyboard="Text" Text="{Binding NewName}" TextColor="{StaticResource Ink}" MaxLength="{x:Static vm:ResultViewerViewModel.MaxNameLength}"
+                           ReturnType="Done" ReturnCommand="{Binding SaveNameCommand}" SemanticProperties.Description="{loc:Translate Results_RenameField}"/>
+                </Border>
+                <FlexLayout Wrap="Wrap">
+                    <Button Text="{loc:Translate Common_Save}" Style="{StaticResource PrimaryButtonSmall}" MinimumHeightRequest="44"
+                            CornerRadius="22" Padding="18,0" Margin="0,0,8,0" Command="{Binding SaveNameCommand}"/>
+                    <Button Text="{loc:Translate Common_Cancel}" Style="{StaticResource OutlineButton}" CornerRadius="22" Padding="18,0"
+                            Command="{Binding CancelRenameCommand}" />
+                </FlexLayout>
+            </VerticalStackLayout>
+            <!-- Removing asks once more, in place (Sand, never red). -->
+            <Border BackgroundColor="{StaticResource Sand}" Stroke="{StaticResource Sun}" StrokeThickness="1" StrokeShape="RoundRectangle 14"
+                    Padding="14" IsVisible="{Binding IsConfirmingRemoval}" controls:Accessible.FocusWhenShown="True">
+                <VerticalStackLayout Spacing="10">
+                    <Label Style="{StaticResource Body}" Text="{Binding RemovalQuestion}" TextColor="{StaticResource SandDeep}" />
+                    <FlexLayout Wrap="Wrap">
+                        <Button Text="{loc:Translate Results_RemoveYes}" Style="{StaticResource ConfirmButton}" Command="{Binding RemoveCommand}" />
+                        <Button Text="{loc:Translate Common_KeepIt}" Style="{StaticResource KeepButton}" Command="{Binding KeepResultCommand}" />
+                    </FlexLayout>
+                </VerticalStackLayout>
+            </Border>
+            <VerticalStackLayout Spacing="2">
+                <Label Text="{Binding Title}" Style="{StaticResource Heading}" LineBreakMode="TailTruncation" SemanticProperties.HeadingLevel="Level1" />
+                <Label Text="{Binding Meta}" Style="{StaticResource Caption}" />
+            </VerticalStackLayout>
+            <Label Text="{Binding Hint}" Style="{StaticResource Caption}"
+                   IsVisible="{Binding Hint, Converter={StaticResource IsNotNull}}" />
+            <Border Style="{StaticResource Chip}" BackgroundColor="{StaticResource Sand}" StrokeShape="RoundRectangle 14" Padding="14,12" HorizontalOptions="Fill"
+                    IsVisible="{Binding Notice, Converter={StaticResource IsNotNull}}">
+                <Label Style="{StaticResource Body}" Text="{Binding Notice}" controls:Accessible.Announce="True" TextColor="{StaticResource SandDeep}" />
+            </Border>
+            <VerticalStackLayout Spacing="6" IsVisible="{Binding CanOpenOutside}">
+                <Button Text="{loc:Translate Viewer_OpenOutside}" Style="{StaticResource OutlineButton}" CornerRadius="22" Padding="18,0"
+                        HorizontalOptions="Start" Command="{Binding OpenOutsideCommand}" />
+                <Label Text="{loc:Translate Viewer_OutsideNote}" Style="{StaticResource Caption}" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+
+        <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" Color="{StaticResource Pine}"
+                           VerticalOptions="Center" HorizontalOptions="Center" />
+
+        <!-- A photo, whole, to pinch and zoom. -->
+        <Border Grid.Row="1" BackgroundColor="{StaticResource White}" Stroke="{StaticResource Line}" StrokeThickness="1" StrokeShape="RoundRectangle 22"
+                Margin="20,0,20,20" IsVisible="{Binding IsPhoto}">
+            <controls:ZoomView>
+                <Image Source="{Binding Photo, Converter={StaticResource BytesToImage}}" Aspect="AspectFit" SemanticProperties.Description="{Binding Title}" />
+            </controls:ZoomView>
+        </Border>
+
+        <!-- A PDF's pages, one under another; tap one to zoom in. -->
+        <!-- Each page is drawn as it comes into view (and the next two); pictures far away are let go. -->
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Pages}" SelectionMode="None" IsVisible="{Binding ShowPages}" Scrolled="OnPagesScrolled">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vm:ViewerPage">
+                    <Border Margin="20,0,20,14" BackgroundColor="{StaticResource White}" Stroke="{StaticResource Line}" StrokeThickness="1"
+                            StrokeShape="RoundRectangle 6" SemanticProperties.Description="{Binding Label}" controls:Accessible.Role="Button">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ZoomCommand, Source={RelativeSource AncestorType={x:Type vm:ResultViewerViewModel}}, x:DataType=vm:ResultViewerViewModel}"
+                                                  CommandParameter="{Binding .}" />
+                        </Border.GestureRecognizers>
+                        <controls:PageImage Ratio="{Binding Ratio}" Source="{Binding Image, Converter={StaticResource BytesToImage}}" />
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- One page, drawn sharper, to pinch and zoom into its small print. -->
+        <Grid Grid.Row="1" RowDefinitions="Auto,*" RowSpacing="10" Padding="20,0,20,20" IsVisible="{Binding IsZoomed}">
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                <Label Text="{Binding ZoomedPage.Label}" Style="{StaticResource CaptionStrong}" VerticalOptions="Center" />
+                <Button Grid.Column="1" Text="{loc:Translate Viewer_CloseZoom}" Style="{StaticResource OutlineButton}" CornerRadius="22" Padding="16,0"
+                        Command="{Binding CloseZoomCommand}" />
+            </Grid>
+            <Border Grid.Row="1" BackgroundColor="{StaticResource White}" Stroke="{StaticResource Line}" StrokeThickness="1" StrokeShape="RoundRectangle 6">
+                <controls:ZoomView x:Name="PageZoom">
+                    <Image Source="{Binding ZoomedImage, Converter={StaticResource BytesToImage}}" Aspect="AspectFit" SemanticProperties.Description="{Binding ZoomedPage.Label}" />
+                </controls:ZoomView>
+            </Border>
+        </Grid>
+    </Grid>
+</controls:MaiaPage>

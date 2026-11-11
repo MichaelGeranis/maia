@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Settings, the last tab of the bottom bar (no Back: she leaves by the bar). There is no screenshot for it: it is
+  built only from the design's existing cards, pills, switches and buttons, in the layout of the old Calendar sync
+  screen (docs/design/screens/11-calendar-sync.jpg). Cards, top to bottom: your pregnancy (due date), care team,
+  reminders, animations, language, the lock, backup, your data, diagnostics, About Maia.
+-->
+<controls:MaiaPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:loc="clr-namespace:Maia.App.Localization"
+                   xmlns:controls="clr-namespace:Maia.App.Controls"
+                   xmlns:vm="clr-namespace:Maia.Presentation.Settings;assembly=Maia.Presentation"
+                   xmlns:care="clr-namespace:Maia.Presentation.Care;assembly=Maia.Presentation"
+                   x:Class="Maia.App.Views.SettingsPage"
+                   x:DataType="vm:SettingsViewModel"
+                   Tab="settings">
+    <ScrollView>
+        <VerticalStackLayout Padding="20,44,20,28" Spacing="16" controls:Motions.Rise="True">
+            <VerticalStackLayout Spacing="8">
+                <Label Text="{loc:Translate Settings_Title}" Style="{StaticResource Title}" />
+                <Label Text="{loc:Translate Settings_Intro}" Style="{StaticResource Body}" />
+            </VerticalStackLayout>
+
+            <!--
+              Your pregnancy: her due date, which a scan may move. It opens in place, like the backup form, with setup
+              step 1's fields (docs/design/screens/01-setup-due-date.jpg): the date, the last-period link and the Sky line.
+            -->
+            <Border Style="{StaticResource Card}" Padding="18" IsVisible="{Binding DueDate.HasPlan}">
+                <VerticalStackLayout Spacing="12">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14">
+                        <Border WidthRequest="36" HeightRequest="36" BackgroundColor="{StaticResource SageTint}" StrokeThickness="0" StrokeShape="RoundRectangle 14" VerticalOptions="Start">
+                            <controls:Icon Data="{StaticResource IconDate}" Size="18" Color="{StaticResource Pine}" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                            <Label Text="{loc:Translate Settings_Pregnancy}" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level2" />
+                            <Label Text="{Binding DueDate.Current}" Style="{StaticResource CaptionStrong}" TextColor="{StaticResource Sea}" />
+                            <Label Text="{loc:Translate Settings_DueDateHint}" Style="{StaticResource Caption}" Margin="0,4,0,0" />
+                        </VerticalStackLayout>
+                    </Grid>
+                    <Button Text="{loc:Translate Settings_DueDateChange}" Style="{StaticResource OutlineButton}" HorizontalOptions="Start"
+                            Command="{Binding DueDate.EditCommand}" IsVisible="{Binding DueDate.IsEditing, Converter={StaticResource InvertedBool}}"
+                            controls:Accessible.FocusWhenShown="True" />
+                    <VerticalStackLayout Spacing="8" IsVisible="{Binding DueDate.IsEditing}" controls:Accessible.FocusWhenShown="True">
+                        <Label Text="{Binding DueDate.Entry.DateLabel}" Style="{StaticResource Heading}" />
+                        <Border Style="{StaticResource BigField}">
+                            <Grid>
+                                <DatePicker Date="{Binding DueDate.Entry.DueDate}" MinimumDate="{Binding DueDate.Entry.DueMinimumDate}"
+                                            MaximumDate="{Binding DueDate.Entry.DueMaximumDate}" TextColor="{StaticResource Ink}"
+                                            IsVisible="{Binding DueDate.Entry.UseDueDate}" SemanticProperties.Description="{Binding DueDate.Entry.DateLabel}"/>
+                                <DatePicker Date="{Binding DueDate.Entry.LastPeriodDate}" MinimumDate="{Binding DueDate.Entry.LastPeriodMinimumDate}"
+                                            MaximumDate="{Binding DueDate.Entry.LastPeriodMaximumDate}" TextColor="{StaticResource Ink}"
+                                            IsVisible="{Binding DueDate.Entry.UseLastPeriod}" SemanticProperties.Description="{Binding DueDate.Entry.DateLabel}"/>
+                            </Grid>
+                        </Border>
+                        <Label Style="{StaticResource Body}" Text="{Binding DueDate.Entry.DateModeLink}" TextColor="{StaticResource Sea}" TextDecorations="Underline"
+                               MinimumHeightRequest="44" VerticalTextAlignment="Center" controls:Accessible.Role="Button" FontFamily="{DynamicResource FontTextSemiBold}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding DueDate.Entry.ToggleDateModeCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Border Style="{StaticResource Chip}" BackgroundColor="{StaticResource Sky}" StrokeShape="RoundRectangle 14"
+                                Padding="14,12" HorizontalOptions="Fill">
+                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                                <controls:Logo Size="24" />
+                                <Label Style="{StaticResource Body}" Grid.Column="1" Text="{Binding DueDate.Entry.Summary}" controls:Accessible.Announce="True" TextColor="{StaticResource SkyDeep}" VerticalTextAlignment="Center" FontFamily="{DynamicResource FontTextSemiBold}" />
+                            </Grid>
+                        </Border>
+                        <Label Text="{loc:Translate Settings_DueDateNote}" Style="{StaticResource Caption}" />
+                        <FlexLayout Wrap="Wrap">
+                            <Button Text="{loc:Translate Settings_DueDateSave}" Style="{StaticResource PrimaryButtonSmall}" MinimumHeightRequest="44"
+                                    CornerRadius="22" Padding="18,0" Margin="0,0,8,8" Command="{Binding DueDate.SaveCommand}"/>
+                            <Button Text="{loc:Translate Settings_DueDateCancel}" Style="{StaticResource OutlineButton}" CornerRadius="22" Padding="18,0"
+                                    Margin="0,0,0,8" Command="{Binding DueDate.CancelCommand}" />
+                        </FlexLayout>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!--
+              Care team, which had a tab of its own (docs/design/screens/09-care-team.jpg): folded to its heading until she
+              taps it (and again each time she leaves Settings), then her OB-GYN, the one Maia uses for bookings and calls,
+              a smaller card for each other doctor she has linked someone to, and "Link another doctor", which asks which
+              doctor (her OB-GYN first) and then for the contact. "Link from contacts" shows only until an OB-GYN is linked.
+            -->
+            <Border Style="{StaticResource Card}" Padding="18"
+                    BindingContext="{Binding Team, x:DataType=vm:SettingsViewModel}" x:DataType="care:TeamViewModel">
+                <VerticalStackLayout Spacing="14">
+                    <!-- The heading folds and opens the card: one 44 dp target, read out as an expander. -->
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14" MinimumHeightRequest="44"
+                          SemanticProperties.Description="{loc:Translate Team_Title}" controls:Accessible.Role="Expander" controls:Accessible.IsOn="{Binding IsOpen}">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ToggleCommand}" />
+                        </Grid.GestureRecognizers>
+                        <Border WidthRequest="36" HeightRequest="36" BackgroundColor="{StaticResource SageTint}" StrokeThickness="0" StrokeShape="RoundRectangle 14" VerticalOptions="Center">
+                            <controls:Icon Data="{StaticResource IconTeam}" Size="18" Color="{StaticResource Pine}" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                            <Label Text="{loc:Translate Team_Title}" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level2" />
+                            <Label Text="{loc:Translate Team_Intro}" Style="{StaticResource Caption}" />
+                        </VerticalStackLayout>
+                        <controls:Icon Grid.Column="2" Data="{StaticResource IconChevronRight}" Rotation="90" Size="16" Color="{StaticResource Sea}" VerticalOptions="Center">
+                            <controls:Icon.Triggers>
+                                <DataTrigger TargetType="controls:Icon" Binding="{Binding IsOpen}" Value="True">
+                                    <Setter Property="Rotation" Value="-90" />
+                                </DataTrigger>
+                            </controls:Icon.Triggers>
+                        </controls:Icon>
+                    </Grid>
+
+                    <VerticalStackLayout Spacing="14" IsVisible="{Binding IsOpen}">
+                        <ContentView HeightRequest="1" BackgroundColor="{StaticResource Line}" />
+
+                        <!-- OB-GYN: her doctor, the one Maia uses for bookings, reminders and results. -->
+                        <VerticalStackLayout Spacing="10">
+                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                                <Border WidthRequest="36" HeightRequest="36" StrokeThickness="0" StrokeShape="RoundRectangle 14" BackgroundColor="{StaticResource SageTint}">
+                                    <controls:Icon Data="{StaticResource IconStethoscope}" Size="18" Color="{StaticResource Pine}" />
+                                </Border>
+                                <VerticalStackLayout Grid.Column="1" Spacing="1" VerticalOptions="Center">
+                                    <Label Text="{loc:Translate Team_ObGyn}" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level3" />
+                                    <Label Text="{loc:Translate Team_ObGynUse}" Style="{StaticResource Caption}" />
+                                </VerticalStackLayout>
+                            </Grid>
+                            <VerticalStackLayout BindableLayout.ItemsSource="{Binding ObGyns}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="care:ContactItem">
+                                        <Grid ColumnDefinitions="Auto,*,Auto,Auto" ColumnSpacing="10" Padding="0,10" controls:Motions.Pop="True">
+                                            <ContentView Grid.ColumnSpan="4" HeightRequest="1" BackgroundColor="{StaticResource Line}" VerticalOptions="Start" Margin="0,-10,0,0" />
+                                            <Border WidthRequest="42" HeightRequest="42" StrokeThickness="0" StrokeShape="RoundRectangle 21" BackgroundColor="{StaticResource SageTint}">
+                                                <Border.Triggers>
+                                                    <DataTrigger TargetType="Border" Binding="{Binding AltAvatar}" Value="True">
+                                                        <Setter Property="BackgroundColor" Value="{StaticResource Sky}" />
+                                                    </DataTrigger>
+                                                </Border.Triggers>
+                                                <Label Style="{StaticResource Heading}" Text="{Binding Initials}" TextColor="{StaticResource Pine}"
+                                                       HorizontalOptions="Center" VerticalOptions="Center" AutomationProperties.IsInAccessibleTree="False" />
+                                            </Border>
+                                            <VerticalStackLayout Grid.Column="1" Spacing="1" VerticalOptions="Center">
+                                                <Label Text="{Binding Name}" Style="{StaticResource Heading}" />
+                                                <Label Text="{Binding Meta}" Style="{StaticResource Caption}" />
+                                            </VerticalStackLayout>
+                                            <Border Grid.Column="2" WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 22"
+                                                    BackgroundColor="{StaticResource Sky}" VerticalOptions="Center" SemanticProperties.Description="{Binding CallLabel}" controls:Accessible.Role="Button">
+                                                <Border.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding CallCommand, Source={RelativeSource AncestorType={x:Type care:TeamViewModel}}, x:DataType=care:TeamViewModel}"
+                                                                          CommandParameter="{Binding .}" />
+                                                </Border.GestureRecognizers>
+                                                <controls:Icon Data="{StaticResource IconPhone}" Size="16" Color="{StaticResource SkyDeep}" />
+                                            </Border>
+                                            <!-- Unlink: a 44 dp target that asks once more. -->
+                                            <Border Grid.Column="3" WidthRequest="44" HeightRequest="44" StrokeThickness="0" BackgroundColor="Transparent" VerticalOptions="Center"
+                                                    SemanticProperties.Description="{Binding UnlinkLabel}" controls:Accessible.Role="Button">
+                                                <Border.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding AskUnlinkCommand, Source={RelativeSource AncestorType={x:Type care:TeamViewModel}}, x:DataType=care:TeamViewModel}"
+                                                                          CommandParameter="{Binding .}" />
+                                                </Border.GestureRecognizers>
+                                                <controls:Icon Data="{StaticResource IconClose}" Size="16" Color="{StaticResource Muted}" />
+                                            </Border>
+                                        </Grid>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </VerticalStackLayout>
+                            <!-- Unlinking asks once more, in place (Sand, never red). -->
+                            <Border BackgroundColor="{StaticResource Sand}" Stroke="{StaticResource Sun}" StrokeThickness="1" StrokeShape="RoundRectangle 14"
+                                    Padding="14" IsVisible="{Binding IsConfirmingUnlink}" controls:Accessible.FocusWhenShown="True">
+                                <VerticalStackLayout Spacing="10">
+                                    <Label Style="{StaticResource Body}" Text="{Binding UnlinkQuestion}" TextColor="{StaticResource SandDeep}" />
+                                    <FlexLayout Wrap="Wrap">
+                                        <Button Text="{loc:Translate Team_UnlinkYes}" Style="{StaticResource ConfirmButton}" Command="{Binding UnlinkCommand}" />
+                                        <Button Text="{loc:Translate Common_KeepIt}" Style="{StaticResource KeepButton}" Command="{Binding KeepContactCommand}" />
+                                    </FlexLayout>
+                                </VerticalStackLayout>
+                            </Border>
+                            <controls:DashedButton Text="{loc:Translate Team_LinkFromContacts}" Icon="{StaticResource IconUserPlus}" Command="{Binding LinkCommand}"
+                                                   IsVisible="{Binding HasObGyns, Converter={StaticResource InvertedBool}}" />
+                        </VerticalStackLayout>
+
+                        <Border Style="{StaticResource Chip}" BackgroundColor="{StaticResource Sand}" StrokeShape="RoundRectangle 14" Padding="14,12" HorizontalOptions="Fill"
+                                IsVisible="{Binding Notice, Converter={StaticResource IsNotNull}}">
+                            <Label Style="{StaticResource Body}" Text="{Binding Notice}" controls:Accessible.Announce="True" TextColor="{StaticResource SandDeep}" />
+                        </Border>
+
+                        <!-- Her other doctors: a card for each doctor she has linked someone to, then "Link another doctor", which asks
+                             which doctor and then for the contact. -->
+                        <Label Text="{loc:Translate Team_Doctors}" Style="{StaticResource GroupEyebrow}" Margin="0,6,0,0" />
+                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding DoctorRows}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="care:DoctorRow">
+                                    <VerticalStackLayout Spacing="10" IsVisible="{Binding IsShown}" Margin="0,0,0,10">
+                                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding Tiles}">
+                                            <BindableLayout.ItemTemplate>
+                                                <DataTemplate x:DataType="care:DoctorTile">
+                                                    <Border Style="{StaticResource Card}" Padding="12">
+                                                        <VerticalStackLayout Spacing="4">
+                                                            <Label Text="{Binding Name}" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level3" />
+                                                            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Contacts}">
+                                                                <BindableLayout.ItemTemplate>
+                                                                    <DataTemplate x:DataType="care:ContactItem">
+                                                                        <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="6" Padding="0,4" controls:Motions.Pop="True">
+                                                                            <VerticalStackLayout Spacing="1" VerticalOptions="Center">
+                                                                                <Label Style="{StaticResource Body}" Text="{Binding Name}" TextColor="{StaticResource Ink}" FontFamily="{DynamicResource FontTextSemiBold}" />
+                                                                                <Label Text="{Binding Meta}" Style="{StaticResource Caption}" />
+                                                                            </VerticalStackLayout>
+                                                                            <Border Grid.Column="1" WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 22" VerticalOptions="Center"
+                                                                                    BackgroundColor="{StaticResource Sky}" SemanticProperties.Description="{Binding CallLabel}" controls:Accessible.Role="Button">
+                                                                                <Border.GestureRecognizers>
+                                                                                    <TapGestureRecognizer Command="{Binding CallCommand, Source={RelativeSource AncestorType={x:Type care:TeamViewModel}}, x:DataType=care:TeamViewModel}"
+                                                                                                          CommandParameter="{Binding .}" />
+                                                                                </Border.GestureRecognizers>
+                                                                                <controls:Icon Data="{StaticResource IconPhone}" Size="16" Color="{StaticResource SkyDeep}" />
+                                                                            </Border>
+                                                                            <!-- Unlink: a 44 dp target that asks once more, under the card. -->
+                                                                            <Border Grid.Column="2" WidthRequest="44" HeightRequest="44" StrokeThickness="0" BackgroundColor="Transparent" VerticalOptions="Center"
+                                                                                    SemanticProperties.Description="{Binding UnlinkLabel}" controls:Accessible.Role="Button">
+                                                                                <Border.GestureRecognizers>
+                                                                                    <TapGestureRecognizer Command="{Binding AskUnlinkCommand, Source={RelativeSource AncestorType={x:Type care:TeamViewModel}}, x:DataType=care:TeamViewModel}"
+                                                                                                          CommandParameter="{Binding .}" />
+                                                                                </Border.GestureRecognizers>
+                                                                                <controls:Icon Data="{StaticResource IconClose}" Size="16" Color="{StaticResource Muted}" />
+                                                                            </Border>
+                                                                        </Grid>
+                                                                    </DataTemplate>
+                                                                </BindableLayout.ItemTemplate>
+                                                            </VerticalStackLayout>
+                                                        </VerticalStackLayout>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </BindableLayout.ItemTemplate>
+                                        </VerticalStackLayout>
+                                        <!-- Unlinking asks once more, in place (Sand, never red). -->
+                                        <Border BackgroundColor="{StaticResource Sand}" Stroke="{StaticResource Sun}" StrokeThickness="1" StrokeShape="RoundRectangle 14"
+                                                Padding="14" IsVisible="{Binding IsConfirmingUnlink}" controls:Accessible.FocusWhenShown="True">
+                                            <VerticalStackLayout Spacing="10">
+                                                <Label Style="{StaticResource Body}" Text="{Binding UnlinkQuestion}" TextColor="{StaticResource SandDeep}" />
+                                                <FlexLayout Wrap="Wrap">
+                                                    <Button Text="{loc:Translate Team_UnlinkYes}" Style="{StaticResource ConfirmButton}"
+                                                            Command="{Binding UnlinkCommand, Source={RelativeSource AncestorType={x:Type care:TeamViewModel}}, x:DataType=care:TeamViewModel}" />
+                                                    <Button Text="{loc:Translate Common_KeepIt}" Style="{StaticResource KeepButton}"
+                                                            Command="{Binding KeepContactCommand, Source={RelativeSource AncestorType={x:Type care:TeamViewModel}}, x:DataType=care:TeamViewModel}" />
+                                                </FlexLayout>
+                                            </VerticalStackLayout>
+                                        </Border>
+                                        <Border Style="{StaticResource Chip}" BackgroundColor="{StaticResource Sand}" StrokeShape="RoundRectangle 14" Padding="14,12" HorizontalOptions="Fill"
+                                                IsVisible="{Binding Notice, Converter={StaticResource IsNotNull}}">
+                                            <Label Style="{StaticResource Body}" Text="{Binding Notice}" controls:Accessible.Announce="True" TextColor="{StaticResource SandDeep}" />
+                                        </Border>
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+                        <controls:DashedButton Text="{loc:Translate Team_LinkAnother}" Icon="{StaticResource IconUserPlus}" Command="{Binding LinkDoctorCommand}" />
+                        <Border Style="{StaticResource Chip}" BackgroundColor="{StaticResource Sand}" StrokeShape="RoundRectangle 14" Padding="14,12" HorizontalOptions="Fill"
+                                IsVisible="{Binding DoctorsNotice, Converter={StaticResource IsNotNull}}">
+                            <Label Style="{StaticResource Body}" Text="{Binding DoctorsNotice}" controls:Accessible.Announce="True" TextColor="{StaticResource SandDeep}" />
+                        </Border>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!--
+              Reminders: Maia's own notifications on this phone (Android for now; elsewhere the card is not offered).
+              The header is laid out like the other switch cards (a tile, the title with a short hint, the switch); the
+              switch asks for notifications only when she turns it on. While on: "Remind me" (three equal pills) and
+              "Discreet lock screen". The lock screen only ever says "Maia reminder".
+            -->
+            <Border Style="{StaticResource Card}" Padding="16,4"
+                    BindingContext="{Binding Reminders, x:DataType=vm:SettingsViewModel}" x:DataType="vm:PhoneRemindersSetting"
+                    IsVisible="{Binding IsSupported}">
+                <VerticalStackLayout>
+                    <VerticalStackLayout Spacing="10" Padding="0,10">
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
+                            <Border WidthRequest="36" HeightRequest="36" BackgroundColor="{StaticResource SageTint}" StrokeThickness="0" StrokeShape="RoundRectangle 14" VerticalOptions="Center">
+                                <controls:Icon Data="{StaticResource IconClock}" Size="18" Color="{StaticResource Pine}" />
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                <Label Text="{loc:Translate Settings_RemindersTitle}" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level2" />
+                                <Label Text="{loc:Translate Settings_RemindersHint}" Style="{StaticResource Caption}" />
+                            </VerticalStackLayout>
+                            <controls:PillSwitch Grid.Column="2" IsToggled="{Binding IsOn}" VerticalOptions="Center" Label="{loc:Translate Settings_RemindersTitle}" />
+                        </Grid>
+
+                        <!-- Notifications not allowed: said calmly, in Sand (never red), with the way to allow them. -->
+                        <VerticalStackLayout Spacing="8" IsVisible="{Binding Notice, Converter={StaticResource IsNotNull}}">
+                            <Border Style="{StaticResource Chip}" BackgroundColor="{StaticResource Sand}" StrokeShape="RoundRectangle 14" Padding="14,12" HorizontalOptions="Fill">
+                                <Label Style="{StaticResource Body}" Text="{Binding Notice}" controls:Accessible.Announce="True" TextColor="{StaticResource SandDeep}" />
+                            </Border>
+                            <Button Text="{loc:Translate Reminders_OpenPhoneSettings}" Style="{StaticResource OutlineButton}" HorizontalOptions="Start"
+                                    Command="{Binding OpenPhoneSettingsCommand}" />
+                        </VerticalStackLayout>
+
+                        <!-- Remind me: three equal pills in one row; a long word wraps inside its pill (Greek, large text). -->
+                        <VerticalStackLayout Spacing="8" IsVisible="{Binding IsOn}">
+                            <Label Text="{loc:Translate Reminders_When}" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level3" Margin="0,4,0,0" />
+                            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="6" SemanticProperties.Description="{loc:Translate Reminders_When}">
+                                <controls:ChoicePill Text="{loc:Translate Reminder_DayBefore}" IsSelected="{Binding RemindDayBefore}" Margin="0" Padding="8,4"
+                                                     Command="{Binding SetRemindersCommand}" CommandParameter="DayBefore" />
+                                <controls:ChoicePill Grid.Column="1" Text="{loc:Translate Reminder_TwoHoursBefore}" IsSelected="{Binding RemindTwoHours}" Margin="0" Padding="8,4"
+                                                     Command="{Binding SetRemindersCommand}" CommandParameter="TwoHoursBefore" />
+                                <controls:ChoicePill Grid.Column="2" Text="{loc:Translate Reminder_Both}" IsSelected="{Binding RemindBoth}" Margin="0" Padding="8,4"
+                                                     Command="{Binding SetRemindersCommand}" CommandParameter="Both" />
+                            </Grid>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+
+                    <!-- Discreet lock screen: a switch row. -->
+                    <ContentView HeightRequest="1" BackgroundColor="{StaticResource Line}" IsVisible="{Binding IsOn}" />
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12" MinimumHeightRequest="60" Padding="0,8,0,12" IsVisible="{Binding IsOn}">
+                        <VerticalStackLayout Spacing="2" VerticalOptions="Center">
+                            <Label Text="{loc:Translate Reminders_Discreet}" Style="{StaticResource Heading}" />
+                            <Label Text="{loc:Translate Reminders_DiscreetHint}" Style="{StaticResource Caption}" />
+                        </VerticalStackLayout>
+                        <controls:PillSwitch Grid.Column="1" IsToggled="{Binding DiscreetTitles}" VerticalOptions="Center" Label="{loc:Translate Reminders_Discreet}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Animations: on by default; off, nothing on Maia's screens moves (as with the phone's "Remove animations"). -->
+            <Border Style="{StaticResource Card}" Padding="16,14">
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
+                    <Border WidthRequest="36" HeightRequest="36" BackgroundColor="{StaticResource SageTint}" StrokeThickness="0" StrokeShape="RoundRectangle 14" VerticalOptions="Center">
+                        <controls:Icon Data="{StaticResource IconSparkle}" Size="18" Color="{StaticResource Pine}" />
+                    </Border>
+                    <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                        <Label Text="{loc:Translate Settings_Animations}" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level2" />
+                        <Label Text="{loc:Translate Settings_AnimationsHint}" Style="{StaticResource Caption}" />
+                    </VerticalStackLayout>
+                    <controls:PillSwitch Grid.Column="2" IsToggled="{Binding Animations.IsOn}" VerticalOptions="Center" Label="{loc:Translate Settings_Animations}" />
+                </Grid>
+            </Border>
+
+            <!-- Language: each name in its own language, so she can find hers either way. -->
+            <Border Style="{StaticResource Card}" Padding="18">
+                <VerticalStackLayout Spacing="10">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14">
+                        <Border WidthRequest="36" HeightRequest="36" BackgroundColor="{StaticResource SageTint}" StrokeThickness="0" StrokeShape="RoundRectangle 14" VerticalOptions="Center">
+                            <controls:Icon Data="{StaticResource IconGlobe}" Size="18" Color="{StaticResource Pine}" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                            <Label Text="{loc:Translate Settings_Language}" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level2" />
+                            <Label Text="{loc:Translate Settings_LanguageHint}" Style="{StaticResource Caption}" />
+                        </VerticalStackLayout>
+                    </Grid>
+                    <FlexLayout Wrap="Wrap">
+                        <controls:ChoicePill Text="{loc:Translate Settings_English}" IsSelected="{Binding IsEnglish}"
+                                             Command="{Binding ChooseLanguageCommand}" CommandParameter="en" MinimumHeightRequest="44" Margin="0,0,8,6" />
+                        <controls:ChoicePill Text="{loc:Translate Settings_Greek}" IsSelected="{Binding IsGreek}"
+                                             Command="{Binding ChooseLanguageCommand}" CommandParameter="el" MinimumHeightRequest="44" />
+                    </FlexLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- The lock: a switch row as in the reminders card. Without a screen lock on the phone, a Sand note says why. -->
+            <Border Style="{StaticResource Card}" Padding="16,4">
+                <VerticalStackLayout>
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14" MinimumHeightRequest="60" Padding="0,10">
+                        <Border WidthRequest="36" HeightRequest="36" BackgroundColor="{StaticResource SageTint}" StrokeThickness="0" StrokeShape="RoundRectangle 14" VerticalOptions="Center">
+                            <controls:Icon Data="{StaticResource IconLock}" Size="18" Color="{StaticResource Pine}" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                            <Label Text="{loc:Translate Settings_Lock}" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level2" />
+                            <Label Text="{loc:Translate Settings_LockHint}" Style="{StaticResource Caption}" />
+                        </VerticalStackLayout>
+                        <controls:PillSwitch Grid.Column="2" IsToggled="{Binding Lock.IsOn}" VerticalOptions="Center" Label="{loc:Translate Settings_Lock}" />
+                    </Grid>
+                    <VerticalStackLayout Spacing="8" Padding="0,0,0,14" IsVisible="{Binding Lock.Notice, Converter={StaticResource IsNotNull}}">
+                        <Border Style="{StaticResource Chip}" BackgroundColor="{StaticResource Sand}" StrokeShape="RoundRectangle 14" Padding="14,12" HorizontalOptions="Fill">
+                            <Label Style="{StaticResource Body}" Text="{Binding Lock.Notice}" controls:Accessible.Announce="True" TextColor="{StaticResource SandDeep}" />
+                        </Border>
+                        <Button Text="{loc:Translate Settings_LockOpenSettings}" Style="{StaticResource OutlineButton}" HorizontalOptions="Start"
+                                Command="{Binding Lock.OpenPhoneSettingsCommand}" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Backup: one encrypted file for a new phone (ADR 0005); the password is asked twice, in place. -->
+            <Border Style="{StaticResource Card}" Padding="18">
+                <VerticalStackLayout Spacing="12">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14">
+                        <Border WidthRequest="36" HeightRequest="36" BackgroundColor="{StaticResource SageTint}" StrokeThickness="0" StrokeShape="RoundRectangle 14" VerticalOptions="Start">
+                            <controls:Icon Data="{StaticResource IconUpload}" Size="18" Color="{StaticResource Pine}" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                            <Label Text="{loc:Translate Backup_Title}" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level2" />
+                            <Label Text="{loc:Translate Backup_Note}" Style="{StaticResource Caption}" />
+                            <Label Text="{Binding LastBackupText}" Style="{StaticResource CaptionStrong}" Margin="0,4,0,0" />
+                        </VerticalStackLayout>
+                    </Grid>
+                    <!-- Results whose file no longer opens were left out of the backup: named here, in Sand. -->
+                    <Border Style="{StaticResource Chip}" BackgroundColor="{StaticResource Sand}" StrokeShape="RoundRectangle 14" Padding="14,12" HorizontalOptions="Fill"
+                            IsVisible="{Binding BackupNotice, Converter={StaticResource IsNotNull}}">
+                        <Label Style="{StaticResource Body}" Text="{Binding BackupNotice}" controls:Accessible.Announce="True" TextColor="{StaticResource SandDeep}" />
+                    </Border>
+                    <!-- After the share sheet: did she keep the file? Only a yes counts as her last backup. Sand, in place. -->
+                    <Border BackgroundColor="{StaticResource Sand}" Stroke="{StaticResource Sun}" StrokeThickness="1" StrokeShape="RoundRectangle 14"
+                            Padding="14" IsVisible="{Binding IsAskingIfBackupKept}" controls:Accessible.FocusWhenShown="True">
+                        <VerticalStackLayout Spacing="12">
+                            <Label Style="{StaticResource Body}" Text="{loc:Translate Backup_KeptQuestion}" TextColor="{StaticResource SandDeep}" />
+                            <FlexLayout Wrap="Wrap">
+                                <Button Text="{loc:Translate Backup_KeptYes}" Style="{StaticResource PrimaryButtonSmall}" MinimumHeightRequest="44"
+                                        CornerRadius="22" Padding="18,0" Margin="0,0,8,8" Command="{Binding BackupKeptCommand}"/>
+                                <Button Text="{loc:Translate Backup_KeptNo}" Style="{StaticResource OutlineButton}" CornerRadius="22" Padding="18,0"
+                                        Margin="0,0,0,8" Command="{Binding BackupNotKeptCommand}" />
+                            </FlexLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                    <Button Text="{loc:Translate Backup_Create}" Style="{StaticResource OutlineButton}" HorizontalOptions="Start"
+                            Command="{Binding OpenBackupFormCommand}" IsVisible="{Binding CanStartBackup}" controls:Accessible.FocusWhenShown="True" />
+                    <!--
+                      The password fields are named only by their placeholder, which Android keeps as the field's hint:
+                      a semantic description or hint would make MAUI put the typed password into what is read out.
+                    -->
+                    <VerticalStackLayout Spacing="8" IsVisible="{Binding IsBackupFormOpen}" controls:Accessible.FocusWhenShown="True">
+                        <Border Style="{StaticResource Field}" Padding="12,0">
+                            <Entry Text="{Binding BackupPassword}" IsPassword="True" Placeholder="{loc:Translate Backup_Password}"
+                                   TextColor="{StaticResource Ink}"/>
+                        </Border>
+                        <Border Style="{StaticResource Field}" Padding="12,0">
+                            <Entry Text="{Binding BackupPasswordAgain}" IsPassword="True" Placeholder="{loc:Translate Backup_PasswordAgain}"
+                                   TextColor="{StaticResource Ink}" ReturnType="Done" ReturnCommand="{Binding CreateBackupCommand}"/>
+                        </Border>
+                        <!-- Once the password is good enough: how strong, on a done-style chip. -->
+                        <Border Style="{StaticResource Chip}" BackgroundColor="{StaticResource SageTint}" HorizontalOptions="Start"
+                                IsVisible="{Binding BackupStrength, Converter={StaticResource IsNotNull}}">
+                            <Label Text="{Binding BackupStrength}" Style="{StaticResource Label}" TextColor="{StaticResource Pine}" />
+                        </Border>
+                        <!-- What it still needs; why an easy password is easy to guess reads in SandDeep, never red. -->
+                        <Label Text="{Binding BackupHint}" Style="{StaticResource Caption}">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding IsBackupHintAttention}" Value="True">
+                                    <Setter Property="TextColor" Value="{StaticResource SandDeep}" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <FlexLayout Wrap="Wrap">
+                            <Button Text="{loc:Translate Backup_Share}" Style="{StaticResource PrimaryButtonSmall}" MinimumHeightRequest="44"
+                                    CornerRadius="22" Padding="18,0" Margin="0,0,8,8" Command="{Binding CreateBackupCommand}"/>
+                            <Button Text="{loc:Translate Backup_Cancel}" Style="{StaticResource OutlineButton}" CornerRadius="22" Padding="18,0"
+                                    Margin="0,0,0,8" Command="{Binding CloseBackupFormCommand}" />
+                        </FlexLayout>
+                        <!-- Writing the backup takes a few seconds before the share sheet opens: say so, calmly. -->
+                        <HorizontalStackLayout Spacing="10" IsVisible="{Binding IsCreatingBackup}">
+                            <ActivityIndicator IsRunning="{Binding IsCreatingBackup}" HeightRequest="20" WidthRequest="20" VerticalOptions="Center" />
+                            <Label Text="{loc:Translate Backup_Creating}" Style="{StaticResource Caption}" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!--
+              Her data: stays on this phone; deleting it asks once more, in place (Sand, never red): a short question
+              and two round answers, a filled check that deletes and an outline × that keeps her data, named for
+              TalkBack.
+            -->
+            <Border Style="{StaticResource Card}" Padding="18">
+                <VerticalStackLayout Spacing="12">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14">
+                        <Border WidthRequest="36" HeightRequest="36" BackgroundColor="{StaticResource SageTint}" StrokeThickness="0" StrokeShape="RoundRectangle 14" VerticalOptions="Start">
+                            <controls:Icon Data="{StaticResource IconDevice}" Size="18" Color="{StaticResource Pine}" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                            <Label Text="{loc:Translate Settings_Data}" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level2" />
+                            <Label Text="{loc:Translate Settings_DataNote}" Style="{StaticResource Caption}" />
+                        </VerticalStackLayout>
+                    </Grid>
+                    <Button Text="{loc:Translate Settings_Delete}" Style="{StaticResource OutlineButton}" TextColor="{StaticResource SandDeep}"
+                            BorderColor="{StaticResource Sun}" HorizontalOptions="Start" Command="{Binding AskDeleteCommand}"
+                            IsVisible="{Binding IsConfirmingDelete, Converter={StaticResource InvertedBool}}" controls:Accessible.FocusWhenShown="True" />
+                    <Border BackgroundColor="{StaticResource Sand}" Stroke="{StaticResource Sun}" StrokeThickness="1" StrokeShape="RoundRectangle 14"
+                            Padding="14" IsVisible="{Binding IsConfirmingDelete}" controls:Accessible.FocusWhenShown="True">
+                        <VerticalStackLayout Spacing="12">
+                            <Label Style="{StaticResource Body}" Text="{loc:Translate Settings_DeleteConfirm}" TextColor="{StaticResource SandDeep}" />
+                            <FlexLayout Wrap="Wrap">
+                                <Button Text="{loc:Translate Settings_DeleteYes}" Style="{StaticResource ConfirmButton}" Command="{Binding DeleteCommand}" />
+                                <Button Text="{loc:Translate Common_KeepThem}" Style="{StaticResource KeepButton}" Command="{Binding KeepDataCommand}" />
+                            </FlexLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+            </Border>
+
+            <!--
+              Diagnostics: error codes only, never anything from her plan. One button: each tap hands the file (codes,
+              times, Maia's and Android's versions) to the share sheet; with nothing noted, a toast says so instead.
+            -->
+            <Border x:Name="DiagnosticsCard" x:DataType="vm:DiagnosticsViewModel" Style="{StaticResource Card}" Padding="18">
+                <VerticalStackLayout Spacing="12">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14">
+                        <Border WidthRequest="36" HeightRequest="36" BackgroundColor="{StaticResource SageTint}" StrokeThickness="0" StrokeShape="RoundRectangle 14" VerticalOptions="Start">
+                            <controls:Icon Data="{StaticResource IconDiagnostics}" Size="18" Color="{StaticResource Pine}" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                            <Label Text="{loc:Translate Diagnostics_Title}" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level2" />
+                            <Label Text="{loc:Translate Diagnostics_Note}" Style="{StaticResource Caption}" />
+                        </VerticalStackLayout>
+                    </Grid>
+                    <Button Text="{loc:Translate Diagnostics_Open}" Style="{StaticResource OutlineButton}" HorizontalOptions="Start"
+                            Command="{Binding ShareCommand}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- About Maia: version, privacy notice and licences, as a row with a tile and a chevron. -->
+            <Border Style="{StaticResource Card}" Padding="16,14" controls:Accessible.Role="Button">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenAboutCommand}" />
+                </Border.GestureRecognizers>
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
+                    <Border WidthRequest="36" HeightRequest="36" BackgroundColor="{StaticResource SageTint}" StrokeThickness="0" StrokeShape="RoundRectangle 14" VerticalOptions="Center">
+                        <controls:Logo Size="22" />
+                    </Border>
+                    <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                        <Label Text="{loc:Translate Settings_About}" Style="{StaticResource Heading}" />
+                        <Label Text="{loc:Translate Settings_AboutHint}" Style="{StaticResource Caption}" />
+                    </VerticalStackLayout>
+                    <controls:Icon Grid.Column="2" Data="{StaticResource IconChevronRight}" Size="18" Color="{StaticResource Muted}" VerticalOptions="Center" />
+                </Grid>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</controls:MaiaPage>

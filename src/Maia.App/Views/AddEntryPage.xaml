@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  New: what it is (the four pills, without a title of their own), its name, an optional note and when, then Save; or a
+  task (the fifth pill), with its words and a date and time, or else a trimester or a week, as "Add a task" on Today; or
+  her blood pressure (the sixth), its two numbers and the day and time she took it.
+  The New tab. Built from the pieces of design screen 07 (docs/design/screens/07-new.jpg): section names, choice pills,
+  suggestion chips, big fields and the primary button.
+-->
+<controls:MaiaPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:loc="clr-namespace:Maia.App.Localization"
+                   xmlns:controls="clr-namespace:Maia.App.Controls"
+                   xmlns:vm="clr-namespace:Maia.Presentation.Add;assembly=Maia.Presentation"
+                   x:Class="Maia.App.Views.AddEntryPage"
+                   x:DataType="vm:AddEntryViewModel"
+                   Tab="add">
+    <controls:MaiaPage.Resources>
+        <!-- A section of the form: a Heading, and a heading for TalkBack. -->
+        <Style x:Key="StepTitle" TargetType="Label" BasedOn="{StaticResource Heading}">
+            <Setter Property="Margin" Value="0,6,0,0" />
+            <Setter Property="SemanticProperties.HeadingLevel" Value="Level2" />
+        </Style>
+    </controls:MaiaPage.Resources>
+    <ScrollView>
+        <VerticalStackLayout Padding="20,44,20,28" Spacing="14" controls:Motions.Rise="True">
+            <Label Text="{loc:Translate Add_Title}" Style="{StaticResource Title}" />
+
+            <!-- What it is: one of four, a task or her blood pressure. No visible title; the group still tells TalkBack "What is it?". -->
+            <FlexLayout Wrap="Wrap" SemanticProperties.Description="{loc:Translate Add_What}">
+                <controls:ChoicePill Text="{loc:Translate Kind_DoctorVisit}" IsSelected="{Binding IsDoctorVisit}"
+                                     Command="{Binding ChooseKindCommand}" CommandParameter="DoctorVisit" MinimumHeightRequest="44" Margin="0,0,8,8" />
+                <controls:ChoicePill Text="{loc:Translate Kind_Exam}" IsSelected="{Binding IsExam}"
+                                     Command="{Binding ChooseKindCommand}" CommandParameter="Exam" MinimumHeightRequest="44" Margin="0,0,8,8" />
+                <controls:ChoicePill Text="{loc:Translate Kind_HospitalVisit}" IsSelected="{Binding IsHospitalVisit}"
+                                     Command="{Binding ChooseKindCommand}" CommandParameter="HospitalVisit" MinimumHeightRequest="44" Margin="0,0,8,8" />
+                <controls:ChoicePill Text="{loc:Translate Kind_Other}" IsSelected="{Binding IsOther}"
+                                     Command="{Binding ChooseKindCommand}" CommandParameter="Other" MinimumHeightRequest="44" Margin="0,0,8,8" />
+                <controls:ChoicePill Text="{loc:Translate Week_TaskLabel}" IsSelected="{Binding IsTask}"
+                                     Command="{Binding ChooseKindCommand}" CommandParameter="{x:Static vm:AddEntryViewModel.TaskChoice}" MinimumHeightRequest="44" Margin="0,0,8,8" />
+                <controls:ChoicePill Text="{loc:Translate Kind_BloodPressure}" IsSelected="{Binding IsBloodPressure}"
+                                     Command="{Binding ChooseKindCommand}" CommandParameter="{x:Static vm:AddEntryViewModel.BloodPressureChoice}" MinimumHeightRequest="44" Margin="0,0,8,8" />
+            </FlexLayout>
+
+            <!-- Her blood pressure: the two numbers as her monitor shows them, then the day and time she took it (from now). -->
+            <VerticalStackLayout Spacing="14" IsVisible="{Binding IsBloodPressure}">
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="8" RowSpacing="14">
+                    <Label Text="{loc:Translate Reading_Systolic}" Style="{StaticResource StepTitle}" />
+                    <Label Grid.Column="1" Text="{loc:Translate Reading_Diastolic}" Style="{StaticResource StepTitle}" />
+                    <Border Grid.Row="1" Style="{StaticResource BigField}">
+                        <Entry x:Name="SystolicEntry" Keyboard="Numeric" Text="{Binding Systolic}" Placeholder="{loc:Translate Reading_Unit}" TextColor="{StaticResource Ink}"
+                               MaxLength="{x:Static vm:AddEntryViewModel.MaxReadingDigits}" ReturnType="Next"
+                               SemanticProperties.Description="{loc:Translate Reading_Systolic}"/>
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource BigField}">
+                        <Entry x:Name="DiastolicEntry" Keyboard="Numeric" Text="{Binding Diastolic}" Placeholder="{loc:Translate Reading_Unit}" TextColor="{StaticResource Ink}"
+                               MaxLength="{x:Static vm:AddEntryViewModel.MaxReadingDigits}" ReturnType="Done"
+                               SemanticProperties.Description="{loc:Translate Reading_Diastolic}"/>
+                    </Border>
+                </Grid>
+                <Label Text="{loc:Translate Add_When}" Style="{StaticResource StepTitle}" />
+                <Grid ColumnDefinitions="3*,2*" ColumnSpacing="8">
+                    <Border Style="{StaticResource BigField}">
+                        <DatePicker Date="{Binding ReadingDate}" MinimumDate="{Binding EarliestReadingDate}" MaximumDate="{Binding LatestReadingDate}"
+                                    TextColor="{StaticResource Ink}" SemanticProperties.Description="{loc:Translate Book_Date}"/>
+                    </Border>
+                    <Border Grid.Column="1" Style="{StaticResource BigField}">
+                        <TimePicker Time="{Binding ReadingTime}" Format="HH:mm" TextColor="{StaticResource Ink}"
+                                    SemanticProperties.Description="{loc:Translate Book_Time}"/>
+                    </Border>
+                </Grid>
+            </VerticalStackLayout>
+
+            <!-- A task, as "Add a task" on Your week: its words, then a date and time only if she turns them on. -->
+            <VerticalStackLayout Spacing="14" IsVisible="{Binding IsTask}">
+                <Label Text="{loc:Translate Week_TaskLabel}" Style="{StaticResource StepTitle}" />
+                <Border Style="{StaticResource BigField}">
+                    <Entry x:Name="TaskEntry" Keyboard="Text" Text="{Binding TaskTitle}" Placeholder="{loc:Translate Week_TaskPlaceholder}" TextColor="{StaticResource Ink}"
+                           MaxLength="{x:Static vm:AddEntryViewModel.MaxTaskLength}" ReturnType="Done"
+                           SemanticProperties.Description="{loc:Translate Week_TaskLabel}"/>
+                </Border>
+                <Label Text="{Binding TaskLengthHint}" Style="{StaticResource Caption}"
+                       IsVisible="{Binding TaskLengthHint, Converter={StaticResource IsNotNull}}" />
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                    <Label Text="{loc:Translate Week_TaskHasDate}" Style="{StaticResource Body}" VerticalOptions="Center" FontFamily="{DynamicResource FontTextSemiBold}" />
+                    <controls:PillSwitch Grid.Column="1" IsToggled="{Binding TaskHasDate}" VerticalOptions="Center" Label="{loc:Translate Week_TaskHasDate}" />
+                </Grid>
+                <Grid ColumnDefinitions="3*,2*" ColumnSpacing="8" IsVisible="{Binding TaskHasDate}">
+                    <Border Style="{StaticResource BigField}">
+                        <DatePicker Date="{Binding TaskDate}" MinimumDate="{Binding EarliestTaskDate}" TextColor="{StaticResource Ink}"
+                                    SemanticProperties.Description="{loc:Translate Book_Date}"/>
+                    </Border>
+                    <Border Grid.Column="1" Style="{StaticResource BigField}">
+                        <TimePicker Time="{Binding TaskTime}" Format="HH:mm" TextColor="{StaticResource Ink}"
+                                    SemanticProperties.Description="{loc:Translate Book_Time}"/>
+                    </Border>
+                </Grid>
+                <!-- Without a date: when it is, a trimester or a week, as for an entry not booked yet. -->
+                <VerticalStackLayout Spacing="14" IsVisible="{Binding TaskHasDate, Converter={StaticResource InvertedBool}}">
+                    <Label Text="{loc:Translate Add_When}" Style="{StaticResource StepTitle}" />
+                    <controls:TimingFields BindingContext="{Binding TaskPeriod}" />
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+
+            <!-- Once she has chosen what it is: its name (Maia's for a visit, a chip or her own words for an exam), and when. -->
+            <VerticalStackLayout Spacing="14" IsVisible="{Binding HasKind}">
+                <Label Text="{loc:Translate Add_Name}" Style="{StaticResource StepTitle}" />
+                <FlexLayout BindableLayout.ItemsSource="{Binding Suggestions}" Wrap="Wrap" IsVisible="{Binding ShowSuggestions}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="vm:NameSuggestion">
+                            <controls:ChoicePill Text="{Binding Label}" IsSelected="{Binding IsChosen}" Command="{Binding ChooseCommand}"
+                                                 MinimumHeightRequest="44" Margin="0,0,8,8" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+                <Border Style="{StaticResource BigField}">
+                    <Entry x:Name="NameEntry" Keyboard="Text" Text="{Binding Name}" TextColor="{StaticResource Ink}"
+                           MaxLength="{x:Static vm:AddEntryViewModel.MaxNameLength}" ReturnType="Done"
+                           SemanticProperties.Description="{loc:Translate Add_Name}"/>
+                </Border>
+
+                <!-- Notes: optional, shown when its card is opened on Journey, as a check's note from a typical journey is. -->
+                <Label Text="{loc:Translate Add_Note}" Style="{StaticResource StepTitle}" />
+                <Border Style="{StaticResource BigField}" Padding="14,6">
+                    <Editor x:Name="NoteEditor" Keyboard="Text" Text="{Binding Note}" Placeholder="{loc:Translate Add_NotePlaceholder}" TextColor="{StaticResource Ink}"
+                            AutoSize="TextChanges" MaxLength="{x:Static vm:AddEntryViewModel.MaxNoteLength}"
+                            SemanticProperties.Description="{loc:Translate Add_Note}"/>
+                </Border>
+                <Label Text="{Binding NoteLengthHint}" Style="{StaticResource Caption}"
+                       IsVisible="{Binding NoteLengthHint, Converter={StaticResource IsNotNull}}" />
+
+                <!-- When: booked, already done, or not booked yet. -->
+                <Label Text="{loc:Translate Add_When}" Style="{StaticResource StepTitle}" />
+                <FlexLayout Wrap="Wrap">
+                    <controls:ChoicePill Text="{loc:Translate Add_WhenBooked}" IsSelected="{Binding IsBooked}"
+                                         Command="{Binding ChooseWhenCommand}" CommandParameter="Booked" MinimumHeightRequest="44" Margin="0,0,8,8" />
+                    <controls:ChoicePill Text="{loc:Translate Add_WhenDone}" IsSelected="{Binding IsDone}"
+                                         Command="{Binding ChooseWhenCommand}" CommandParameter="Done" MinimumHeightRequest="44" Margin="0,0,8,8" />
+                    <controls:ChoicePill Text="{loc:Translate Add_WhenNotBooked}" IsSelected="{Binding IsNotBookedYet}"
+                                         Command="{Binding ChooseWhenCommand}" CommandParameter="NotBookedYet" MinimumHeightRequest="44" Margin="0,0,8,8" />
+                </FlexLayout>
+                <!-- Booked: a day and a time. Already done: a day and a time that has passed, a trimester or a week. Not
+                     booked yet: a trimester or a week. -->
+                <ContentView IsVisible="{Binding When, Converter={StaticResource IsNotNull}}">
+                    <controls:TimingFields BindingContext="{Binding Timing}" />
+                </ContentView>
+            </VerticalStackLayout>
+
+            <Label Text="{Binding ErrorMessage}" controls:Accessible.Announce="True" TextColor="{StaticResource SandDeep}" IsVisible="{Binding ErrorMessage, Converter={StaticResource IsNotNull}}" />
+            <!-- Muted until what, name and when are there; a tap before that says, calmly, what is missing. -->
+            <Button Text="{loc:Translate Common_Save}" Style="{StaticResource PrimaryButton}" Command="{Binding SaveCommand}" Clicked="OnSaveClicked" Margin="0,6,0,0" Opacity="0.45">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsComplete}" Value="True">
+                        <Setter Property="Opacity" Value="1" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+        </VerticalStackLayout>
+    </ScrollView>
+</controls:MaiaPage>

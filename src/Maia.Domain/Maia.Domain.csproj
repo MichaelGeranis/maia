@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Pure domain model: no dependencies, no I/O, no clock. -->
+  <PropertyGroup>
+    <RootNamespace>Maia.Domain</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Maia.Domain.Tests" />
+  </ItemGroup>
+</Project>

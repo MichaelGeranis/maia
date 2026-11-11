@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Maia.App.Converters"
+             x:Class="Maia.App.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Icons.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Maia.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Templates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:InvertedBoolConverter x:Key="InvertedBool" />
+            <converters:IsNotNullConverter x:Key="IsNotNull" />
+            <converters:BytesToImageConverter x:Key="BytesToImage" />
+            <converters:StatusBackgroundConverter x:Key="StatusBackground" />
+            <converters:StatusForegroundConverter x:Key="StatusForeground" />
+            <converters:StatusCardConverter x:Key="StatusCard" />
+            <converters:StatusCardBorderConverter x:Key="StatusCardBorder" />
+            <converters:StatusTitleConverter x:Key="StatusTitle" />
+            <converters:StatusNodeFillConverter x:Key="StatusNodeFill" />
+            <converters:StatusNodeRingConverter x:Key="StatusNodeRing" />
+            <converters:TagBackgroundConverter x:Key="TagBackground" />
+            <converters:TagForegroundConverter x:Key="TagForeground" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

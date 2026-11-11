@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Your week (home). Design: docs/design/screens/04-your-week.jpg -->
+<controls:MaiaPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:loc="clr-namespace:Maia.App.Localization"
+                   xmlns:controls="clr-namespace:Maia.App.Controls"
+                   xmlns:vm="clr-namespace:Maia.Presentation.Week;assembly=Maia.Presentation"
+                   x:Class="Maia.App.Views.WeekPage"
+                   x:DataType="vm:WeekViewModel"
+                   Tab="week">
+    <ScrollView>
+        <VerticalStackLayout Padding="20,40,20,28" Spacing="16" controls:Motions.Rise="True">
+            <!-- Header: the logo, the wordmark and the week pill. -->
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8" MinimumHeightRequest="40">
+                <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                    <controls:Logo Size="26" />
+                    <Label Style="{StaticResource Hero}" Text="maia" TextColor="{StaticResource Pine}" />
+                </HorizontalStackLayout>
+                <!-- The week pill opens Calendar, as its calendar icon says; its 44 dp touch area reaches above and below it. -->
+                <Grid Grid.Column="1" MinimumHeightRequest="44" IsVisible="{Binding IsLoaded}" SemanticProperties.Description="{Binding WeekPillSpoken}"
+                      controls:Accessible.Role="Button" controls:Motions.Press="True">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenCalendarCommand}" />
+                    </Grid.GestureRecognizers>
+                    <Border Style="{StaticResource GlassPill}">
+                        <HorizontalStackLayout Spacing="6">
+                            <Label Style="{StaticResource Label}" Text="{Binding WeekLabel}" TextColor="{StaticResource Pine}" VerticalOptions="Center" />
+                            <controls:Icon Data="{StaticResource IconDate}" Size="16" Color="{StaticResource Pine}" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Border>
+                </Grid>
+            </Grid>
+
+            <Label Text="{loc:Translate Week_Title}" Style="{StaticResource Title}" />
+
+            <!--
+              Until her plan is read the first time: calm shapes where the cards go, with no words, so she never sees
+              "Nothing booked yet" or "Nothing due this week" for a plan that is still loading. Screen readers hear that
+              the week is getting ready.
+            -->
+            <VerticalStackLayout Spacing="16" IsVisible="{Binding IsLoaded, Converter={StaticResource InvertedBool}}"
+                                 SemanticProperties.Description="{loc:Translate Week_Loading}">
+                <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource CardSoft}" HeightRequest="124" />
+                <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource CardSoft}" HeightRequest="196" />
+                <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource CardSoft}" HeightRequest="148" />
+            </VerticalStackLayout>
+
+            <!-- The week, once loaded; its cards rise in as it first shows. -->
+            <VerticalStackLayout Spacing="16" IsVisible="{Binding IsLoaded}" controls:Motions.Rise="True">
+                <!-- Journey: where she is between conception and the due date. -->
+                <Border Style="{StaticResource Card}" Padding="16,16,16,12" BackgroundColor="{StaticResource CardSoft}">
+                    <VerticalStackLayout Spacing="6">
+                        <controls:JourneyView Progress="{Binding PregnancyProgress}" />
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                            <Label Text="{Binding TrimesterText}" Style="{StaticResource CaptionStrong}" />
+                            <Label Grid.Column="1" Text="{Binding DueText}" Style="{StaticResource CaptionStrong}" HorizontalTextAlignment="End" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Next up: pine card with waves along the bottom. A tap opens Journey on that booking (at today with nothing booked). -->
+                <Border BackgroundColor="{StaticResource Pine}" StrokeThickness="0" StrokeShape="RoundRectangle 22"
+                        controls:Accessible.Role="Button" controls:Motions.Press="True">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenNextUpCommand}" />
+                    </Border.GestureRecognizers>
+                    <Grid>
+                        <controls:WaveView VerticalOptions="End" />
+                        <VerticalStackLayout Padding="20,20,20,56" Spacing="6">
+                            <Label Text="{loc:Translate Week_NextUpNone}" Style="{StaticResource Eyebrow}" TextColor="{StaticResource HeroText}" />
+                            <Label Style="{StaticResource Hero}" Text="{Binding NextUpTitle}" TextColor="{StaticResource White}" />
+                            <Label Style="{StaticResource Body}" Text="{Binding NextUpWhen}" TextColor="{StaticResource HeroText}" IsVisible="{Binding HasNextUp}" />
+                            <Label Style="{StaticResource Body}" Text="{Binding NextUpWith}" TextColor="{StaticResource HeroText}" IsVisible="{Binding HasNextUpWith}" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Backup: her journey lives only on this phone. Calm Sand, never red; "Not now" puts it away for a month. -->
+                <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource Sand}" Stroke="{StaticResource Sun}" Padding="16,14,14,10"
+                        IsVisible="{Binding ShowBackupReminder}">
+                    <VerticalStackLayout Spacing="8">
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14">
+                            <Border WidthRequest="44" HeightRequest="44" BackgroundColor="{StaticResource SandDeep}" StrokeThickness="0" StrokeShape="RoundRectangle 14" VerticalOptions="Start">
+                                <controls:Icon Data="{StaticResource IconUpload}" Size="18" Color="{StaticResource White}" />
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                <Label Text="{loc:Translate Week_BackupTitle}" Style="{StaticResource Heading}" TextColor="{StaticResource SandDeep}" SemanticProperties.HeadingLevel="Level2" />
+                                <Label Text="{Binding BackupReminderText}" Style="{StaticResource Caption}" TextColor="{StaticResource SandDeep}" />
+                            </VerticalStackLayout>
+                        </Grid>
+                        <FlexLayout Wrap="Wrap">
+                            <Button Text="{loc:Translate Week_BackupNow}" Style="{StaticResource PrimaryButtonSmall}" BackgroundColor="{StaticResource SandDeep}"
+                                     MinimumHeightRequest="44" CornerRadius="22" Padding="18,0" Margin="0,0,8,4" Command="{Binding BackUpCommand}"/>
+                            <Button Text="{loc:Translate Week_BackupLater}" Style="{StaticResource TextButton}" TextColor="{StaticResource SandDeep}"
+                                    Padding="12,0" Margin="0,0,0,4" Command="{Binding DismissBackupReminderCommand}"/>
+                        </FlexLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!--
+                  To do this week: today and the six days after it, at most 5 rows, then "Show all" up to 20. Under them
+                  one "All tasks" line opens Your tasks. The round + in the header opens "Add a task" under it.
+                  Tap a circle to tick a task, its words to change or delete it (TaskRowView, shared with Your tasks).
+                  The card's left padding is 6 rather than 16, and everything but the task rows is set 10 in, so each
+                  circle sits centred in a 44 dp touch area that is inside the card (a touch outside a layout never reaches
+                  its children).
+                -->
+                <Border Style="{StaticResource Card}" Padding="6,10,10,10" BackgroundColor="{StaticResource CardSoft}">
+                    <VerticalStackLayout Spacing="4">
+                        <!-- The title and the +. -->
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10" Margin="10,0,0,0" MinimumHeightRequest="44">
+                            <Label Text="{loc:Translate Week_Tasks}" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level2" VerticalOptions="Center" />
+                            <Border Grid.Column="1" WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 22"
+                                    BackgroundColor="{StaticResource Pine}" VerticalOptions="Center"
+                                    IsVisible="{Binding IsTaskFormOpen, Converter={StaticResource InvertedBool}}"
+                                    SemanticProperties.Description="{loc:Translate Week_AddTask}" controls:Accessible.Role="Button" controls:Motions.Press="True">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OpenTaskFormCommand}" />
+                                </Border.GestureRecognizers>
+                                <controls:Icon Data="{StaticResource IconNew}" Size="18" Color="{StaticResource White}"
+                                               HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
+
+                        <!-- Add a task: the task, then a date and time, or else a trimester or a week. -->
+                        <VerticalStackLayout Spacing="8" Padding="10,4,0,8" IsVisible="{Binding IsTaskFormOpen}" controls:Accessible.FocusWhenShown="True">
+                            <Border Style="{StaticResource Field}" Padding="12,0">
+                                <Entry Keyboard="Text" x:Name="TaskEntry" Text="{Binding NewTaskTitle}" Placeholder="{loc:Translate Week_TaskPlaceholder}" TextColor="{StaticResource Ink}"
+                                       MaxLength="{x:Static vm:WeekViewModel.MaxTaskLength}" ReturnType="Done" ReturnCommand="{Binding AddTaskCommand}"
+                                       SemanticProperties.Description="{loc:Translate Week_TaskLabel}"/>
+                            </Border>
+                            <Label Text="{Binding NewTaskLengthHint}" Style="{StaticResource Caption}"
+                                   IsVisible="{Binding NewTaskLengthHint, Converter={StaticResource IsNotNull}}" />
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                <Label Text="{loc:Translate Week_TaskHasDate}" Style="{StaticResource Body}" VerticalOptions="Center" FontFamily="{DynamicResource FontTextSemiBold}" />
+                                <controls:PillSwitch Grid.Column="1" IsToggled="{Binding NewTaskHasDate}" VerticalOptions="Center" Label="{loc:Translate Week_TaskHasDate}" />
+                            </Grid>
+                            <Grid ColumnDefinitions="3*,2*" ColumnSpacing="8" IsVisible="{Binding NewTaskHasDate}">
+                                <Border Style="{StaticResource Field}">
+                                    <DatePicker Date="{Binding NewTaskDate}" MinimumDate="{Binding MinimumDate}" TextColor="{StaticResource Ink}"
+                                                SemanticProperties.Description="{loc:Translate Book_Date}"/>
+                                </Border>
+                                <Border Grid.Column="1" Style="{StaticResource Field}">
+                                    <TimePicker Time="{Binding NewTaskTime}" Format="HH:mm" TextColor="{StaticResource Ink}"
+                                                SemanticProperties.Description="{loc:Translate Book_Time}"/>
+                                </Border>
+                            </Grid>
+                            <!-- Without a date: when it is, a trimester or a week. -->
+                            <VerticalStackLayout Spacing="8" IsVisible="{Binding NewTaskHasDate, Converter={StaticResource InvertedBool}}">
+                                <Label Text="{loc:Translate Add_When}" Style="{StaticResource Body}" FontFamily="{DynamicResource FontTextSemiBold}" />
+                                <controls:TimingFields BindingContext="{Binding NewTaskPeriod}" />
+                            </VerticalStackLayout>
+                            <Label Text="{Binding TaskFormError}" Style="{StaticResource Caption}" TextColor="{StaticResource SandDeep}" controls:Accessible.Announce="True"
+                                   IsVisible="{Binding TaskFormError, Converter={StaticResource IsNotNull}}" />
+                            <FlexLayout Wrap="Wrap">
+                                <Button Text="{loc:Translate Week_TaskAdd}" Style="{StaticResource PrimaryButtonSmall}" MinimumHeightRequest="44"
+                                        CornerRadius="22" Padding="18,0" Margin="0,0,8,8" Command="{Binding AddTaskCommand}"/>
+                                <Button Text="{loc:Translate Common_Cancel}" Style="{StaticResource OutlineButton}" CornerRadius="22" Padding="18,0" Margin="0,0,0,8"
+                                        Command="{Binding CloseTaskFormCommand}" />
+                            </FlexLayout>
+                        </VerticalStackLayout>
+
+                        <Label Text="{loc:Translate Week_NoTasks}" Style="{StaticResource Caption}" Margin="10,0,0,6" IsVisible="{Binding HasNothingThisWeek}" />
+
+                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding Tasks}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="vm:TaskItem">
+                                    <controls:TaskRowView controls:Motions.Pop="True" />
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+
+                        <!-- "Show all": the card opens in place, up to 20 rows. -->
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" Padding="10,0,0,0" MinimumHeightRequest="44" IsVisible="{Binding CanShowAll}"
+                              controls:Accessible.Role="Button">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowAllCommand}" />
+                            </Grid.GestureRecognizers>
+                            <ContentView HeightRequest="1" BackgroundColor="{StaticResource Line}" VerticalOptions="Start" Grid.ColumnSpan="2" />
+                            <controls:Icon Data="{StaticResource IconChevronRight}" Rotation="90" Size="16" Color="{StaticResource Sea}"
+                                           VerticalOptions="Center" Margin="4,0" />
+                            <Label Style="{StaticResource Heading}" Grid.Column="1" Text="{Binding ShowAllText}" TextColor="{StaticResource Sea}"
+                                   VerticalOptions="Center" />
+                        </Grid>
+
+                        <!-- All tasks: one line, opening Your tasks. -->
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10" Padding="10,0,4,0" MinimumHeightRequest="44" controls:Accessible.Role="Button">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OpenTasksCommand}" />
+                            </Grid.GestureRecognizers>
+                            <ContentView HeightRequest="1" BackgroundColor="{StaticResource Line}" VerticalOptions="Start" Grid.ColumnSpan="2" />
+                            <Label Style="{StaticResource Heading}" Text="{Binding AllTasksText}" TextColor="{StaticResource Sea}"
+                                   VerticalOptions="Center" />
+                            <controls:Icon Grid.Column="1" Data="{StaticResource IconChevronRight}" Size="16" Color="{StaticResource Sea}" VerticalOptions="Center" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Shortcuts: Questions and Breathing. -->
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                    <Border Style="{StaticResource Tile}" BackgroundColor="{StaticResource SageTint}" controls:Motions.Press="True" controls:Accessible.Role="Button">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenQuestionsCommand}" />
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout Spacing="8">
+                            <controls:Icon Data="{StaticResource IconQuestions}" Size="24" Color="{StaticResource Pine}" HorizontalOptions="Start" />
+                            <Label Style="{StaticResource Heading}" Text="{loc:Translate Week_QuestionsTileTitle}" TextColor="{StaticResource Ink}" />
+                            <Label Style="{StaticResource Caption}" Text="{Binding QuestionsTileText}" TextColor="{StaticResource Muted}" />
+                        </VerticalStackLayout>
+                    </Border>
+                    <Border Grid.Column="1" Style="{StaticResource Tile}" BackgroundColor="{StaticResource Sky}" controls:Motions.Press="True" controls:Accessible.Role="Button">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BreatheCommand}" />
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout Spacing="8">
+                            <Grid WidthRequest="26" HeightRequest="26" HorizontalOptions="Start">
+                                <controls:DriftingSeed />
+                            </Grid>
+                            <Label Style="{StaticResource Heading}" Text="{loc:Translate Week_BreatheTileTitle}" TextColor="{StaticResource Ink}" />
+                            <Label Style="{StaticResource Caption}" Text="{loc:Translate Week_BreatheTile}" TextColor="{StaticResource SkyDeep}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</controls:MaiaPage>

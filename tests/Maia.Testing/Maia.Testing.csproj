@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Shared test builders and fakes. Not a test project itself. -->
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CA1515;CA2007</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Maia.Application\Maia.Application.csproj" />
+    <!-- The fakes store the plan as its real document and write real backups, so tests see what the app would. -->
+    <ProjectReference Include="..\..\src\Maia.Infrastructure\Maia.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

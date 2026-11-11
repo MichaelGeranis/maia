@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Five flat slots of one size: Week · Journey · Add · Results · Settings. Each is an icon, its name and a dot under the
+  active one. Each is a Shell tab.
+-->
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:loc="clr-namespace:Maia.App.Localization"
+             xmlns:controls="clr-namespace:Maia.App.Controls"
+             x:Class="Maia.App.Controls.BottomBar">
+    <!-- The bar, with a hairline on top. -->
+    <Grid BackgroundColor="{StaticResource BarBackground}">
+        <ContentView HeightRequest="1" VerticalOptions="Start" BackgroundColor="{StaticResource Line}" />
+        <Grid x:Name="Slots" ColumnDefinitions="*,*,*,*,*" Padding="6,8,6,14">
+            <VerticalStackLayout x:Name="WeekTab" Style="{StaticResource TabItem}" SemanticProperties.Description="{loc:Translate Tab_Week}" controls:Accessible.Role="Tab">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnWeekTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+                <controls:Icon x:Name="WeekIcon" Data="{StaticResource IconToday}" Style="{StaticResource TabIcon}" />
+                <Label x:Name="WeekLabel" Text="{loc:Translate Tab_Week}" Style="{StaticResource TabLabel}" />
+                <Ellipse x:Name="WeekDot" Style="{StaticResource TabDot}" />
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Column="1" x:Name="JourneyTab" Style="{StaticResource TabItem}" SemanticProperties.Description="{loc:Translate Tab_Journey}" controls:Accessible.Role="Tab">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnJourneyTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+                <controls:Icon x:Name="JourneyIcon" Data="{StaticResource IconJourney}" Style="{StaticResource TabIcon}" />
+                <Label x:Name="JourneyLabel" Text="{loc:Translate Tab_Journey}" Style="{StaticResource TabLabel}" />
+                <Ellipse x:Name="JourneyDot" Style="{StaticResource TabDot}" />
+            </VerticalStackLayout>
+            <!-- Said as "Add to your journey", so a screen reader knows where it adds. -->
+            <VerticalStackLayout Grid.Column="2" x:Name="AddTab" Style="{StaticResource TabItem}" SemanticProperties.Description="{loc:Translate Tab_AddHint}" controls:Accessible.Role="Tab">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnAddTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+                <controls:Icon x:Name="AddIcon" Data="{StaticResource IconNew}" Style="{StaticResource TabIcon}" />
+                <Label x:Name="AddLabel" Text="{loc:Translate Tab_Add}" Style="{StaticResource TabLabel}" />
+                <Ellipse x:Name="AddDot" Style="{StaticResource TabDot}" />
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Column="3" x:Name="ResultsTab" Style="{StaticResource TabItem}" SemanticProperties.Description="{loc:Translate Tab_Results}" controls:Accessible.Role="Tab">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnResultsTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+                <controls:Icon x:Name="ResultsIcon" Data="{StaticResource IconResults}" Style="{StaticResource TabIcon}" />
+                <Label x:Name="ResultsLabel" Text="{loc:Translate Tab_Results}" Style="{StaticResource TabLabel}" />
+                <Ellipse x:Name="ResultsDot" Style="{StaticResource TabDot}" />
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Column="4" x:Name="SettingsTab" Style="{StaticResource TabItem}" SemanticProperties.Description="{loc:Translate Tab_Settings}" controls:Accessible.Role="Tab">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnSettingsTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+                <controls:Icon x:Name="SettingsIcon" Data="{StaticResource IconSettings}" Style="{StaticResource TabIcon}" />
+                <Label x:Name="SettingsLabel" Text="{loc:Translate Tab_Settings}" Style="{StaticResource TabLabel}" />
+                <Ellipse x:Name="SettingsDot" Style="{StaticResource TabDot}" />
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentView>

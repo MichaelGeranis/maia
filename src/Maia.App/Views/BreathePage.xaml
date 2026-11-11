@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Timer: one timer for calm breathing or her exercises. Design: docs/design/screens/12-breathing.jpg (pushed from Today, with a Back pill and no bottom bar, as About Maia). -->
+<controls:MaiaPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:loc="clr-namespace:Maia.App.Localization"
+                   xmlns:controls="clr-namespace:Maia.App.Controls"
+                   xmlns:local="clr-namespace:Maia.App.Views"
+                   xmlns:vm="clr-namespace:Maia.Presentation.Calm;assembly=Maia.Presentation"
+                   x:Class="Maia.App.Views.BreathePage"
+                   x:DataType="vm:BreatheViewModel">
+    <ScrollView>
+        <VerticalStackLayout Padding="20,44,20,28" Spacing="12" controls:Motions.Rise="True">
+            <controls:BackPill Command="{Binding BackCommand}" HorizontalOptions="Start" />
+            <VerticalStackLayout Spacing="8">
+                <Label Text="{loc:Translate Breathe_Title}" Style="{StaticResource Title}" />
+                <Label Text="{Binding Intro}" Style="{StaticResource Body}" />
+            </VerticalStackLayout>
+
+            <!-- The sea-blue sphere inside two rings; it grows in the first part and settles in the second. -->
+            <Grid WidthRequest="280" HeightRequest="280" HorizontalOptions="Center">
+                <Ellipse x:Name="OuterRing" WidthRequest="270" HeightRequest="270" Stroke="{StaticResource Sage}" StrokeThickness="1.5"
+                         StrokeDashArray="3,3" HorizontalOptions="Center" VerticalOptions="Center" />
+                <Ellipse WidthRequest="226" HeightRequest="226" Stroke="{StaticResource SageTint}" StrokeThickness="1"
+                         HorizontalOptions="Center" VerticalOptions="Center" />
+                <!-- Scaled through its Grid: on Android a Shape scales from its corner, a layout from its centre. -->
+                <Grid x:Name="Sphere" WidthRequest="216" HeightRequest="216" Scale="{x:Static local:BreathePage.RestScale}"
+                      HorizontalOptions="Center" VerticalOptions="Center">
+                    <Ellipse>
+                        <Ellipse.Fill>
+                            <RadialGradientBrush Center="0.35,0.3" Radius="0.75">
+                                <GradientStop Color="{StaticResource White}" Offset="0" />
+                                <GradientStop Color="{StaticResource Sky}" Offset="0.5" />
+                                <GradientStop Color="{StaticResource SeaSoft}" Offset="1" />
+                            </RadialGradientBrush>
+                        </Ellipse.Fill>
+                        <Ellipse.Shadow>
+                            <Shadow Brush="{StaticResource Sea}" Offset="0,30" Radius="60" Opacity="0.3" />
+                        </Ellipse.Shadow>
+                    </Ellipse>
+                </Grid>
+                <!-- The seconds left of the part under way, over its name, while it runs. -->
+                <Label Style="{StaticResource Title}" Text="{Binding PartLeft}" IsVisible="{Binding IsBreathing}" TextColor="{StaticResource SkyDeep}"
+                       HorizontalOptions="Center" VerticalOptions="Center" Margin="0,0,0,84" />
+                <Label Style="{StaticResource Hero}" x:Name="Phase" Text="{Binding PhaseText}" TextColor="{StaticResource SkyDeep}"
+                       HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" WidthRequest="220" />
+                <!-- The time left of the session, under the words while she breathes or has paused; read out in words, never every second. -->
+                <Label Style="{StaticResource Body}" Text="{Binding TimeLeft}" SemanticProperties.Description="{Binding TimeLeftSpoken}" IsVisible="{Binding ShowsTimeLeft}" TextColor="{StaticResource SkyDeep}"
+                       HorizontalOptions="Center" VerticalOptions="Center" Margin="0,80,0,0" />
+            </Grid>
+
+            <Button Text="{Binding ButtonText}" Style="{StaticResource TertiaryButton}" Command="{Binding ToggleCommand}" HorizontalOptions="Center"
+                    MinimumWidthRequest="190" MinimumHeightRequest="56" CornerRadius="28" Padding="28,0"/>
+            <!-- Paused: "Resume" carries on with the time left; this begins the session again. -->
+            <Button Text="{loc:Translate Breathe_StartOver}" Style="{StaticResource TextButton}" Command="{Binding StartOverCommand}" HorizontalOptions="Center"
+                    Padding="16,0" IsVisible="{Binding IsPaused}" />
+            <Label Text="{loc:Translate Timer_Caution}" Style="{StaticResource Caption}" HorizontalTextAlignment="Center" />
+
+            <!-- Her times: each part's seconds and the rounds, set with round − and + buttons while it isn't running. -->
+            <Border Style="{StaticResource Card}" Padding="16,4" Margin="0,12,0,0">
+                <VerticalStackLayout>
+                    <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="12" MinimumHeightRequest="60" Padding="0,8">
+                        <VerticalStackLayout Spacing="2" VerticalOptions="Center" SemanticProperties.Description="{Binding FirstSpoken}">
+                            <Label Text="{loc:Translate Timer_First}" Style="{StaticResource Heading}" />
+                            <Label Text="{Binding FirstValue}" Style="{StaticResource Caption}" />
+                        </VerticalStackLayout>
+                        <controls:RoundIconButton Grid.Column="1" Data="{StaticResource IconLess}" Command="{Binding ShorterFirstCommand}"
+                                                  SemanticProperties.Description="{loc:Translate Timer_FewerSeconds}" />
+                        <controls:RoundIconButton Grid.Column="2" Data="{StaticResource IconMore}" Command="{Binding LongerFirstCommand}"
+                                                  SemanticProperties.Description="{loc:Translate Timer_MoreSeconds}" />
+                    </Grid>
+                    <ContentView HeightRequest="1" BackgroundColor="{StaticResource Line}" />
+                    <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="12" MinimumHeightRequest="60" Padding="0,8">
+                        <VerticalStackLayout Spacing="2" VerticalOptions="Center" SemanticProperties.Description="{Binding SecondSpoken}">
+                            <Label Text="{loc:Translate Timer_Then}" Style="{StaticResource Heading}" />
+                            <Label Text="{Binding SecondValue}" Style="{StaticResource Caption}" />
+                        </VerticalStackLayout>
+                        <controls:RoundIconButton Grid.Column="1" Data="{StaticResource IconLess}" Command="{Binding ShorterSecondCommand}"
+                                                  SemanticProperties.Description="{loc:Translate Timer_FewerSeconds}" />
+                        <controls:RoundIconButton Grid.Column="2" Data="{StaticResource IconMore}" Command="{Binding LongerSecondCommand}"
+                                                  SemanticProperties.Description="{loc:Translate Timer_MoreSeconds}" />
+                    </Grid>
+                    <ContentView HeightRequest="1" BackgroundColor="{StaticResource Line}" />
+                    <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="12" MinimumHeightRequest="60" Padding="0,8">
+                        <VerticalStackLayout Spacing="2" VerticalOptions="Center" SemanticProperties.Description="{Binding RoundsSpoken}">
+                            <Label Text="{loc:Translate Timer_Rounds}" Style="{StaticResource Heading}" />
+                            <Label Text="{Binding RoundsValue}" Style="{StaticResource Caption}" />
+                        </VerticalStackLayout>
+                        <controls:RoundIconButton Grid.Column="1" Data="{StaticResource IconLess}" Command="{Binding FewerRoundsCommand}"
+                                                  SemanticProperties.Description="{loc:Translate Timer_FewerRounds}" />
+                        <controls:RoundIconButton Grid.Column="2" Data="{StaticResource IconMore}" Command="{Binding MoreRoundsCommand}"
+                                                  SemanticProperties.Description="{loc:Translate Timer_MoreRounds}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- So she can close her eyes: a gentle vibration (on) and a soft tone (off) as each part begins. Only what the phone can do shows. -->
+            <Border Style="{StaticResource Card}" Padding="16,4" Margin="0,12,0,0" IsVisible="{Binding HasCueChoices}">
+                <VerticalStackLayout>
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12" MinimumHeightRequest="60" Padding="0,8" IsVisible="{Binding CanVibrate}">
+                        <VerticalStackLayout Spacing="2" VerticalOptions="Center">
+                            <Label Text="{loc:Translate Breathe_Vibration}" Style="{StaticResource Heading}" />
+                            <Label Text="{loc:Translate Timer_VibrationHint}" Style="{StaticResource Caption}" />
+                        </VerticalStackLayout>
+                        <controls:PillSwitch Grid.Column="1" IsToggled="{Binding VibrationOn}" VerticalOptions="Center" Label="{loc:Translate Breathe_Vibration}" />
+                    </Grid>
+                    <ContentView HeightRequest="1" BackgroundColor="{StaticResource Line}" IsVisible="{Binding HasBothCueChoices}" />
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12" MinimumHeightRequest="60" Padding="0,8" IsVisible="{Binding CanPlaySound}">
+                        <VerticalStackLayout Spacing="2" VerticalOptions="Center">
+                            <Label Text="{loc:Translate Breathe_Sound}" Style="{StaticResource Heading}" />
+                            <Label Text="{loc:Translate Timer_SoundHint}" Style="{StaticResource Caption}" />
+                        </VerticalStackLayout>
+                        <controls:PillSwitch Grid.Column="1" IsToggled="{Binding SoundOn}" VerticalOptions="Center" Label="{loc:Translate Breathe_Sound}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</controls:MaiaPage>

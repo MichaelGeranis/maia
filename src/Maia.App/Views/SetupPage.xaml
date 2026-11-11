@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Setup 1 of 3: the due date. Design: docs/design/screens/01-setup-due-date.jpg -->
+<controls:MaiaPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:loc="clr-namespace:Maia.App.Localization"
+                   xmlns:controls="clr-namespace:Maia.App.Controls"
+                   xmlns:vm="clr-namespace:Maia.Presentation.Setup;assembly=Maia.Presentation"
+                   x:Class="Maia.App.Views.SetupPage"
+                   x:DataType="vm:SetupViewModel">
+    <ScrollView>
+        <VerticalStackLayout Padding="20,44,20,28" Spacing="16" controls:Motions.Rise="True">
+            <controls:StepDots Step="1" HorizontalOptions="Start" />
+
+            <!-- Not in screen 01 (the owner's request): Maia's language from the start, as Settings' Language pills, each name in its own
+                 language; the phone's is chosen until she picks the other. -->
+            <FlexLayout Wrap="Wrap">
+                <controls:ChoicePill Text="{loc:Translate Settings_English}" IsSelected="{Binding IsEnglish}"
+                                     Command="{Binding ChooseLanguageCommand}" CommandParameter="en" MinimumHeightRequest="44" Margin="0,0,8,6" />
+                <controls:ChoicePill Text="{loc:Translate Settings_Greek}" IsSelected="{Binding IsGreek}"
+                                     Command="{Binding ChooseLanguageCommand}" CommandParameter="el" MinimumHeightRequest="44" />
+            </FlexLayout>
+
+            <controls:SetupIllustration />
+
+            <VerticalStackLayout Spacing="4">
+                <Label Text="{loc:Translate Setup_Welcome}" Style="{StaticResource Body}" />
+                <Label Text="{loc:Translate Setup_Title}" Style="{StaticResource Title}" />
+                <Label Text="{loc:Translate Setup_Intro}" Style="{StaticResource Body}" Margin="0,6,0,0" />
+            </VerticalStackLayout>
+
+            <Border Style="{StaticResource Card}" Padding="18">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="{Binding Entry.DateLabel}" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level2" />
+                    <Border Style="{StaticResource BigField}">
+                        <Grid>
+                            <DatePicker Date="{Binding Entry.DueDate}" MinimumDate="{Binding Entry.DueMinimumDate}" MaximumDate="{Binding Entry.DueMaximumDate}"
+                                         TextColor="{StaticResource Ink}" IsVisible="{Binding Entry.UseDueDate}"
+                                        SemanticProperties.Description="{Binding Entry.DateLabel}"/>
+                            <DatePicker Date="{Binding Entry.LastPeriodDate}" MinimumDate="{Binding Entry.LastPeriodMinimumDate}" MaximumDate="{Binding Entry.LastPeriodMaximumDate}"
+                                         TextColor="{StaticResource Ink}" IsVisible="{Binding Entry.UseLastPeriod}"
+                                        SemanticProperties.Description="{Binding Entry.DateLabel}"/>
+                        </Grid>
+                    </Border>
+                    <Label Style="{StaticResource Body}" Text="{Binding Entry.DateModeLink}" TextColor="{StaticResource Sea}" TextDecorations="Underline"
+                           MinimumHeightRequest="44" VerticalTextAlignment="Center" controls:Accessible.Role="Button" FontFamily="{DynamicResource FontTextSemiBold}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Entry.ToggleDateModeCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Chip}" BackgroundColor="{StaticResource Sky}" StrokeShape="RoundRectangle 14"
+                    Padding="16,14" HorizontalOptions="Fill">
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                    <controls:Logo Size="24" />
+                    <Label Style="{StaticResource Body}" Grid.Column="1" Text="{Binding Entry.Summary}" controls:Accessible.Announce="True" TextColor="{StaticResource SkyDeep}" VerticalTextAlignment="Center" FontFamily="{DynamicResource FontTextSemiBold}" />
+                </Grid>
+            </Border>
+
+            <Button Text="{loc:Translate Setup_Suggest}" Style="{StaticResource PrimaryButton}" Command="{Binding ContinueCommand}" />
+
+            <!-- Not in screen 01: a quiet way back for someone moving phones (ADR 0005), in the style of the date link. -->
+            <Label Style="{StaticResource Body}" Text="{loc:Translate Setup_Restore}" TextColor="{StaticResource Sea}"
+                   TextDecorations="Underline" HorizontalTextAlignment="Center" MinimumHeightRequest="44" VerticalTextAlignment="Center" controls:Accessible.Role="Button" FontFamily="{DynamicResource FontTextSemiBold}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RestoreCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <!-- Not in screen 01: where her plan lives, with the privacy notice one tap away, as a quiet caption. -->
+            <Label Style="{StaticResource Caption}" HorizontalTextAlignment="Center" MinimumHeightRequest="44" VerticalTextAlignment="Center"
+                   controls:Accessible.Role="Button" TextColor="{StaticResource Ink}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{loc:Translate Setup_PrivacyLine}" TextColor="{StaticResource Muted}" FontFamily="{DynamicResource FontText}" />
+                        <Span Text=" " />
+                        <Span Text="{loc:Translate Setup_PrivacyLink}" TextColor="{StaticResource Sea}" FontFamily="{DynamicResource FontTextSemiBold}"
+                              TextDecorations="Underline" />
+                    </FormattedString>
+                </Label.FormattedText>
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenPrivacyCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <!-- Not in screen 01: using Maia means she accepts the terms of use, one tap away, in the same quiet caption. -->
+            <Label Style="{StaticResource Caption}" HorizontalTextAlignment="Center" MinimumHeightRequest="44" VerticalTextAlignment="Center"
+                   controls:Accessible.Role="Button" TextColor="{StaticResource Ink}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{loc:Translate Setup_TermsLine}" TextColor="{StaticResource Muted}" FontFamily="{DynamicResource FontText}" />
+                        <Span Text=" " />
+                        <Span Text="{loc:Translate Setup_TermsLink}" TextColor="{StaticResource Sea}" FontFamily="{DynamicResource FontTextSemiBold}"
+                              TextDecorations="Underline" />
+                    </FormattedString>
+                </Label.FormattedText>
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenTermsCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </VerticalStackLayout>
+    </ScrollView>
+</controls:MaiaPage>

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Adapters: encrypted local storage and plan template content. Platform-neutral (no MAUI references). -->
+  <PropertyGroup>
+    <RootNamespace>Maia.Infrastructure</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Maia.Application\Maia.Application.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\Content\*.json" LogicalName="Maia.Templates.%(Filename)%(Extension)" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Maia.Infrastructure.Tests" />
+    <!-- The shared test fakes keep the plan through the real persistence mapping and write real backups. -->
+    <InternalsVisibleTo Include="Maia.Testing" />
+  </ItemGroup>
+</Project>

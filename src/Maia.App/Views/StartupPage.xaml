@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  First screen: a quiet spinner while her plan opens, then Your week (or setup without a plan). When a plan is saved but
+  can't be opened there is no screenshot: it is built from the setup screens' parts (setup title, body, primary button,
+  the Sky note of screen 01) and Settings' delete card (asked once more in place, Sand, never red). The update and
+  try-again states use the same parts.
+-->
+<controls:MaiaPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:loc="clr-namespace:Maia.App.Localization"
+                   xmlns:controls="clr-namespace:Maia.App.Controls"
+                   xmlns:vm="clr-namespace:Maia.Presentation.Startup;assembly=Maia.Presentation"
+                   x:Class="Maia.App.Views.StartupPage"
+                   x:DataType="vm:StartupViewModel">
+    <Grid>
+        <ActivityIndicator IsRunning="{Binding IsOpening}" IsVisible="{Binding IsOpening}" Color="{StaticResource Pine}"
+                           HorizontalOptions="Center" VerticalOptions="Center" />
+
+        <!-- Her plan is here but can't be opened: restore a backup in its place, or start again. -->
+        <ScrollView IsVisible="{Binding CannotOpen}">
+            <VerticalStackLayout Padding="20,44,20,28" Spacing="16">
+                <Label Text="{loc:Translate Startup_CannotOpenTitle}" Style="{StaticResource Title}" Margin="0,8,0,0" />
+                <Label Text="{loc:Translate Startup_CannotOpenIntro}" Style="{StaticResource Body}" />
+                <Button Text="{loc:Translate Startup_Restore}" Style="{StaticResource PrimaryButton}" Command="{Binding RestoreCommand}" />
+
+                <Border Style="{StaticResource Card}" Padding="18">
+                    <VerticalStackLayout Spacing="12">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="{loc:Translate Startup_StartAgainTitle}" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level2" />
+                            <Label Text="{loc:Translate Startup_StartAgainNote}" Style="{StaticResource Caption}" />
+                        </VerticalStackLayout>
+                        <Button Text="{loc:Translate Startup_StartAgain}" Style="{StaticResource OutlineButton}" TextColor="{StaticResource SandDeep}"
+                                BorderColor="{StaticResource Sun}" HorizontalOptions="Start" Command="{Binding AskStartAgainCommand}"
+                                IsVisible="{Binding IsConfirmingStartAgain, Converter={StaticResource InvertedBool}}" controls:Accessible.FocusWhenShown="True" />
+                        <Border BackgroundColor="{StaticResource Sand}" Stroke="{StaticResource Sun}" StrokeThickness="1" StrokeShape="RoundRectangle 14"
+                                Padding="14" IsVisible="{Binding IsConfirmingStartAgain}" controls:Accessible.FocusWhenShown="True">
+                            <VerticalStackLayout Spacing="12">
+                                <Label Style="{StaticResource Body}" Text="{loc:Translate Startup_StartAgainConfirm}" TextColor="{StaticResource SandDeep}" />
+                                <FlexLayout Wrap="Wrap">
+                                    <Button Text="{loc:Translate Startup_StartAgainYes}" Style="{StaticResource ConfirmButton}" Command="{Binding StartAgainCommand}" />
+                                    <Button Text="{loc:Translate Common_KeepIt}" Style="{StaticResource KeepButton}" Command="{Binding KeepPlanCommand}" />
+                                </FlexLayout>
+                            </VerticalStackLayout>
+                        </Border>
+                        <Label Style="{StaticResource Body}" Text="{Binding ErrorMessage}" controls:Accessible.Announce="True" TextColor="{StaticResource SandDeep}"
+                               IsVisible="{Binding ErrorMessage, Converter={StaticResource IsNotNull}}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- A quiet retry, in the style of setup's links: the keystore may just not have been ready. -->
+                <Label Style="{StaticResource Body}" Text="{loc:Translate Startup_TryAgain}" TextColor="{StaticResource Sea}"
+                       TextDecorations="Underline" HorizontalTextAlignment="Center" MinimumHeightRequest="44" VerticalTextAlignment="Center" controls:Accessible.Role="Button" FontFamily="{DynamicResource FontTextSemiBold}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding TryAgainCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="{StaticResource Pine}" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- A newer Maia saved her plan: nothing here can change it; updating Maia opens it. -->
+        <ScrollView IsVisible="{Binding NeedsUpdate}">
+            <VerticalStackLayout Padding="20,44,20,28" Spacing="16">
+                <Label Text="{loc:Translate Startup_UpdateTitle}" Style="{StaticResource Title}" Margin="0,8,0,0" />
+                <Label Text="{loc:Translate Startup_UpdateIntro}" Style="{StaticResource Body}" />
+                <Border Style="{StaticResource Chip}" BackgroundColor="{StaticResource Sky}" StrokeShape="RoundRectangle 14"
+                        Padding="16,14" HorizontalOptions="Fill">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                        <controls:Logo Size="24" />
+                        <Label Style="{StaticResource Body}" Grid.Column="1" Text="{loc:Translate Startup_UpdateSafe}" TextColor="{StaticResource SkyDeep}" VerticalTextAlignment="Center" FontFamily="{DynamicResource FontTextSemiBold}" />
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!--
+          Something else stopped her plan opening (storage not ready, a fault in Maia): it may be fine, so the only way on
+          is to try again. No Restore and no Start again here: nothing on this screen changes or removes her plan.
+        -->
+        <ScrollView IsVisible="{Binding OpenFailed}">
+            <VerticalStackLayout Padding="20,44,20,28" Spacing="16">
+                <Label Text="{loc:Translate Startup_OpenFailedTitle}" Style="{StaticResource Title}" Margin="0,8,0,0" />
+                <Label Text="{loc:Translate Startup_OpenFailedIntro}" Style="{StaticResource Body}" />
+                <Button Text="{loc:Translate Startup_TryAgain}" Style="{StaticResource PrimaryButton}" Command="{Binding TryAgainCommand}" />
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</controls:MaiaPage>

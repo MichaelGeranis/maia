@@ -1,0 +1,22 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Maia.Domain/Maia.Domain.csproj" />
+    <Project Path="src/Maia.Application/Maia.Application.csproj" />
+    <Project Path="src/Maia.Infrastructure/Maia.Infrastructure.csproj" />
+    <Project Path="src/Maia.Presentation/Maia.Presentation.csproj" />
+    <Project Path="src/Maia.App/Maia.App.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Maia.Testing/Maia.Testing.csproj" />
+    <Project Path="tests/Maia.Domain.Tests/Maia.Domain.Tests.csproj" />
+    <Project Path="tests/Maia.Application.Tests/Maia.Application.Tests.csproj" />
+    <Project Path="tests/Maia.Infrastructure.Tests/Maia.Infrastructure.Tests.csproj" />
+    <Project Path="tests/Maia.Presentation.Tests/Maia.Presentation.Tests.csproj" />
+  </Folder>
+  <Folder Name="/solution/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
+    <File Path=".editorconfig" />
+  </Folder>
+</Solution>

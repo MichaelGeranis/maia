@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  The terms of use, pushed from About Maia or setup step 1 (so no bottom bar). The privacy notice's layout: the
+  Settings layout's title and body, then one card per part (card title, body text).
+-->
+<controls:MaiaPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:loc="clr-namespace:Maia.App.Localization"
+                   xmlns:controls="clr-namespace:Maia.App.Controls"
+                   xmlns:vm="clr-namespace:Maia.Presentation.About;assembly=Maia.Presentation"
+                   x:Class="Maia.App.Views.TermsPage"
+                   x:DataType="vm:TermsViewModel">
+    <ScrollView>
+        <VerticalStackLayout Padding="20,44,20,28" Spacing="16" controls:Motions.Rise="True">
+            <controls:BackPill Command="{Binding BackCommand}" HorizontalOptions="Start" />
+
+            <VerticalStackLayout Spacing="8">
+                <Label Text="{loc:Translate Terms_Title}" Style="{StaticResource Title}" />
+                <Label Text="{loc:Translate Terms_Intro}" Style="{StaticResource Body}" />
+                <Label Text="{loc:Translate Terms_Updated}" Style="{StaticResource CaptionStrong}" Margin="0,4,0,0" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="12" BindableLayout.ItemsSource="{Binding Sections}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="vm:NoticeSection">
+                        <Border Style="{StaticResource Card}" Padding="18,16">
+                            <VerticalStackLayout Spacing="6">
+                                <Label Text="{Binding Title}" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level2" />
+                                <Label Text="{Binding Body}" Style="{StaticResource Body}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</controls:MaiaPage>

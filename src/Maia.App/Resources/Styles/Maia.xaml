@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Named styles for Maia screens, from docs/design/README.md (Type, Shape, Components).
+  Fonts come through DynamicResource keys set in App: M PLUS Rounded 1c in every language (see Typography).
+  Implicit control styles stay in Styles.xaml.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:controls="clr-namespace:Maia.App.Controls">
+
+    <!-- ===== Text: six sizes (docs/design/README.md, Type). Screens use these and never set a size of their own. ===== -->
+
+    <!-- No LineHeight multipliers: M PLUS Rounded 1c already sets its lines generously apart, and 1.4 on top of it read as
+         double spacing on the phone. -->
+
+    <!-- Title, 32 Bold: every screen's title. -->
+    <Style x:Key="Title" TargetType="Label">
+        <Setter Property="FontFamily" Value="{DynamicResource FontTitle}" />
+        <Setter Property="FontSize" Value="32" />
+        <Setter Property="TextColor" Value="{StaticResource Ink}" />
+        <!-- Each screen's title is its first heading, so TalkBack can jump to it. -->
+        <Setter Property="SemanticProperties.HeadingLevel" Value="Level1" />
+    </Style>
+
+    <!-- Hero, 26 Bold: the Next up title, Breathing's words in the sphere. -->
+    <Style x:Key="Hero" TargetType="Label">
+        <Setter Property="FontFamily" Value="{DynamicResource FontTitle}" />
+        <Setter Property="FontSize" Value="26" />
+        <Setter Property="TextColor" Value="{StaticResource Ink}" />
+    </Style>
+
+    <!-- Heading, 16 Bold: card titles, check and entry names. -->
+    <Style x:Key="Heading" TargetType="Label">
+        <Setter Property="FontFamily" Value="{DynamicResource FontTextBold}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="TextColor" Value="{StaticResource Ink}" />
+    </Style>
+
+    <!-- Body, 15 Regular (Medium for a stressed line): reading text. -->
+    <Style x:Key="Body" TargetType="Label">
+        <Setter Property="FontFamily" Value="{DynamicResource FontText}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="TextColor" Value="{StaticResource Muted}" />
+    </Style>
+
+    <!-- Caption, 13 Regular: dates, weeks, notes, helping lines. -->
+    <Style x:Key="Caption" TargetType="Label">
+        <Setter Property="FontFamily" Value="{DynamicResource FontText}" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="TextColor" Value="{StaticResource Muted}" />
+    </Style>
+
+    <!-- Caption, 13 Medium: a caption that needs a little weight. -->
+    <Style x:Key="CaptionStrong" TargetType="Label" BasedOn="{StaticResource Caption}">
+        <Setter Property="FontFamily" Value="{DynamicResource FontTextSemiBold}" />
+    </Style>
+
+    <!-- Label, 12 Bold: chips, badges, tab names; the colour comes from what holds it. -->
+    <Style x:Key="Label" TargetType="Label">
+        <Setter Property="FontFamily" Value="{DynamicResource FontTextBold}" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+    </Style>
+
+    <!-- Eyebrow: the Label size in upper case with a little spacing, sea blue ("NEXT UP", "DOCTOR VISIT"). -->
+    <Style x:Key="Eyebrow" TargetType="Label" BasedOn="{StaticResource Label}">
+        <Setter Property="VerticalTextAlignment" Value="Start" />
+        <Setter Property="TextTransform" Value="Uppercase" />
+        <Setter Property="CharacterSpacing" Value="1" />
+        <Setter Property="controls:Capitals.Greek" Value="True" />
+        <Setter Property="TextColor" Value="{StaticResource Sea}" />
+    </Style>
+
+    <!-- Trimester and group names: an eyebrow in Pine, and a heading under the title. -->
+    <Style x:Key="GroupEyebrow" TargetType="Label" BasedOn="{StaticResource Eyebrow}">
+        <Setter Property="TextColor" Value="{StaticResource Pine}" />
+        <Setter Property="SemanticProperties.HeadingLevel" Value="Level2" />
+    </Style>
+
+    <!-- ===== Surfaces ===== -->
+
+    <Style x:Key="Card" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource CardSoft}" />
+        <Setter Property="Stroke" Value="{StaticResource Line}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 22" />
+        <Setter Property="Padding" Value="16" />
+    </Style>
+
+    <!-- White card with the soft green shadow, for the most important card on a screen. -->
+    <Style x:Key="RaisedCard" TargetType="Border" BasedOn="{StaticResource Card}">
+        <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+        <Setter Property="Shadow">
+            <Shadow Brush="{StaticResource Pine}" Opacity="0.08" Radius="34" Offset="0,16" />
+        </Setter>
+    </Style>
+
+    <Style x:Key="SkyCard" TargetType="Border" BasedOn="{StaticResource Card}">
+        <Setter Property="BackgroundColor" Value="{StaticResource Sky}" />
+        <Setter Property="Stroke" Value="{StaticResource Line}" />
+    </Style>
+
+    <Style x:Key="Tile" TargetType="Border">
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 22" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="MinimumHeightRequest" Value="112" />
+    </Style>
+
+    <!-- Small rounded chip; set its BackgroundColor per status. -->
+    <Style x:Key="Chip" TargetType="Border">
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 14" />
+        <Setter Property="Padding" Value="10,4" />
+        <Setter Property="VerticalOptions" Value="Start" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+    </Style>
+
+    <Style x:Key="Badge" TargetType="Border" BasedOn="{StaticResource Chip}">
+        <Setter Property="Padding" Value="8,3" />
+    </Style>
+
+    <!-- Header pill such as "Week 24 + 3". -->
+    <Style x:Key="GlassPill" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource CardGlass}" />
+        <Setter Property="Stroke" Value="{StaticResource Line}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 22" />
+        <Setter Property="Padding" Value="12,7" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <!-- Round 48 icon button (RoundIconButton): the Timer's − and +. -->
+    <Style x:Key="RoundButton" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource CardGlass}" />
+        <Setter Property="Stroke" Value="{StaticResource Line}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 24" />
+        <Setter Property="WidthRequest" Value="48" />
+        <Setter Property="HeightRequest" Value="48" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <!-- Input frame: date, time and text fields sit inside one. -->
+    <Style x:Key="Field" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+        <Setter Property="Stroke" Value="{StaticResource Line}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 14" />
+        <Setter Property="Padding" Value="10,0" />
+        <Setter Property="MinimumHeightRequest" Value="44" />
+    </Style>
+
+    <Style x:Key="BigField" TargetType="Border" BasedOn="{StaticResource Field}">
+        <Setter Property="Padding" Value="14,0" />
+        <Setter Property="MinimumHeightRequest" Value="50" />
+    </Style>
+
+    <!-- A panel over the bottom of a screen, above a scrim. -->
+    <Style x:Key="Sheet" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource Mist}" />
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 22,22,0,0" />
+        <Setter Property="Padding" Value="20,10,20,26" />
+    </Style>
+
+    <!-- ===== Buttons ===== -->
+
+    <!-- Every button is a pill: its corner radius is half its least height. -->
+    <Style x:Key="PrimaryButton" TargetType="Button">
+        <!-- With large text a long label wraps onto a second line and the button grows to hold it. -->
+        <Setter Property="LineBreakMode" Value="WordWrap" />
+        <Setter Property="controls:Motions.Press" Value="True" />
+        <Setter Property="BackgroundColor" Value="{StaticResource Pine}" />
+        <Setter Property="TextColor" Value="{StaticResource White}" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontTextBold}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="CornerRadius" Value="28" />
+        <Setter Property="MinimumHeightRequest" Value="56" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{StaticResource Line}" />
+                            <Setter Property="TextColor" Value="{StaticResource Muted}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PrimaryButtonSmall" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="CornerRadius" Value="24" />
+        <Setter Property="MinimumHeightRequest" Value="48" />
+    </Style>
+
+    <!-- Sea-blue action: Breathing's "Start breathing". -->
+    <Style x:Key="TertiaryButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+        <Setter Property="BackgroundColor" Value="{StaticResource Sea}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="CornerRadius" Value="24" />
+        <Setter Property="MinimumHeightRequest" Value="48" />
+    </Style>
+
+    <Style x:Key="OutlineButton" TargetType="Button">
+        <!-- With large text a long label wraps onto a second line and the button grows to hold it. -->
+        <Setter Property="LineBreakMode" Value="WordWrap" />
+        <Setter Property="controls:Motions.Press" Value="True" />
+        <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+        <Setter Property="TextColor" Value="{StaticResource Pine}" />
+        <Setter Property="BorderColor" Value="{StaticResource Line}" />
+        <Setter Property="BorderWidth" Value="1" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontTextBold}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="CornerRadius" Value="22" />
+        <Setter Property="Padding" Value="18,0" />
+        <Setter Property="MinimumHeightRequest" Value="44" />
+    </Style>
+
+    <!--
+      Every confirmation, on its Sand strip, ends with these two, in words and in this order: the action, repeating the
+      question's verb and what it acts on ("Delete task"), then "Keep it" / "Keep them".
+    -->
+    <Style x:Key="ConfirmButton" TargetType="Button" BasedOn="{StaticResource PrimaryButtonSmall}">
+        <Setter Property="BackgroundColor" Value="{StaticResource SandDeep}" />
+        <Setter Property="MinimumHeightRequest" Value="44" />
+        <Setter Property="CornerRadius" Value="22" />
+        <Setter Property="Padding" Value="18,0" />
+        <Setter Property="Margin" Value="0,0,8,8" />
+    </Style>
+
+    <Style x:Key="KeepButton" TargetType="Button" BasedOn="{StaticResource OutlineButton}">
+        <Setter Property="TextColor" Value="{StaticResource Ink}" />
+        <Setter Property="Margin" Value="0,0,0,8" />
+    </Style>
+
+    <!--
+      White like "Not needed" beside it, with the done colours only in its outline and words: a tinted fill read as if the
+      check were already marked done.
+    -->
+    <Style x:Key="MarkDoneButton" TargetType="Button" BasedOn="{StaticResource OutlineButton}">
+        <Setter Property="BorderColor" Value="{StaticResource Line}" />
+    </Style>
+
+    <Style x:Key="NotNeededButton" TargetType="Button" BasedOn="{StaticResource OutlineButton}">
+        <Setter Property="BorderColor" Value="{StaticResource Line}" />
+        <Setter Property="TextColor" Value="{StaticResource Muted}" />
+    </Style>
+
+    <Style x:Key="TextButton" TargetType="Button">
+        <!-- With large text a long label wraps onto a second line and the button grows to hold it. -->
+        <Setter Property="LineBreakMode" Value="WordWrap" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="{StaticResource Muted}" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontTextBold}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="MinimumHeightRequest" Value="44" />
+    </Style>
+
+    <Style x:Key="LinkButton" TargetType="Button" BasedOn="{StaticResource TextButton}">
+        <Setter Property="TextColor" Value="{StaticResource Sea}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+    </Style>
+
+    <!-- ===== Bottom bar ===== -->
+
+    <!-- Each slot fills its fifth of the bar, so the whole width is a target and no two slots overlap. -->
+    <Style x:Key="TabItem" TargetType="VerticalStackLayout">
+        <Setter Property="Spacing" Value="3" />
+        <Setter Property="HorizontalOptions" Value="Fill" />
+        <Setter Property="VerticalOptions" Value="End" />
+        <Setter Property="MinimumHeightRequest" Value="52" />
+    </Style>
+
+    <Style x:Key="TabIcon" TargetType="controls:Icon">
+        <Setter Property="Size" Value="24" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="TabLabel" TargetType="Label" BasedOn="{StaticResource Label}">
+        <Setter Property="VerticalTextAlignment" Value="Start" />
+        <Setter Property="TextColor" Value="{StaticResource Muted}" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+        <!--
+          One line always: a longer name ("Αποτελέσματα") may reach 10 past its slot, and the five shrink together if two
+          would touch (BottomBar.FitLabels, TabLabelFit).
+        -->
+        <Setter Property="LineBreakMode" Value="NoWrap" />
+        <Setter Property="Margin" Value="-10,0" />
+    </Style>
+
+    <Style x:Key="TabDot" TargetType="Ellipse">
+        <Setter Property="Fill" Value="{StaticResource Pine}" />
+        <Setter Property="WidthRequest" Value="5" />
+        <Setter Property="HeightRequest" Value="5" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+</ResourceDictionary>

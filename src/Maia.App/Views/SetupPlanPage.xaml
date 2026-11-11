@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Setup 2 of 3: the suggested plan. Design: docs/design/screens/02-setup-suggested-plan.jpg -->
+<controls:MaiaPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:loc="clr-namespace:Maia.App.Localization"
+                   xmlns:controls="clr-namespace:Maia.App.Controls"
+                   xmlns:vm="clr-namespace:Maia.Presentation.Setup;assembly=Maia.Presentation"
+                   x:Class="Maia.App.Views.SetupPlanPage"
+                   x:DataType="vm:SetupPlanViewModel">
+    <CollectionView ItemsSource="{Binding Groups}" IsGrouped="True" SelectionMode="None" Margin="20,0">
+        <CollectionView.Header>
+            <VerticalStackLayout Spacing="14" Padding="0,44,0,4" controls:Motions.Rise="True">
+                <Grid ColumnDefinitions="*,Auto">
+                    <controls:BackPill x:Name="Back" />
+                    <controls:StepDots Grid.Column="1" Step="2" />
+                </Grid>
+                <Label Text="{Binding Title}" Style="{StaticResource Title}" Margin="0,8,0,0" />
+                <Label Text="{Binding Intro}" Style="{StaticResource Body}" IsVisible="{Binding IsBlocked, Converter={StaticResource InvertedBool}}" />
+
+                <!-- No plan can be suggested on this build (template awaiting clinical review, ADR 0003): say so calmly
+                     (Sand notice, as on Team and Results) and offer step 1's way forward, restoring a backup. -->
+                <VerticalStackLayout Spacing="14" IsVisible="{Binding IsBlocked}">
+                    <Border Style="{StaticResource Chip}" BackgroundColor="{StaticResource Sand}" StrokeShape="RoundRectangle 14" Padding="14,12" HorizontalOptions="Fill">
+                        <Label Style="{StaticResource Body}" Text="{Binding ErrorMessage}" controls:Accessible.Announce="True" TextColor="{StaticResource SandDeep}" />
+                    </Border>
+                    <Label Text="{Binding ErrorHelp}" Style="{StaticResource Body}" />
+                    <Button Text="{loc:Translate SetupPlan_Restore}" Style="{StaticResource OutlineButton}" HorizontalOptions="Start"
+                            Command="{Binding RestoreCommand}" />
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </CollectionView.Header>
+        <CollectionView.GroupHeaderTemplate>
+            <DataTemplate x:DataType="vm:CheckGroup">
+                <HorizontalStackLayout Spacing="10" Padding="0,18,0,8">
+                    <controls:Icon Data="{StaticResource IconLeaf}" Size="18" Color="{StaticResource Sage}" />
+                    <Label Text="{Binding Title}" Style="{StaticResource GroupEyebrow}" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+            </DataTemplate>
+        </CollectionView.GroupHeaderTemplate>
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="vm:CheckOption">
+                <Border Style="{StaticResource Card}" Padding="16,12,8,12" Margin="0,0,0,8">
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                        <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                            <FlexLayout Wrap="Wrap" AlignItems="Center">
+                                <Label Text="{Binding Title}" Style="{StaticResource Heading}" Margin="0,0,8,2" />
+                                <Border Style="{StaticResource Badge}" Padding="8,2"
+                                        BackgroundColor="{Binding TagKind, Converter={StaticResource TagBackground}}">
+                                    <Label Text="{Binding Tag}" Style="{StaticResource Label}"
+                                           TextColor="{Binding TagKind, Converter={StaticResource TagForeground}}" />
+                                </Border>
+                            </FlexLayout>
+                            <Label Text="{Binding Window}" Style="{StaticResource Caption}" />
+                        </VerticalStackLayout>
+                        <controls:PillSwitch Grid.Column="1" IsToggled="{Binding IsIncluded}" VerticalOptions="Center" Label="{Binding Title}" />
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+        <CollectionView.Footer>
+            <Button Text="{loc:Translate SetupPlan_Start}" Style="{StaticResource PrimaryButton}" Command="{Binding ContinueCommand}" Margin="0,16,0,28"
+                    IsVisible="{Binding IsBlocked, Converter={StaticResource InvertedBool}}" />
+        </CollectionView.Footer>
+    </CollectionView>
+</controls:MaiaPage>

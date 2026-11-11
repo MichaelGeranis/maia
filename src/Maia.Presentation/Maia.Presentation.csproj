@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Screen logic (view models), formatting and UI text, with no MAUI dependency,
+    so every screen's behaviour is unit-tested on any machine.
+  -->
+  <PropertyGroup>
+    <RootNamespace>Maia.Presentation</RootNamespace>
+    <!-- View models are consumed by XAML bindings in the app, so they stay public. -->
+    <!-- View models must resume on the UI thread after awaits, so ConfigureAwait(false) is wrong here (CA2007). -->
+    <NoWarn>$(NoWarn);CA1515;CA2007</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Maia.Application\Maia.Application.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Maia.Presentation.Tests" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Restore a backup (ADR 0005), pushed from setup step 1. No screenshot: built from the setup screens' parts
+  (Back pill, setup title, a white card with fields, primary button).
+-->
+<controls:MaiaPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:loc="clr-namespace:Maia.App.Localization"
+                   xmlns:controls="clr-namespace:Maia.App.Controls"
+                   xmlns:vm="clr-namespace:Maia.Presentation.Setup;assembly=Maia.Presentation"
+                   x:Class="Maia.App.Views.RestorePage"
+                   x:DataType="vm:RestoreViewModel">
+    <ScrollView>
+        <VerticalStackLayout Padding="20,44,20,28" Spacing="16" controls:Motions.Rise="True">
+            <controls:BackPill Command="{Binding BackCommand}" HorizontalOptions="Start" />
+            <Label Text="{loc:Translate Restore_Title}" Style="{StaticResource Title}" Margin="0,8,0,0" />
+            <Label Text="{loc:Translate Restore_Intro}" Style="{StaticResource Body}" />
+
+            <Border Style="{StaticResource RaisedCard}" Padding="18">
+                <VerticalStackLayout Spacing="12">
+                    <Button Text="{loc:Translate Restore_Choose}" Style="{StaticResource OutlineButton}" Command="{Binding ChooseFileCommand}" />
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                        <controls:Icon Data="{StaticResource IconFile}" Size="16" Color="{StaticResource Muted}" VerticalOptions="Center" />
+                        <Label Grid.Column="1" Text="{Binding FileName}" Style="{StaticResource Caption}" LineBreakMode="MiddleTruncation" VerticalOptions="Center" />
+                    </Grid>
+                    <Label Style="{StaticResource CaptionStrong}" Text="{loc:Translate Restore_Password}" TextColor="{StaticResource Muted}" />
+                    <!-- Named only by its placeholder (the field's hint): a semantic description or hint would read the password out. -->
+                    <Border Style="{StaticResource BigField}">
+                        <Entry x:Name="PasswordEntry" Text="{Binding Password}" IsPassword="True" TextColor="{StaticResource Ink}"
+                               ReturnType="Done" ReturnCommand="{Binding RestoreCommand}" Placeholder="{loc:Translate Restore_Password}"/>
+                    </Border>
+                    <Label Style="{StaticResource Body}" Text="{Binding ErrorMessage}" controls:Accessible.Announce="True" TextColor="{StaticResource SandDeep}"
+                           IsVisible="{Binding ErrorMessage, Converter={StaticResource IsNotNull}}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="{loc:Translate Restore_RemindersNote}" Style="{StaticResource Caption}" />
+            <Button Text="{loc:Translate Restore_Button}" Style="{StaticResource PrimaryButton}" Command="{Binding RestoreCommand}" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="{StaticResource Pine}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</controls:MaiaPage>

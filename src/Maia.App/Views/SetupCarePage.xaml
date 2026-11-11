@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Setup 3 of 3: her OB-GYN and reminders. Design: docs/design/screens/03-setup-obgyn-calendar.jpg, where the calendar
+  card is now the Reminders card: one "Remind me" tile, drawn like the screenshot's calendar tile (docs/design/screens.md §3).
+-->
+<controls:MaiaPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:loc="clr-namespace:Maia.App.Localization"
+                   xmlns:controls="clr-namespace:Maia.App.Controls"
+                   xmlns:vm="clr-namespace:Maia.Presentation.Setup;assembly=Maia.Presentation"
+                   xmlns:care="clr-namespace:Maia.Presentation.Care;assembly=Maia.Presentation"
+                   x:Class="Maia.App.Views.SetupCarePage"
+                   x:DataType="vm:SetupCareViewModel">
+    <ScrollView>
+        <VerticalStackLayout Padding="20,44,20,28" Spacing="16" controls:Motions.Rise="True">
+            <Grid ColumnDefinitions="*,Auto">
+                <controls:BackPill Command="{Binding BackCommand}" />
+                <controls:StepDots Grid.Column="1" Step="3" />
+            </Grid>
+
+            <VerticalStackLayout Spacing="10" Margin="0,8,0,0">
+                <Label Text="{loc:Translate SetupCare_Title}" Style="{StaticResource Title}" />
+                <Label Text="{loc:Translate SetupCare_Intro}" Style="{StaticResource Body}" />
+            </VerticalStackLayout>
+
+            <!-- Her OB-GYN, from the phone's contacts. -->
+            <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource CardSoft}">
+                <VerticalStackLayout Spacing="10">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                        <controls:Icon Data="{StaticResource IconStethoscope}" Size="18" Color="{StaticResource Pine}" />
+                        <Label Grid.Column="1" Text="{loc:Translate SetupCare_YourObGyn}" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level2" VerticalOptions="Center" />
+                    </Grid>
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding ObGyns}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="care:ContactItem">
+                                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12" Padding="0,8">
+                                    <Border WidthRequest="40" HeightRequest="40" StrokeThickness="0" StrokeShape="RoundRectangle 20" BackgroundColor="{StaticResource SageTint}">
+                                        <Border.Triggers>
+                                            <DataTrigger TargetType="Border" Binding="{Binding AltAvatar}" Value="True">
+                                                <Setter Property="BackgroundColor" Value="{StaticResource Sky}" />
+                                            </DataTrigger>
+                                        </Border.Triggers>
+                                        <Label Style="{StaticResource Heading}" Text="{Binding Initials}" TextColor="{StaticResource Pine}"
+                                               HorizontalOptions="Center" VerticalOptions="Center" AutomationProperties.IsInAccessibleTree="False" />
+                                    </Border>
+                                    <VerticalStackLayout Grid.Column="1" Spacing="1" VerticalOptions="Center">
+                                        <Label Text="{Binding Name}" Style="{StaticResource Heading}" />
+                                        <Label Text="{Binding Meta}" Style="{StaticResource Caption}" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                    <controls:DashedButton Text="{Binding PickText}" Icon="{StaticResource IconUserPlus}" Command="{Binding PickCommand}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Reminders: Maia's own notifications on this phone; turning them on asks for notifications. -->
+            <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource CardSoft}" IsVisible="{Binding CanRemind}">
+                <VerticalStackLayout Spacing="10">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                        <controls:Icon Data="{StaticResource IconClock}" Size="18" Color="{StaticResource Pine}" />
+                        <Label Grid.Column="1" Text="{loc:Translate Settings_RemindersTitle}" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level2" VerticalOptions="Center" />
+                    </Grid>
+                    <Border StrokeShape="RoundRectangle 14" Padding="12" MinimumHeightRequest="76" StrokeThickness="2" SemanticProperties.Description="{loc:Translate SetupCare_RemindersTile}"
+                            controls:Accessible.Role="Switch" controls:Accessible.IsOn="{Binding RemindMe}">
+                        <Border.Triggers>
+                            <DataTrigger TargetType="Border" Binding="{Binding RemindMe}" Value="True">
+                                <Setter Property="Stroke" Value="{StaticResource Pine}" />
+                                <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Border" Binding="{Binding RemindMe}" Value="False">
+                                <Setter Property="Stroke" Value="{StaticResource Line}" />
+                                <Setter Property="BackgroundColor" Value="{StaticResource CardSoft}" />
+                            </DataTrigger>
+                        </Border.Triggers>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ToggleRemindersCommand}" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="6">
+                            <Border WidthRequest="28" HeightRequest="28" StrokeThickness="0" StrokeShape="RoundRectangle 14" BackgroundColor="{StaticResource SageTint}" HorizontalOptions="Start">
+                                <controls:Icon Data="{StaticResource IconClock}" Size="16" Color="{StaticResource Pine}"
+                                               HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                            <Ellipse Grid.Column="1" WidthRequest="18" HeightRequest="18" StrokeThickness="2" VerticalOptions="Start">
+                                <Ellipse.Triggers>
+                                    <DataTrigger TargetType="Ellipse" Binding="{Binding RemindMe}" Value="True">
+                                        <Setter Property="Fill" Value="{StaticResource Pine}" />
+                                        <Setter Property="Stroke" Value="{StaticResource Pine}" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Ellipse" Binding="{Binding RemindMe}" Value="False">
+                                        <Setter Property="Fill" Value="Transparent" />
+                                        <Setter Property="Stroke" Value="{StaticResource Muted}" />
+                                    </DataTrigger>
+                                </Ellipse.Triggers>
+                            </Ellipse>
+                            <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{loc:Translate SetupCare_RemindersTile}" Style="{StaticResource Heading}" />
+                        </Grid>
+                    </Border>
+                    <Label Text="{loc:Translate SetupCare_RemindersNote}" Style="{StaticResource Caption}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Chip}" BackgroundColor="{StaticResource Sand}" StrokeShape="RoundRectangle 14" Padding="14,12" HorizontalOptions="Fill"
+                    IsVisible="{Binding Notice, Converter={StaticResource IsNotNull}}">
+                <Label Style="{StaticResource Body}" Text="{Binding Notice}" controls:Accessible.Announce="True" TextColor="{StaticResource SandDeep}" />
+            </Border>
+
+            <Button Text="{loc:Translate SetupCare_Start}" Style="{StaticResource PrimaryButton}" Command="{Binding StartCommand}" />
+            <Button Text="{loc:Translate SetupCare_Skip}" Style="{StaticResource TextButton}" Command="{Binding SkipCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</controls:MaiaPage>

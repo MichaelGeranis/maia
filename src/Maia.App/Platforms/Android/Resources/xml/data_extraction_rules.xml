@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Android 12+ (API 31): nothing of Maia's goes to cloud backup or to a new phone in a device-to-device transfer.
+  Her plan and results are encrypted with a key in this phone's Keystore, which never leaves it: copied files would
+  arrive without their key and could never be opened. Moving phones goes through her own encrypted backup file instead
+  (ADR 0005). On Android 11 and older, android:allowBackup="false" already turns off both.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="root" path="." />
+        <exclude domain="file" path="." />
+        <exclude domain="database" path="." />
+        <exclude domain="sharedpref" path="." />
+        <exclude domain="external" path="." />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="root" path="." />
+        <exclude domain="file" path="." />
+        <exclude domain="database" path="." />
+        <exclude domain="sharedpref" path="." />
+        <exclude domain="external" path="." />
+    </device-transfer>
+</data-extraction-rules>

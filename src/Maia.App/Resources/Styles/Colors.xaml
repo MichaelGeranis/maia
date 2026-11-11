@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Maia's fourteen colours (docs/design/README.md, Colour): three families of three, Green · Sea · Sun, and five
+  neutrals. They are the only colours in the app; nothing else carries a hex value. Below them, a few of the same
+  colours made partly transparent, named by use: transparency is allowed, a new colour is not (a test checks that
+  every key here is one of the fourteen, at some opacity).
+  Keep Platforms/Android/Resources/values/colors.xml and the icon and splash colour in Maia.App.csproj on Pine.
+-->
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Green: Maia, hers, done -->
+    <Color x:Key="Pine">#2E5A4C</Color>           <!-- buttons, the hero, the active tab, green text -->
+    <Color x:Key="Sage">#4E8A70</Color>           <!-- done nodes, ticks, a switch that is on; never text -->
+    <Color x:Key="SageTint">#E1ECE3</Color>       <!-- done chips, icon tiles -->
+
+    <!-- Sea: booked, "you are here", links, focus -->
+    <Color x:Key="SkyDeep">#1F4F5B</Color>        <!-- text on Sky -->
+    <Color x:Key="Sea">#2F6F7E</Color>            <!-- booked nodes, links, you are here -->
+    <Color x:Key="Sky">#DCEBEE</Color>            <!-- booked chips, info banners -->
+
+    <!-- Sun: the due date, and attention (never red) -->
+    <Color x:Key="SandDeep">#5C4611</Color>       <!-- text on Sand, the confirm button -->
+    <Color x:Key="Sun">#E9C979</Color>            <!-- the due-date node, notice outlines; never text -->
+    <Color x:Key="Sand">#F5EAC8</Color>           <!-- notices, confirmations -->
+
+    <!-- Neutrals -->
+    <Color x:Key="Ink">#1E2D29</Color>            <!-- main text -->
+    <Color x:Key="Muted">#56665F</Color>          <!-- secondary text, inactive tabs, control outlines (3 : 1 and more) -->
+    <Color x:Key="Line">#DDE7DF</Color>           <!-- borders, dividers, neutral chips; never text -->
+    <Color x:Key="Mist">#F2F5EF</Color>           <!-- the page, panels inside cards -->
+    <Color x:Key="White">#FFFFFF</Color>          <!-- cards, fields -->
+
+    <!-- The same colours, partly transparent -->
+    <Color x:Key="CardSoft">#D9FFFFFF</Color>     <!-- White 85 %: cards -->
+    <Color x:Key="CardGlass">#B3FFFFFF</Color>    <!-- White 70 %: the back pill, header pills -->
+    <Color x:Key="CardDone">#8CFFFFFF</Color>     <!-- White 55 %: done entries recede -->
+    <Color x:Key="HeroText">#BFFFFFFF</Color>     <!-- White 75 %: the hero's eyebrow and second lines -->
+    <Color x:Key="BarBackground">#E6F2F5EF</Color> <!-- Mist 90 %: the bottom bar -->
+    <Color x:Key="MutedHalf">#8056665F</Color>    <!-- Muted 50 %: a not-booked node, setup's step dots -->
+    <Color x:Key="SeaSoft">#992F6F7E</Color>      <!-- Sea 60 %: the deep edge of Breathing's sphere -->
+</ResourceDictionary>

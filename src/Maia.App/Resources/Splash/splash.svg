@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Maia sprout: two leaves on a stem, drawn inside the adaptive-icon safe zone. -->
+<svg width="456" height="456" viewBox="114 110 228 228" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M228 330 V210" stroke="#F2F5EF" stroke-width="14" stroke-linecap="round" fill="none" />
+    <path d="M228 238 C 176 236, 152 200, 154 158 C 200 160, 230 190, 228 238 Z" fill="#9FC2B0" />
+    <path d="M228 214 C 232 164, 262 134, 310 132 C 312 178, 284 214, 228 214 Z" fill="#F2F5EF" />
+</svg>

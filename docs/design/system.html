@@ -1,0 +1,480 @@
+<title>Maia design system</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap">
+<style>
+/* Layout: one calm specimen column on Mist; each section a white card, with phone-width (390) frames where width matters.
+   Maia is light-only in v1, so this page commits to its light look on any host theme. */
+:root {
+  color-scheme: light;
+  /* Maia's fourteen */
+  --pine: #2E5A4C; --sage: #4E8A70; --sage-tint: #E1ECE3;
+  --sky-deep: #1F4F5B; --sea: #2F6F7E; --sky: #DCEBEE;
+  --sand-deep: #5C4611; --sun: #E9C979; --sand: #F5EAC8;
+  --ink: #1E2D29; --muted: #56665F; --line: #DDE7DF; --mist: #F2F5EF; --white: #FFFFFF;
+  /* Derived only by transparency, as the rules allow */
+  --card: rgba(255,255,255,.85); --card-done: rgba(255,255,255,.55);
+  --shadow: 0 16px 34px rgba(46,90,76,.08);
+  --font: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Arial Rounded MT Bold", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--mist); color: var(--ink); }
+body { font-family: var(--font); font-size: 15px; line-height: 1.5; padding-inline: 16px; padding-block: 32px 64px; }
+.page { max-width: 1000px; margin: 0 auto; display: grid; gap: 24px; }
+h1, h2, h3 { margin: 0; text-wrap: balance; font-weight: 700; }
+p { margin: 0; }
+.muted { color: var(--muted); }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--pine); }
+
+/* Header */
+.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--pine); font-size: 22px; font-weight: 700; }
+.brand svg { width: 36px; height: 36px; }
+.top h1 { font-size: 32px; color: var(--ink); margin-top: 8px; }
+.lede { max-width: 62ch; color: var(--muted); margin-top: 6px; }
+.lang { display: inline-flex; gap: 6px; padding: 4px; background: var(--white); border: 1px solid var(--line); border-radius: 999px; }
+.lang button { font: 700 13px var(--font); border: 0; background: transparent; color: var(--ink); padding: 8px 14px; border-radius: 999px; cursor: pointer; min-height: 36px; }
+.lang button[aria-pressed="true"] { background: var(--pine); color: var(--white); }
+button:focus-visible, .lang button:focus-visible { outline: 2px solid var(--sea); outline-offset: 2px; }
+
+/* Sections */
+section.card { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 24px; box-shadow: var(--shadow); display: grid; gap: 18px; min-width: 0; }
+section.card > header { display: grid; gap: 4px; }
+section.card h2 { font-size: 26px; color: var(--ink); }
+.rule-list { margin: 0; padding-left: 20px; display: grid; gap: 6px; max-width: 72ch; }
+.grid { display: grid; gap: 12px; }
+.cols-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.cols-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.sub { font-size: 16px; font-weight: 700; color: var(--pine); }
+
+/* Words */
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+.table-wrap { overflow-x: auto; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+td.never { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line); }
+
+/* Colour */
+.family { display: grid; gap: 8px; }
+.family .swatches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.neutrals .swatches { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+.sw { border-radius: 14px; border: 1px solid var(--line); overflow: hidden; background: var(--white); min-width: 0; }
+.sw .chip-c { height: 64px; }
+.sw .meta { padding: 8px 10px; display: grid; gap: 2px; }
+.sw b { font-size: 13px; }
+.sw code { font: 500 12px var(--font); color: var(--muted); font-variant-numeric: tabular-nums; }
+.sw small { font-size: 12px; color: var(--muted); line-height: 1.35; }
+.pairs { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px; }
+.pair { border-radius: 14px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; }
+.pair .ratio { font: 500 12px var(--font); font-variant-numeric: tabular-nums; opacity: .9; white-space: nowrap; }
+
+/* Status */
+.status-row { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 22px; border: 1px solid var(--line); background: var(--card); }
+.status-row.done { background: var(--card-done); }
+.status-row.done .name { color: var(--muted); }
+.node { width: 20px; height: 20px; border-radius: 50%; justify-self: center; display: grid; place-items: center; }
+.node svg { width: 13px; height: 13px; }
+.name { font-weight: 700; font-size: 16px; }
+.cap { font-size: 13px; color: var(--muted); }
+.chip { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+
+/* Type */
+.type-row { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 16px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.type-row:last-child { border-bottom: 0; }
+.type-row .spec { display: grid; gap: 2px; }
+.type-row .spec b { color: var(--pine); font-size: 14px; }
+.type-row .spec span { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.phone { width: 100%; max-width: 390px; background: var(--mist); border: 1px solid var(--line); border-radius: 28px; padding: 18px 16px; display: grid; gap: 10px; }
+.phone .t32 { font-size: 32px; font-weight: 700; line-height: 1.15; hyphens: manual; }
+
+/* Bar and icons */
+.bar { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); background: rgba(242,245,239,.9); border-top: 1px solid var(--line); border-radius: 0 0 26px 26px; padding: 8px 4px 10px; }
+.slot { display: grid; justify-items: center; gap: 2px; min-height: 52px; color: var(--muted); }
+.slot .lbl { font-size: 12px; font-weight: 700; white-space: nowrap; }
+.slot.on { color: var(--pine); }
+.slot .dot { width: 5px; height: 5px; border-radius: 50%; background: transparent; }
+.slot.on .dot { background: var(--pine); }
+.slot svg { width: 24px; height: 24px; }
+.icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+.ic { display: grid; grid-template-columns: 36px minmax(0, 1fr); align-items: center; gap: 10px; padding: 8px; border-radius: 14px; background: var(--white); border: 1px solid var(--line); }
+.ic .tile { width: 36px; height: 36px; border-radius: 14px; background: var(--sage-tint); color: var(--pine); display: grid; place-items: center; }
+.ic .tile svg { width: 18px; height: 18px; }
+.ic b { font-size: 12px; display: block; overflow-wrap: anywhere; }
+.ic small { font-size: 11.5px; color: var(--muted); overflow-wrap: anywhere; }
+.logos { display: flex; flex-wrap: wrap; gap: 12px; }
+.logo-box { width: 132px; height: 132px; border-radius: 28px; display: grid; place-items: center; }
+.logo-box svg { width: 84px; height: 84px; }
+
+/* Components */
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.btn { font: 700 15px var(--font); border-radius: 999px; padding: 11px 20px; min-height: 44px; border: 1px solid transparent; cursor: default; }
+.btn.primary { background: var(--pine); color: var(--white); font-size: 16px; }
+.btn.outline { background: var(--white); color: var(--pine); border-color: var(--line); }
+.btn.confirm { background: var(--sand-deep); color: var(--white); }
+.btn.keep { background: var(--white); color: var(--ink); border-color: var(--line); }
+.btn.link { background: transparent; color: var(--sea); padding-inline: 4px; }
+.pill { font: 700 14px var(--font); border-radius: 999px; padding: 9px 16px; border: 1px solid var(--line); background: var(--white); color: var(--ink); }
+.pill.on { background: var(--pine); border-color: var(--pine); color: var(--white); }
+.switch { width: 46px; height: 28px; border-radius: 999px; position: relative; display: inline-block; }
+.switch::after { content: ""; position: absolute; top: 3px; width: 22px; height: 22px; border-radius: 50%; background: var(--white); box-shadow: 0 1px 3px rgba(30,45,41,.25); }
+.switch.on { background: var(--sage); } .switch.on::after { right: 3px; }
+.switch.off { background: var(--muted); } .switch.off::after { left: 3px; }
+.tick { width: 26px; height: 26px; border-radius: 50%; display: inline-grid; place-items: center; }
+.tick.empty { border: 2px solid var(--muted); }
+.tick.done { background: var(--sage); color: var(--white); }
+.tick svg { width: 15px; height: 15px; }
+.toast { background: var(--pine); color: var(--white); border-radius: 22px; padding: 12px 16px; display: flex; gap: 10px; align-items: center; font-size: 14px; }
+.toast .t { width: 26px; height: 26px; border-radius: 50%; background: var(--sage-tint); color: var(--pine); display: grid; place-items: center; flex: none; }
+.toast .t svg { width: 15px; height: 15px; }
+.notice { background: var(--sand); color: var(--sand-deep); border: 1px solid var(--sun); border-radius: 22px; padding: 12px 16px; font-size: 14px; }
+.banner { background: var(--sky); color: var(--sky-deep); border-radius: 999px; padding: 8px 16px; font-weight: 700; font-size: 13px; display: inline-flex; gap: 8px; align-items: center; }
+.banner .here { width: 10px; height: 10px; border-radius: 50%; background: var(--sea); box-shadow: 0 0 0 4px rgba(47,111,126,.2); }
+.hero { background: var(--pine); color: var(--white); border-radius: 22px; padding: 18px 20px; display: grid; gap: 4px; }
+.hero .e { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.75); }
+.hero .h { font-size: 26px; font-weight: 700; line-height: 1.2; }
+.hero .s { font-size: 13px; color: rgba(255,255,255,.75); }
+.lang-el [data-en], .lang-en [data-el] { display: none; }
+.choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.choice { display: grid; gap: 8px; align-content: start; padding: 14px; border-radius: 18px; border: 1px solid var(--line); background: var(--white); min-width: 0; }
+.choice.rec { border: 2px solid var(--pine); }
+.choice .choice-name { font-weight: 700; font-size: 15px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.choice p { font-size: 13px; }
+.choice code { font: 500 12px var(--font); color: var(--muted); }
+.setting-row { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 12px; align-items: center; padding: 10px; border-radius: 14px; background: var(--mist); }
+.setting-row b { display: block; font-size: 15px; }
+.setting-row small { display: block; font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tile36 { width: 36px; height: 36px; border-radius: 14px; background: var(--sage-tint); color: var(--pine); display: grid; place-items: center; }
+.tile36 svg { width: 18px; height: 18px; }
+.weeks { display: grid; grid-template-columns: 28px minmax(0, 1fr); column-gap: 12px; row-gap: 0; max-width: 390px; }
+.weeks .wkh { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; padding: 14px 0 6px; }
+.weeks .wkh b { font-size: 12px; color: var(--pine); }
+.weeks .wkh i { flex: 1; height: 1px; background: var(--line); }
+.weeks .wkh > span { font-size: 13px; color: var(--muted); }
+.weeks .line { width: 2px; background: var(--line); justify-self: center; min-height: 10px; }
+.fold { display: grid; grid-template-columns: 36px minmax(0, 1fr) 20px; gap: 12px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 14px 16px; max-width: 390px; }
+.fold b { display: block; font-size: 16px; }
+.fold small { display: block; font-size: 13px; color: var(--muted); }
+.fold > svg { width: 18px; height: 18px; color: var(--sea); }
+.shots { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+.shot { display: grid; gap: 6px; text-decoration: none; color: var(--ink); font-size: 12px; font-weight: 700; min-width: 0; }
+.shot img { width: 100%; height: auto; aspect-ratio: 390 / 844; object-fit: cover; object-position: top; border-radius: 18px; border: 1px solid var(--line); background: var(--mist); }
+.shot:focus-visible { outline: 2px solid var(--sea); outline-offset: 3px; border-radius: 18px; }
+@media (max-width: 560px) {
+  .type-row { grid-template-columns: 1fr; gap: 6px; }
+  section.card { padding: 18px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .banner .here { animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { box-shadow: 0 0 0 7px rgba(47,111,126,.08); } }
+}
+</style>
+
+<div class="page lang-en" id="page">
+
+  <div class="top">
+    <div>
+      <div class="brand" aria-label="maia">
+        <svg viewBox="114 110 228 228" aria-hidden="true"><path d="M228 330 V210" stroke="#2E5A4C" stroke-width="14" stroke-linecap="round" fill="none"/><path d="M228 238 C 176 236, 152 200, 154 158 C 200 160, 230 190, 228 238 Z" fill="#4E8A70"/><path d="M228 214 C 232 164, 262 134, 310 132 C 312 178, 284 214, 228 214 Z" fill="#2E5A4C"/></svg>
+        maia
+      </div>
+      <h1>One Maia</h1>
+      <p class="lede">The rules every screen follows, agreed on 4 October 2026: one font, fourteen colours, six text sizes, one icon set, one logo and one word for each thing. Samples switch between English and Greek, because both must fit.</p>
+    </div>
+    <div class="lang" role="group" aria-label="Sample language">
+      <button type="button" id="lang-en" aria-pressed="true">English</button>
+      <button type="button" id="lang-el" aria-pressed="false">Ελληνικά</button>
+    </div>
+  </div>
+
+  <!-- Words -->
+  <section class="card" aria-labelledby="h-words">
+    <header><span class="eyebrow">Words</span><h2 id="h-words">One word for each thing</h2></header>
+    <ul class="rule-list">
+      <li>Tabs, titles, headings, tiles and links are <b>nouns</b>. A screen's title is the name she tapped.</li>
+      <li>Buttons are <b>verbs</b>: Save, Add task, Delete task, Start my journey.</li>
+      <li>Messages say what happened: "Maia can't open your journey", "A newer Maia is needed".</li>
+      <li>Every Greek string says what its English says.</li>
+    </ul>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>She reads</th><th>English</th><th>Greek</th><th>Never</th></tr></thead>
+        <tbody>
+          <tr><td>Everything Maia keeps, and the timeline</td><td>Journey</td><td>Πλάνο</td><td class="never">plan · Διαδρομή</td></tr>
+          <tr><td>The first screen</td><td>Today</td><td>Σήμερα</td><td class="never">Week · Here's your week</td></tr>
+          <tr><td>Adding something</td><td>New</td><td>Νέο</td><td class="never">Add to your journey</td></tr>
+          <tr><td>Two calm minutes</td><td>Breathing</td><td>Αναπνοή</td><td class="never">Breathe with Maia · Ανάσα</td></tr>
+          <tr><td>Her doctors</td><td>Care team</td><td>Ομάδα φροντίδας</td><td class="never">Η ομάδα σου</td></tr>
+          <tr><td>The task card on Today</td><td>This week</td><td>Αυτή την εβδομάδα</td><td class="never">To do this week</td></tr>
+          <tr><td>Every task</td><td>All tasks</td><td>Όλες οι εργασίες</td><td class="never">Your tasks</td></tr>
+          <tr><td>Her questions</td><td>Questions</td><td>Ερωτήσεις</td><td class="never">Your questions</td></tr>
+          <tr><td>Setup, step 2</td><td>A typical journey</td><td>Ένα συνηθισμένο πλάνο</td><td class="never">Here's a typical plan</td></tr>
+          <tr><td>Setup, step 3</td><td>Doctor and reminders</td><td>Γιατρός και υπενθυμίσεις</td><td class="never">Your doctor and reminders</td></tr>
+          <tr><td>Restoring on a new phone</td><td>Backup</td><td>Αντίγραφο ασφαλείας</td><td class="never">Restore your backup</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Colour -->
+  <section class="card" aria-labelledby="h-colour">
+    <header><span class="eyebrow">Colour</span><h2 id="h-colour">Fourteen colours</h2>
+      <p class="muted">Three families of three, five neutrals. Each family keeps one meaning. Text on a light step uses the dark step of the same family. Transparency is allowed; new colours are not.</p></header>
+
+    <div class="grid cols-3">
+      <div class="family">
+        <span class="sub">Green · Maia, hers, done</span>
+        <div class="swatches">
+          <div class="sw"><div class="chip-c" style="background:var(--pine)"></div><div class="meta"><b>Pine</b><code>#2E5A4C</code><small>Buttons, hero, active tab, green text</small></div></div>
+          <div class="sw"><div class="chip-c" style="background:var(--sage)"></div><div class="meta"><b>Sage</b><code>#4E8A70</code><small>Done nodes, ticks, switch on</small></div></div>
+          <div class="sw"><div class="chip-c" style="background:var(--sage-tint)"></div><div class="meta"><b>SageTint</b><code>#E1ECE3</code><small>Done chips, icon tiles</small></div></div>
+        </div>
+      </div>
+      <div class="family">
+        <span class="sub">Sea · booked, now, links</span>
+        <div class="swatches">
+          <div class="sw"><div class="chip-c" style="background:var(--sky-deep)"></div><div class="meta"><b>SkyDeep</b><code>#1F4F5B</code><small>Text on Sky</small></div></div>
+          <div class="sw"><div class="chip-c" style="background:var(--sea)"></div><div class="meta"><b>Sea</b><code>#2F6F7E</code><small>Booked nodes, links, you are here, focus</small></div></div>
+          <div class="sw"><div class="chip-c" style="background:var(--sky)"></div><div class="meta"><b>Sky</b><code>#DCEBEE</code><small>Booked chips, info banners</small></div></div>
+        </div>
+      </div>
+      <div class="family">
+        <span class="sub">Sun · due date, attention</span>
+        <div class="swatches">
+          <div class="sw"><div class="chip-c" style="background:var(--sand-deep)"></div><div class="meta"><b>SandDeep</b><code>#5C4611</code><small>Text on Sand, confirm button</small></div></div>
+          <div class="sw"><div class="chip-c" style="background:var(--sun)"></div><div class="meta"><b>Sun</b><code>#E9C979</code><small>Due-date node, notice outline</small></div></div>
+          <div class="sw"><div class="chip-c" style="background:var(--sand)"></div><div class="meta"><b>Sand</b><code>#F5EAC8</code><small>Notices, confirmations</small></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="family neutrals">
+      <span class="sub">Neutrals</span>
+      <div class="swatches">
+        <div class="sw"><div class="chip-c" style="background:var(--ink)"></div><div class="meta"><b>Ink</b><code>#1E2D29</code><small>Main text</small></div></div>
+        <div class="sw"><div class="chip-c" style="background:var(--muted)"></div><div class="meta"><b>Muted</b><code>#56665F</code><small>Secondary text, outlines of controls</small></div></div>
+        <div class="sw"><div class="chip-c" style="background:var(--line)"></div><div class="meta"><b>Line</b><code>#DDE7DF</code><small>Borders, dividers, neutral chips</small></div></div>
+        <div class="sw"><div class="chip-c" style="background:var(--mist)"></div><div class="meta"><b>Mist</b><code>#F2F5EF</code><small>Page, bar, panels</small></div></div>
+        <div class="sw"><div class="chip-c" style="background:var(--white)"></div><div class="meta"><b>White</b><code>#FFFFFF</code><small>Cards, fields</small></div></div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <span class="sub">Text pairs, with their contrast (4.5 : 1 needed)</span>
+      <div class="pairs" id="pairs">
+        <div class="pair" data-fg="#1E2D29" data-bg="#F2F5EF">Ink on Mist <span class="ratio"></span></div>
+        <div class="pair" data-fg="#56665F" data-bg="#F2F5EF">Muted on Mist <span class="ratio"></span></div>
+        <div class="pair" data-fg="#2E5A4C" data-bg="#E1ECE3">Pine on SageTint <span class="ratio"></span></div>
+        <div class="pair" data-fg="#1F4F5B" data-bg="#DCEBEE">SkyDeep on Sky <span class="ratio"></span></div>
+        <div class="pair" data-fg="#5C4611" data-bg="#F5EAC8">SandDeep on Sand <span class="ratio"></span></div>
+        <div class="pair" data-fg="#FFFFFF" data-bg="#2E5A4C">White on Pine <span class="ratio"></span></div>
+        <div class="pair" data-fg="#FFFFFF" data-bg="#5C4611">White on SandDeep <span class="ratio"></span></div>
+        <div class="pair" data-fg="#2F6F7E" data-bg="#FFFFFF">Sea on White <span class="ratio"></span></div>
+        <div class="pair" data-fg="#56665F" data-bg="#DDE7DF">Muted on Line <span class="ratio"></span></div>
+      </div>
+      <p class="muted" style="font-size:13px">Sage, Sun and Line are never text. Sage reaches about 4 : 1 on white, enough for a mark but not for words.</p>
+    </div>
+
+    <div class="grid">
+      <span class="sub">Status on Journey: the chip and the node carry it; every card has the same Line border</span>
+      <div class="grid cols-2">
+        <div class="status-row"><span class="node" style="background:var(--white);box-shadow:inset 0 0 0 2px rgba(86,102,95,.5)"></span><div><div class="name" data-en>Thyroid test</div><div class="name" data-el>Έλεγχος θυρεοειδούς</div><div class="cap" data-en>2nd trimester · Weeks 24–28</div><div class="cap" data-el>2ο τρίμηνο · Εβδομάδες 24–28</div></div><span class="chip" style="background:var(--line);color:var(--muted)"><span data-en>Not booked</span><span data-el>Δεν έχει κλειστεί</span></span></div>
+        <div class="status-row"><span class="node" style="background:var(--sea)"></span><div><div class="name" data-en>Anomaly scan</div><div class="name" data-el>Υπερηχογράφημα β΄ επιπέδου</div><div class="cap" data-en>2nd trimester · Week 25 · Tue 6 Oct, 10:30</div><div class="cap" data-el>2ο τρίμηνο · Εβδομάδα 25 · Τρί 6 Οκτ, 10:30</div></div><span class="chip" style="background:var(--sky);color:var(--sky-deep)"><span data-en>Booked</span><span data-el>Κλεισμένο</span></span></div>
+        <div class="status-row done"><span class="node" style="background:var(--sage);color:var(--white)"><i data-lucide="check"></i></span><div><div class="name" data-en>Nuchal scan</div><div class="name" data-el>Αυχενική διαφάνεια</div><div class="cap" data-en>1st trimester · Week 12 · Mon 6 Jul</div><div class="cap" data-el>1ο τρίμηνο · Εβδομάδα 12 · Δευ 6 Ιουλ</div></div><span class="chip" style="background:var(--sage-tint);color:var(--pine)"><span data-en>Done</span><span data-el>Έγινε</span></span></div>
+        <div class="status-row"><span class="node" style="background:var(--sun)"></span><div><div class="name" data-en>Due date</div><div class="name" data-el>Τοκετός</div><div class="cap" data-en>Sun 17 Jan 2027</div><div class="cap" data-el>Κυρ 17 Ιαν 2027</div></div><span class="chip" style="background:var(--sand);color:var(--sand-deep)"><span data-en>Due date</span><span data-el>Τοκετός</span></span></div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <span class="sub"><span data-en>Weeks on Journey: a heading for each week, and an empty one says so</span><span data-el>Εβδομάδες στο Πλάνο: ένας τίτλος για κάθε εβδομάδα, και η άδεια το λέει</span></span>
+      <div class="weeks" aria-label="Week headings on the timeline">
+        <span class="wkh"><b><span data-en>Week 24</span><span data-el>Εβδομάδα 24</span></b><i></i><span><span data-en>27 Sep – 3 Oct</span><span data-el>27 Σεπ – 3 Οκτ</span></span></span>
+        <span class="node" style="background:var(--white);box-shadow:inset 0 0 0 2px rgba(86,102,95,.5)"></span><span class="cap"><span data-en>Glucose tolerance test · 2nd trimester · Weeks 24–28</span><span data-el>Καμπύλη σακχάρου · 2ο τρίμηνο · Εβδομάδες 24–28</span></span>
+        <span class="wkh"><b><span data-en>Week 25</span><span data-el>Εβδομάδα 25</span></b><i></i><span><span data-en>4–10 Oct</span><span data-el>4–10 Οκτ</span></span></span>
+        <span class="line"></span><span class="cap"><span data-en>Nothing this week</span><span data-el>Τίποτα αυτή την εβδομάδα</span></span>
+        <span class="wkh"><b><span data-en>Week 26</span><span data-el>Εβδομάδα 26</span></b><i></i><span><span data-en>11–17 Oct</span><span data-el>11–17 Οκτ</span></span></span>
+        <span class="node" style="background:var(--sea)"></span><span class="cap"><span data-en>Anomaly scan · 2nd trimester · Week 26 · Wed 14 Oct, 10:30</span><span data-el>Υπερηχογράφημα β΄ επιπέδου · 2ο τρίμηνο · Εβδομάδα 26 · Τετ 14 Οκτ, 10:30</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Type -->
+  <section class="card" aria-labelledby="h-type">
+    <header><span class="eyebrow">Type</span><h2 id="h-type">Six sizes, one font</h2>
+      <p class="muted">M PLUS Rounded 1c for English and Greek, in Regular, Medium and Bold. Screens use these six styles and never set a size of their own.</p></header>
+    <div>
+      <div class="type-row"><div class="spec"><b>Title</b><span>32 · Bold</span></div><div style="font-size:32px;font-weight:700;line-height:1.15"><span data-en>Today</span><span data-el>Σήμερα</span></div></div>
+      <div class="type-row"><div class="spec"><b>Hero</b><span>26 · Bold</span></div><div style="font-size:26px;font-weight:700;line-height:1.2"><span data-en>Anomaly scan</span><span data-el>Υπερηχογράφημα β΄ επιπέδου</span></div></div>
+      <div class="type-row"><div class="spec"><b>Heading</b><span>16 · Bold</span></div><div style="font-size:16px;font-weight:700"><span data-en>This week</span><span data-el>Αυτή την εβδομάδα</span></div></div>
+      <div class="type-row"><div class="spec"><b>Body</b><span>15 · Regular</span></div><div style="font-size:15px"><span data-en>Your doctor may suggest a different set. Switch off what doesn't apply; you can change it any time.</span><span data-el>Ο γιατρός σου μπορεί να προτείνει κάτι διαφορετικό. Απενεργοποίησε ό,τι δεν ισχύει· μπορείς να το αλλάξεις όποτε θέλεις.</span></div></div>
+      <div class="type-row"><div class="spec"><b>Caption</b><span>13 · Regular / Medium</span></div><div style="font-size:13px;color:var(--muted)"><span data-en>2nd trimester · Week 25 · Tue 6 Oct, 10:30</span><span data-el>2ο τρίμηνο · Εβδομάδα 25 · Τρί 6 Οκτ, 10:30</span></div></div>
+      <div class="type-row"><div class="spec"><b>Label</b><span>12 · Bold</span></div><div class="eyebrow"><span data-en>Next up · Doctor visit</span><span data-el>Επόμενο · Επίσκεψη σε γιατρό</span></div></div>
+    </div>
+    <div class="grid cols-2" style="align-items:start">
+      <div class="phone" aria-label="Titles at phone width">
+        <span class="eyebrow">Titles at 390 dp</span>
+        <div class="t32"><span data-en>Today</span><span data-el>Σήμερα</span></div>
+        <div class="t32"><span data-en>All tasks</span><span data-el>Όλες οι εργασίες</span></div>
+        <div class="t32"><span data-en>Backup</span><span data-el>Αντίγραφο ασφαλείας</span></div>
+        <div class="t32"><span data-en>Doctor and reminders</span><span data-el>Γιατρός και υπενθυμίσεις</span></div>
+      </div>
+      <ul class="rule-list">
+        <li>Long words wrap rather than shrink; cards grow with her text size.</li>
+        <li>The bar's five names are the one exception: they share one size and shrink together.</li>
+        <li>Journey's week headings ("Week 25") are the Label size in Pine; their days are Caption in Muted.</li>
+        <li>Bold for titles, headings, labels and buttons; Regular for reading; Medium for a caption that needs weight.</li>
+        <li>The 161 sizes once typed into screens each moved to their role here; a test now keeps sizes out of screens.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Icons and logo -->
+  <section class="card" aria-labelledby="h-icons">
+    <header><span class="eyebrow">Icons and logo</span><h2 id="h-icons">One icon set, one logo</h2>
+      <p class="muted">Lucide line icons on a 24-unit grid, 1.8 stroke, round ends, one colour at a time. Pine when active, Muted when not.</p></header>
+
+    <div class="phone" style="padding:0;gap:0;max-width:390px">
+      <div style="padding:16px 16px 12px;display:grid;gap:10px">
+        <span class="banner"><span class="here"></span><span data-en>You are here</span><span data-el>Είσαι εδώ</span></span>
+      </div>
+      <nav class="bar" aria-label="Bottom bar">
+        <div class="slot on"><i data-lucide="sunrise"></i><span class="lbl"><span data-en>Today</span><span data-el>Σήμερα</span></span><span class="dot"></span></div>
+        <div class="slot"><i data-lucide="route"></i><span class="lbl"><span data-en>Journey</span><span data-el>Πλάνο</span></span><span class="dot"></span></div>
+        <div class="slot"><i data-lucide="plus"></i><span class="lbl"><span data-en>New</span><span data-el>Νέο</span></span><span class="dot"></span></div>
+        <div class="slot"><i data-lucide="folder"></i><span class="lbl"><span data-en>Results</span><span data-el>Αποτελέσματα</span></span><span class="dot"></span></div>
+        <div class="slot"><i data-lucide="settings"></i><span class="lbl"><span data-en>Settings</span><span data-el>Ρυθμίσεις</span></span><span class="dot"></span></div>
+      </nav>
+    </div>
+
+    <div class="icons" id="icons"></div>
+
+    <div class="grid">
+      <span class="sub">The logo: one drawing, two colourings</span>
+      <div class="logos">
+        <div class="logo-box" style="background:var(--pine)" aria-label="Logo on Pine"><svg viewBox="114 110 228 228" aria-hidden="true"><path d="M228 330 V210" stroke="#F2F5EF" stroke-width="14" stroke-linecap="round" fill="none"/><path d="M228 238 C 176 236, 152 200, 154 158 C 200 160, 230 190, 228 238 Z" fill="#F2F5EF" fill-opacity=".6"/><path d="M228 214 C 232 164, 262 134, 310 132 C 312 178, 284 214, 228 214 Z" fill="#F2F5EF"/></svg></div>
+        <div class="logo-box" style="background:var(--white);border:1px solid var(--line)" aria-label="Logo on a light background"><svg viewBox="114 110 228 228" aria-hidden="true"><path d="M228 330 V210" stroke="#2E5A4C" stroke-width="14" stroke-linecap="round" fill="none"/><path d="M228 238 C 176 236, 152 200, 154 158 C 200 160, 230 190, 228 238 Z" fill="#4E8A70"/><path d="M228 214 C 232 164, 262 134, 310 132 C 312 178, 284 214, 228 214 Z" fill="#2E5A4C"/></svg></div>
+      </div>
+      <p class="muted" style="font-size:13px">On Pine: the app icon, the splash and the notification icon. On a light background: the header, About Maia, the lock screen, start-up and setup.</p>
+    </div>
+  </section>
+
+  <!-- Components -->
+  <section class="card" aria-labelledby="h-comp">
+    <header><span class="eyebrow">Components</span><h2 id="h-comp">Built from the fourteen</h2>
+      <p class="muted">Every button is a pill. Cards have radius 22, fields and tiles 14.</p></header>
+    <div class="row">
+      <button class="btn primary" type="button" tabindex="-1"><span data-en>Start my journey</span><span data-el>Ξεκίνα το πλάνο μου</span></button>
+      <button class="btn outline" type="button" tabindex="-1"><span data-en>Edit</span><span data-el>Επεξεργασία</span></button>
+      <button class="btn confirm" type="button" tabindex="-1"><span data-en>Delete task</span><span data-el>Διαγραφή εργασίας</span></button>
+      <button class="btn keep" type="button" tabindex="-1"><span data-en>Keep it</span><span data-el>Να μείνει</span></button>
+      <button class="btn link" type="button" tabindex="-1"><span data-en>All tasks</span><span data-el>Όλες οι εργασίες</span></button>
+    </div>
+    <div class="row">
+      <span class="pill on"><span data-en>Booked</span><span data-el>Κλεισμένο</span></span>
+      <span class="pill"><span data-en>Already done</span><span data-el>Έγινε ήδη</span></span>
+      <span class="pill"><span data-en>Not booked yet</span><span data-el>Δεν έχει κλειστεί ακόμα</span></span>
+      <span class="switch on" role="img" aria-label="Switch, on"></span>
+      <span class="switch off" role="img" aria-label="Switch, off"></span>
+      <span class="tick empty" role="img" aria-label="Empty tick circle"></span>
+      <span class="tick done" role="img" aria-label="Ticked"><i data-lucide="check"></i></span>
+    </div>
+    <div class="grid cols-2">
+      <div class="hero"><span class="e"><span data-en>Next up</span><span data-el>Επόμενο</span></span><span class="h"><span data-en>Anomaly scan</span><span data-el>Υπερηχογράφημα β΄ επιπέδου</span></span><span class="s"><span data-en>Tue 6 Oct at 10:30 · with Dr. Eleni Papadaki</span><span data-el>Τρί 6 Οκτ στις 10:30 · με Dr. Eleni Papadaki</span></span></div>
+      <div class="grid">
+        <div class="toast"><span class="t"><i data-lucide="check"></i></span><span data-en>Thyroid test added to your journey, done on Tue 29 Sep.</span><span data-el>Έλεγχος θυρεοειδούς: προστέθηκε στο πλάνο σου, έγινε Τρί 29 Σεπ.</span></div>
+        <div class="notice"><span data-en>Delete this task?</span><span data-el>Να διαγραφεί αυτή η εργασία;</span></div>
+      </div>
+    </div>
+    <div class="fold" aria-label="A card that folds"><span class="tile36"><i data-lucide="users"></i></span><span><b><span data-en>Care team</span><span data-el>Ομάδα φροντίδας</span></b><small><span data-en>Folded until she taps it; the chevron turns up when open.</span><span data-el>Κλειστή μέχρι να την πατήσει· το βελάκι γυρίζει πάνω όταν ανοίγει.</span></small></span><i data-lucide="chevron-down"></i></div>
+  </section>
+
+  <!-- Screens -->
+  <section class="card" aria-labelledby="h-screens">
+    <header><span class="eyebrow">Screens</span><h2 id="h-screens">Every screen, captured from the app</h2>
+      <p class="muted">Taken by scripts/capture-screens.ps1 on a 390 × 844 dp phone with the sample journey (week 24 + 3, OB-GYN Dr. Eleni Papadaki), 8 October 2026. Awaiting your sign-off. Tap one to see it full size.</p></header>
+    <div class="shots">
+      <a class="shot" href="screens/01-setup-due-date.jpg" target="_blank" rel="noopener"><img src="screens/01-setup-due-date.jpg" alt="1 · Setup: due date" loading="lazy" width="390" height="844"><span>1 · Setup: due date</span></a>
+      <a class="shot" href="screens/01-setup-due-date-lower.jpg" target="_blank" rel="noopener"><img src="screens/01-setup-due-date-lower.jpg" alt="1 · Setup: due date, lower" loading="lazy" width="390" height="844"><span>1 · Setup: due date, lower</span></a>
+      <a class="shot" href="screens/02-setup-a-typical-journey.jpg" target="_blank" rel="noopener"><img src="screens/02-setup-a-typical-journey.jpg" alt="2 · Setup: a typical journey" loading="lazy" width="390" height="844"><span>2 · Setup: a typical journey</span></a>
+      <a class="shot" href="screens/03-setup-doctor-and-reminders.jpg" target="_blank" rel="noopener"><img src="screens/03-setup-doctor-and-reminders.jpg" alt="3 · Setup: doctor and reminders" loading="lazy" width="390" height="844"><span>3 · Setup: doctor and reminders</span></a>
+      <a class="shot" href="screens/04-today.jpg" target="_blank" rel="noopener"><img src="screens/04-today.jpg" alt="4 · Today" loading="lazy" width="390" height="844"><span>4 · Today</span></a>
+      <a class="shot" href="screens/04-today-lower.jpg" target="_blank" rel="noopener"><img src="screens/04-today-lower.jpg" alt="4 · Today, lower" loading="lazy" width="390" height="844"><span>4 · Today, lower</span></a>
+      <a class="shot" href="screens/05-journey.jpg" target="_blank" rel="noopener"><img src="screens/05-journey.jpg" alt="5 · Journey" loading="lazy" width="390" height="844"><span>5 · Journey</span></a>
+      <a class="shot" href="screens/06-entry-opened.jpg" target="_blank" rel="noopener"><img src="screens/06-entry-opened.jpg" alt="6 · An entry, opened" loading="lazy" width="390" height="844"><span>6 · An entry, opened</span></a>
+      <a class="shot" href="screens/07-new.jpg" target="_blank" rel="noopener"><img src="screens/07-new.jpg" alt="7 · New" loading="lazy" width="390" height="844"><span>7 · New</span></a>
+      <a class="shot" href="screens/08-results.jpg" target="_blank" rel="noopener"><img src="screens/08-results.jpg" alt="8 · Results" loading="lazy" width="390" height="844"><span>8 · Results</span></a>
+      <a class="shot" href="screens/09-care-team.jpg" target="_blank" rel="noopener"><img src="screens/09-care-team.jpg" alt="9 · Care team" loading="lazy" width="390" height="844"><span>9 · Care team</span></a>
+      <a class="shot" href="screens/11-reminders.jpg" target="_blank" rel="noopener"><img src="screens/11-reminders.jpg" alt="11 · Reminders" loading="lazy" width="390" height="844"><span>11 · Reminders</span></a>
+      <a class="shot" href="screens/12-breathing.jpg" target="_blank" rel="noopener"><img src="screens/12-breathing.jpg" alt="12 · Breathing" loading="lazy" width="390" height="844"><span>12 · Breathing</span></a>
+      <a class="shot" href="screens/13-questions.jpg" target="_blank" rel="noopener"><img src="screens/13-questions.jpg" alt="13 · Questions" loading="lazy" width="390" height="844"><span>13 · Questions</span></a>
+      <a class="shot" href="screens/14-settings.jpg" target="_blank" rel="noopener"><img src="screens/14-settings.jpg" alt="14 · Settings" loading="lazy" width="390" height="844"><span>14 · Settings</span></a>
+      <a class="shot" href="screens/15-backup.jpg" target="_blank" rel="noopener"><img src="screens/15-backup.jpg" alt="15 · Backup" loading="lazy" width="390" height="844"><span>15 · Backup</span></a>
+      <a class="shot" href="screens/17-result-viewer.jpg" target="_blank" rel="noopener"><img src="screens/17-result-viewer.jpg" alt="17 · Result viewer" loading="lazy" width="390" height="844"><span>17 · Result viewer</span></a>
+      <a class="shot" href="screens/18-about.jpg" target="_blank" rel="noopener"><img src="screens/18-about.jpg" alt="18 · About Maia" loading="lazy" width="390" height="844"><span>18 · About Maia</span></a>
+      <a class="shot" href="screens/19-privacy-notice.jpg" target="_blank" rel="noopener"><img src="screens/19-privacy-notice.jpg" alt="19 · Privacy notice" loading="lazy" width="390" height="844"><span>19 · Privacy notice</span></a>
+      <a class="shot" href="screens/20-licences.jpg" target="_blank" rel="noopener"><img src="screens/20-licences.jpg" alt="20 · Licences" loading="lazy" width="390" height="844"><span>20 · Licences</span></a>
+      <a class="shot" href="screens/23-all-tasks.jpg" target="_blank" rel="noopener"><img src="screens/23-all-tasks.jpg" alt="23 · All tasks" loading="lazy" width="390" height="844"><span>23 · All tasks</span></a>
+      <a class="shot" href="screens/25-terms-of-use.jpg" target="_blank" rel="noopener"><img src="screens/25-terms-of-use.jpg" alt="25 · Terms of use" loading="lazy" width="390" height="844"><span>25 · Terms of use</span></a>
+    </div>
+  </section>
+
+  <p class="muted" style="font-size:13px">Source: <code>docs/design/README.md</code> in the Maia repository. Icons: Lucide (ISC licence).</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+(function () {
+  var page = document.getElementById('page');
+
+  // Language samples
+  var en = document.getElementById('lang-en'), el = document.getElementById('lang-el');
+  function setLang(code) {
+    page.classList.toggle('lang-en', code === 'en');
+    page.classList.toggle('lang-el', code === 'el');
+    en.setAttribute('aria-pressed', String(code === 'en'));
+    el.setAttribute('aria-pressed', String(code === 'el'));
+    document.documentElement.lang = code;
+    try { localStorage.setItem('maia-system-lang', code); } catch (e) {}
+  }
+  en.addEventListener('click', function () { setLang('en'); });
+  el.addEventListener('click', function () { setLang('el'); });
+  try { if (localStorage.getItem('maia-system-lang') === 'el') setLang('el'); } catch (e) {}
+
+  // Contrast of each text pair (WCAG relative luminance)
+  function lum(hex) {
+    var n = parseInt(hex.slice(1), 16);
+    return [n >> 16, (n >> 8) & 255, n & 255].map(function (c) {
+      c /= 255; return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+    }).reduce(function (s, c, i) { return s + c * [0.2126, 0.7152, 0.0722][i]; }, 0);
+  }
+  document.querySelectorAll('.pair').forEach(function (p) {
+    var a = lum(p.dataset.fg), b = lum(p.dataset.bg);
+    var r = (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+    p.style.color = p.dataset.fg; p.style.background = p.dataset.bg;
+    if (p.dataset.bg === '#FFFFFF') p.style.boxShadow = 'inset 0 0 0 1px #DDE7DF';
+    p.querySelector('.ratio').textContent = r.toFixed(1) + ' : 1';
+  });
+
+  // Icon keys and their Lucide names
+  var icons = [
+    ['IconToday', 'sunrise'], ['IconJourney', 'route'], ['IconNew', 'plus'], ['IconResults', 'folder'],
+    ['IconSettings', 'settings'], ['IconCheck', 'check'], ['IconBack', 'chevron-left'], ['IconChevronRight', 'chevron-right'],
+    ['IconClose', 'x'], ['IconClock', 'clock'], ['IconDate', 'calendar'], ['IconPhone', 'phone'],
+    ['IconStethoscope', 'stethoscope'], ['IconTeam', 'users'], ['IconUserPlus', 'user-plus'], ['IconQuestions', 'message-circle'],
+    ['IconLeaf', 'leaf'], ['IconPhoto', 'image'], ['IconFile', 'file-text'], ['IconUpload', 'upload'],
+    ['IconCamera', 'camera'], ['IconSearch', 'search'], ['IconGrip', 'grip-horizontal'], ['IconSparkle', 'sparkles'],
+    ['IconGlobe', 'globe'], ['IconLock', 'lock'], ['IconDevice', 'smartphone'], ['IconDiagnostics', 'clipboard-list'], ['IconPrivacy', 'shield'], ['IconBloodPressure', 'heart'],
+    ['IconTerms', 'scroll-text']
+  ];
+  var grid = document.getElementById('icons');
+  icons.forEach(function (i) {
+    var d = document.createElement('div');
+    d.className = 'ic';
+    d.innerHTML = '<span class="tile"><i data-lucide="' + i[1] + '"></i></span><span><b>' + i[0] + '</b><small>' + i[1] + '</small></span>';
+    grid.appendChild(d);
+  });
+
+  if (window.lucide) {
+    window.lucide.createIcons({ attrs: { 'stroke-width': 1.8, 'aria-hidden': 'true' } });
+  }
+})();
+</script>

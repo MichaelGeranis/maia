@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  One task as a row, the same on Your week's card and on Your tasks: tap the circle to tick it, its words to change or
+  delete it in place. The row's first 44 dp are the circle's touch area, with the circle centred in it, so it starts 10 dp
+  in; a list sets the row 10 dp less in than its words, so circles and words line up with the headings above them.
+  The editor is built only while the task is open (LazyView), so closed rows carry no fields or pickers. A task just
+  added glows briefly (Motions.Glow; nothing with reduced motion).
+-->
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:loc="clr-namespace:Maia.App.Localization"
+             xmlns:controls="clr-namespace:Maia.App.Controls"
+             xmlns:vm="clr-namespace:Maia.Presentation.Week;assembly=Maia.Presentation"
+             x:Class="Maia.App.Controls.TaskRowView"
+             x:DataType="vm:TaskItem">
+    <ContentView.Resources>
+        <!--
+          A task opened in place: its words, a date and time (or else a trimester or a week), then save, cancel or delete
+          (asked once more, Sand).
+          The three buttons share the row's whole width in equal parts.
+        -->
+        <DataTemplate x:Key="TaskEditorTemplate" x:DataType="vm:TaskItem">
+            <VerticalStackLayout Spacing="8" Padding="0,2,0,12">
+                <Border Style="{StaticResource Field}" Padding="12,0">
+                    <Entry Keyboard="Text" Text="{Binding EditTitle}" Placeholder="{loc:Translate Week_TaskPlaceholder}" TextColor="{StaticResource Ink}"
+                           MaxLength="{x:Static vm:WeekViewModel.MaxTaskLength}" ReturnType="Done" ReturnCommand="{Binding SaveCommand}"
+                           SemanticProperties.Description="{loc:Translate Week_TaskLabel}"/>
+                </Border>
+                <Label Text="{Binding EditLengthHint}" Style="{StaticResource Caption}"
+                       IsVisible="{Binding EditLengthHint, Converter={StaticResource IsNotNull}}" />
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                    <Label Text="{loc:Translate Week_TaskHasDate}" Style="{StaticResource Body}" VerticalOptions="Center" FontFamily="{DynamicResource FontTextSemiBold}" />
+                    <controls:PillSwitch Grid.Column="1" IsToggled="{Binding EditHasDate}" VerticalOptions="Center" Label="{loc:Translate Week_TaskHasDate}" />
+                </Grid>
+                <Grid ColumnDefinitions="3*,2*" ColumnSpacing="8" IsVisible="{Binding EditHasDate}">
+                    <Border Style="{StaticResource Field}">
+                        <DatePicker Date="{Binding EditDate}" MinimumDate="{Binding EditMinimumDate}" TextColor="{StaticResource Ink}"
+                                    SemanticProperties.Description="{loc:Translate Book_Date}"/>
+                    </Border>
+                    <Border Grid.Column="1" Style="{StaticResource Field}">
+                        <TimePicker Time="{Binding EditTime}" Format="HH:mm" TextColor="{StaticResource Ink}"
+                                    SemanticProperties.Description="{loc:Translate Book_Time}"/>
+                    </Border>
+                </Grid>
+                <VerticalStackLayout Spacing="8" IsVisible="{Binding EditHasDate, Converter={StaticResource InvertedBool}}">
+                    <Label Text="{loc:Translate Add_When}" Style="{StaticResource Body}" FontFamily="{DynamicResource FontTextSemiBold}" />
+                    <controls:TimingFields BindingContext="{Binding EditPeriod}" />
+                </VerticalStackLayout>
+                <Label Text="{Binding EditError}" Style="{StaticResource Caption}" TextColor="{StaticResource SandDeep}" controls:Accessible.Announce="True"
+                       IsVisible="{Binding EditError, Converter={StaticResource IsNotNull}}" />
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8" Margin="0,0,0,8"
+                      IsVisible="{Binding IsConfirmingDelete, Converter={StaticResource InvertedBool}}" controls:Accessible.FocusWhenShown="True">
+                    <Button Text="{loc:Translate Common_Save}" Style="{StaticResource PrimaryButtonSmall}" MinimumHeightRequest="44"
+                            CornerRadius="22" Padding="8,0" LineBreakMode="WordWrap" Command="{Binding SaveCommand}"/>
+                    <Button Grid.Column="1" Text="{loc:Translate Common_Cancel}" Style="{StaticResource OutlineButton}" CornerRadius="22" Padding="8,0"
+                            Command="{Binding CancelCommand}" />
+                    <Button Grid.Column="2" Text="{loc:Translate Week_TaskDelete}" Style="{StaticResource OutlineButton}" TextColor="{StaticResource SandDeep}"
+                            BorderColor="{StaticResource Sun}" CornerRadius="22" Padding="8,0" Command="{Binding AskDeleteCommand}" />
+                </Grid>
+                <Border BackgroundColor="{StaticResource Sand}" Stroke="{StaticResource Sun}" StrokeThickness="1" StrokeShape="RoundRectangle 14"
+                        Padding="14" IsVisible="{Binding IsConfirmingDelete}" controls:Accessible.FocusWhenShown="True">
+                    <VerticalStackLayout Spacing="12">
+                        <Label Style="{StaticResource Body}" Text="{loc:Translate Week_TaskDeleteConfirm}" TextColor="{StaticResource SandDeep}" />
+                        <FlexLayout Wrap="Wrap">
+                            <Button Text="{loc:Translate Week_TaskDeleteYes}" Style="{StaticResource ConfirmButton}" Command="{Binding DeleteCommand}" />
+                            <Button Text="{loc:Translate Common_KeepIt}" Style="{StaticResource KeepButton}" Command="{Binding KeepItCommand}" />
+                        </FlexLayout>
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+        </DataTemplate>
+    </ContentView.Resources>
+
+    <VerticalStackLayout controls:Motions.Glow="{Binding IsNew}">
+        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="2" MinimumHeightRequest="52">
+            <ContentView HeightRequest="1" BackgroundColor="{StaticResource Line}" VerticalOptions="Start" Grid.ColumnSpan="2" Margin="10,0,0,0" />
+            <!-- The circle, centred in its 44 dp touch area. -->
+            <Grid WidthRequest="44" HeightRequest="44" VerticalOptions="Start"
+                  SemanticProperties.Description="{Binding Title}" SemanticProperties.Hint="{loc:Translate Week_TaskToggle}"
+                  controls:Accessible.Role="CheckBox" controls:Accessible.IsOn="{Binding IsDone}">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleCommand}" />
+                </Grid.GestureRecognizers>
+                <Grid WidthRequest="24" HeightRequest="24" HorizontalOptions="Center" VerticalOptions="Center" controls:Celebrate.When="{Binding IsDone}">
+                    <Ellipse Stroke="{StaticResource Muted}" StrokeThickness="2">
+                        <Ellipse.Triggers>
+                            <DataTrigger TargetType="Ellipse" Binding="{Binding IsDone}" Value="True">
+                                <Setter Property="Stroke" Value="{StaticResource Sage}" />
+                                <Setter Property="Fill" Value="{StaticResource Sage}" />
+                            </DataTrigger>
+                        </Ellipse.Triggers>
+                    </Ellipse>
+                    <controls:Icon Data="{StaticResource IconCheck}" Size="16" Color="{StaticResource White}"
+                                   HorizontalOptions="Center" VerticalOptions="Center" IsVisible="{Binding IsDone}" controls:Motions.PopWhenShown="True" />
+                </Grid>
+            </Grid>
+            <!-- The words fill the row's height, so they are a 52 dp target too. -->
+            <VerticalStackLayout Grid.Column="1" Spacing="2" Padding="0,8" MinimumHeightRequest="44"
+                                 SemanticProperties.Description="{Binding Title}" SemanticProperties.Hint="{loc:Translate Common_ChangeOrDelete}"
+                                 controls:Accessible.Role="Button">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding EditCommand}" />
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Style="{StaticResource Body}" Text="{Binding Title}" TextColor="{StaticResource Ink}">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding IsDone}" Value="True">
+                            <Setter Property="TextColor" Value="{StaticResource Muted}" />
+                            <Setter Property="TextDecorations" Value="Strikethrough" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="6" IsVisible="{Binding HasWhen}">
+                    <controls:Icon Data="{StaticResource IconClock}" Size="16" Color="{StaticResource Sea}" />
+                    <Label Grid.Column="1" Text="{Binding When}" Style="{StaticResource CaptionStrong}" TextColor="{StaticResource Sea}" />
+                </Grid>
+            </VerticalStackLayout>
+        </Grid>
+        <controls:LazyView IsActive="{Binding IsEditing}" ContentTemplate="{StaticResource TaskEditorTemplate}" Margin="10,0,0,0" />
+    </VerticalStackLayout>
+</ContentView>

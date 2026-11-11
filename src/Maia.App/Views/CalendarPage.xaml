@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Calendar (no screenshot yet; awaiting design sign-off). Pushed from the week pill on Today, with a Back pill and no
+  bottom bar (as Questions). Her journey as a month, to look at only: every day of the month, a dot under a day for each
+  kind of thing on it, and the chosen day's entries under the grid. ‹ › or a swipe move a month; nothing here changes
+  her journey (that is on Journey and Today). The grid is the same 42 days whatever the month (CalendarDayView), so
+  moving between months changes words and dots, never the views.
+-->
+<controls:MaiaPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:loc="clr-namespace:Maia.App.Localization"
+                   xmlns:controls="clr-namespace:Maia.App.Controls"
+                   xmlns:vm="clr-namespace:Maia.Presentation.Calendar;assembly=Maia.Presentation"
+                   x:Class="Maia.App.Views.CalendarPage"
+                   x:DataType="vm:CalendarViewModel">
+    <ScrollView>
+        <VerticalStackLayout Padding="20,44,20,28" Spacing="16" controls:Motions.Rise="True">
+            <controls:BackPill Command="{Binding BackCommand}" HorizontalOptions="Start" />
+            <Label Text="{loc:Translate Calendar_Title}" Style="{StaticResource Title}" />
+
+            <!-- The month: its name between ‹ and ›, the weekday names, and six rows of days. A swipe moves a month too. -->
+            <Border Style="{StaticResource Card}" Padding="8,8,8,10" IsVisible="{Binding IsLoaded}">
+                <Border.GestureRecognizers>
+                    <SwipeGestureRecognizer Direction="Left" Command="{Binding NextMonthCommand}" />
+                    <SwipeGestureRecognizer Direction="Right" Command="{Binding PreviousMonthCommand}" />
+                </Border.GestureRecognizers>
+                <VerticalStackLayout Spacing="6">
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <Border WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 22" BackgroundColor="Transparent"
+                                Opacity="0.3" SemanticProperties.Description="{loc:Translate Calendar_Previous}" controls:Accessible.Role="Button">
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border" Binding="{Binding CanGoBack}" Value="True">
+                                    <Setter Property="Opacity" Value="1" />
+                                </DataTrigger>
+                            </Border.Triggers>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding PreviousMonthCommand}" />
+                            </Border.GestureRecognizers>
+                            <controls:Icon Data="{StaticResource IconBack}" Size="18" Color="{StaticResource Pine}" HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <Label Grid.Column="1" Text="{Binding MonthTitle}" Style="{StaticResource Heading}" HorizontalTextAlignment="Center"
+                               VerticalOptions="Center" SemanticProperties.HeadingLevel="Level2" />
+                        <Border Grid.Column="2" WidthRequest="44" HeightRequest="44" StrokeThickness="0" StrokeShape="RoundRectangle 22" BackgroundColor="Transparent"
+                                Opacity="0.3" SemanticProperties.Description="{loc:Translate Calendar_Next}" controls:Accessible.Role="Button">
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border" Binding="{Binding CanGoForward}" Value="True">
+                                    <Setter Property="Opacity" Value="1" />
+                                </DataTrigger>
+                            </Border.Triggers>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding NextMonthCommand}" />
+                            </Border.GestureRecognizers>
+                            <controls:Icon Data="{StaticResource IconChevronRight}" Size="18" Color="{StaticResource Pine}" HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                    </Grid>
+
+                    <!-- The weekday names, from the first day of the week where she lives. -->
+                    <Grid ColumnDefinitions="*,*,*,*,*,*,*">
+                        <Label Grid.Column="0" Text="{Binding DayNames[0]}" Style="{StaticResource Label}" TextColor="{StaticResource Muted}" HorizontalTextAlignment="Center" />
+                        <Label Grid.Column="1" Text="{Binding DayNames[1]}" Style="{StaticResource Label}" TextColor="{StaticResource Muted}" HorizontalTextAlignment="Center" />
+                        <Label Grid.Column="2" Text="{Binding DayNames[2]}" Style="{StaticResource Label}" TextColor="{StaticResource Muted}" HorizontalTextAlignment="Center" />
+                        <Label Grid.Column="3" Text="{Binding DayNames[3]}" Style="{StaticResource Label}" TextColor="{StaticResource Muted}" HorizontalTextAlignment="Center" />
+                        <Label Grid.Column="4" Text="{Binding DayNames[4]}" Style="{StaticResource Label}" TextColor="{StaticResource Muted}" HorizontalTextAlignment="Center" />
+                        <Label Grid.Column="5" Text="{Binding DayNames[5]}" Style="{StaticResource Label}" TextColor="{StaticResource Muted}" HorizontalTextAlignment="Center" />
+                        <Label Grid.Column="6" Text="{Binding DayNames[6]}" Style="{StaticResource Label}" TextColor="{StaticResource Muted}" HorizontalTextAlignment="Center" />
+                    </Grid>
+
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Weeks}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="vm:CalendarWeek">
+                                <Grid ColumnDefinitions="*,*,*,*,*,*,*">
+                                    <controls:CalendarDayView Grid.Column="0" BindingContext="{Binding Days[0]}" />
+                                    <controls:CalendarDayView Grid.Column="1" BindingContext="{Binding Days[1]}" />
+                                    <controls:CalendarDayView Grid.Column="2" BindingContext="{Binding Days[2]}" />
+                                    <controls:CalendarDayView Grid.Column="3" BindingContext="{Binding Days[3]}" />
+                                    <controls:CalendarDayView Grid.Column="4" BindingContext="{Binding Days[4]}" />
+                                    <controls:CalendarDayView Grid.Column="5" BindingContext="{Binding Days[5]}" />
+                                    <controls:CalendarDayView Grid.Column="6" BindingContext="{Binding Days[6]}" />
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- The chosen day: its date, then what is on it, or "Nothing on this day." Nothing here can be tapped. -->
+            <VerticalStackLayout Spacing="10" IsVisible="{Binding IsLoaded}">
+                <Label Text="{Binding SelectedTitle}" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level2" />
+                <Label Text="{loc:Translate Calendar_Nothing}" Style="{StaticResource Body}" TextColor="{StaticResource Muted}" IsVisible="{Binding HasNothing}" />
+                <VerticalStackLayout Spacing="8" BindableLayout.ItemsSource="{Binding Entries}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="vm:CalendarEntry">
+                            <controls:LightBorder Style="{StaticResource Card}" Padding="16,12"
+                                                  BackgroundColor="{Binding StatusKind, Converter={StaticResource StatusCard}}">
+                                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="10" RowSpacing="2">
+                                    <Label Text="{Binding Title}" Style="{StaticResource Heading}" VerticalOptions="Center"
+                                           TextColor="{Binding StatusKind, Converter={StaticResource StatusTitle}}" />
+                                    <controls:LightBorder Grid.Column="1" Style="{StaticResource Chip}" VerticalOptions="Center"
+                                                          BackgroundColor="{Binding StatusKind, Converter={StaticResource StatusBackground}}">
+                                        <Label Text="{Binding StatusText}" Style="{StaticResource Label}"
+                                               TextColor="{Binding StatusKind, Converter={StaticResource StatusForeground}}" />
+                                    </controls:LightBorder>
+                                    <Label Grid.Row="1" Text="{Binding TimeText}" Style="{StaticResource CaptionStrong}" TextColor="{StaticResource Sea}"
+                                           IsVisible="{Binding HasTime}" />
+                                </Grid>
+                            </controls:LightBorder>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</controls:MaiaPage>

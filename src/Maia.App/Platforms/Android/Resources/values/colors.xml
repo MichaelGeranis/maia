@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2E5A4C</color>
+    <color name="colorPrimaryDark">#2E5A4C</color>
+    <!--
+      Android's own pieces take this: the calendar and clock that open from a date or time field (heading, chosen day,
+      buttons) and a field's cursor. Pine, as Maia's Primary buttons, rather than the sea blue it was.
+    -->
+    <color name="colorAccent">#2E5A4C</color>
+</resources>

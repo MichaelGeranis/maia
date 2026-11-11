@@ -1,0 +1,50 @@
+<Project>
+  <!--
+    Shared build settings for every project in the repository.
+    Keep this file small: anything project-specific belongs in the project file.
+  -->
+  <PropertyGroup>
+    <!-- The MAUI app multi-targets platforms in its own project file. -->
+    <TargetFramework Condition="'$(MSBuildProjectName)' != 'Maia.App'">net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Quality gates: warnings fail the build, analyzers run on every build. -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisMode>Recommended</AnalysisMode>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+    <!-- XML docs feed IntelliSense for the MAUI app; public API is documented where intent is not obvious. -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+
+    <Deterministic>true</Deterministic>
+    <InvariantGlobalization>false</InvariantGlobalization>
+
+    <Company>Michail Geranis</Company>
+    <Product>Maia</Product>
+    <Copyright>Copyright (c) 2026 Michail Geranis. Licensed under the Apache License 2.0.</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <!-- Test projects: relaxed naming rules (underscored test names) and shared test packages. -->
+  <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.Tests'))">
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CA1707;CA1515;CA2007;CA1861</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup Condition="$(MSBuildProjectName.EndsWith('.Tests'))">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+    <PackageReference Include="coverlet.collector" />
+    <Using Include="Xunit" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,57 @@
+name: Bug report
+description: Something in Maia is not working as expected.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. **Security problems must not be reported here**:
+        see SECURITY.md for the private reporting link.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. See error ...
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Setup
+        - Today / Journey
+        - Results
+        - Reminders
+        - Backup / restore
+        - Settings / app lock
+        - Setup / documentation
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Commit or version
+      description: Output of `git rev-parse --short HEAD`, or a release tag.
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Operating system, and anything else relevant (Android version and phone model; never include health data).
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Remove any passwords, tokens, API keys or personal data first.
+      render: text

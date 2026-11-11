@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Results. Design: docs/design/screens/08-results.jpg, as the owner changed it: one list of tiles, newest first, and one
+  search box (by name, what it is, or the month it was added) instead of filters and tags.
+  Removing a result happens in the viewer, where she sees what it is. "Select", or holding a tile, starts choosing
+  results to share: a tap then ticks a tile, and a bar at the bottom shares the ticked ones through the phone's share
+  sheet (email, WhatsApp, Viber…), with a line saying the app she picks keeps its own copy. Awaiting design sign-off.
+-->
+<controls:MaiaPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:loc="clr-namespace:Maia.App.Localization"
+                   xmlns:controls="clr-namespace:Maia.App.Controls"
+                   xmlns:vm="clr-namespace:Maia.Presentation.Results;assembly=Maia.Presentation"
+                   x:Class="Maia.App.Views.ResultsPage"
+                   x:DataType="vm:ResultsViewModel"
+                   Tab="results">
+    <!--
+      Every result in one list, newest first, two tiles a row. A CollectionView, so only the tiles on screen are built,
+      however many results a pregnancy gathers; everything above them is its header.
+    -->
+    <Grid>
+    <CollectionView ItemsSource="{Binding Results}" SelectionMode="None" Margin="20,0">
+        <CollectionView.ItemsLayout>
+            <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10" VerticalItemSpacing="10" />
+        </CollectionView.ItemsLayout>
+        <CollectionView.Header>
+            <!-- The grid adds its row spacing above the first row too: 4 + 10 keeps the 14 dp above the tiles. -->
+            <VerticalStackLayout Padding="0,44,0,4" Spacing="14" controls:Motions.Rise="True">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="{loc:Translate Results_Title}" Style="{StaticResource Title}" />
+                    <Label Text="{loc:Translate Results_Intro}" Style="{StaticResource Body}" />
+                </VerticalStackLayout>
+
+                <!-- Upload results. -->
+                <Border BackgroundColor="{StaticResource Pine}" StrokeThickness="0" StrokeShape="RoundRectangle 24" MinimumHeightRequest="48"
+                        SemanticProperties.Description="{loc:Translate Results_Add}" controls:Accessible.Role="Button">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding UploadCommand}" />
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8" HorizontalOptions="Center" VerticalOptions="Center" Padding="12,6">
+                        <controls:Icon Data="{StaticResource IconUpload}" Size="18" Color="{StaticResource White}" />
+                        <Label Style="{StaticResource Heading}" Grid.Column="1" Text="{loc:Translate Results_Add}" TextColor="{StaticResource White}" VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+
+                <!-- A photo of a paper report, straight from the camera app. -->
+                <Border BackgroundColor="{StaticResource White}" Stroke="{StaticResource Line}" StrokeThickness="1" StrokeShape="RoundRectangle 24" MinimumHeightRequest="48"
+                        controls:Motions.Press="True" IsVisible="{Binding CanTakePhoto}" SemanticProperties.Description="{loc:Translate Results_TakePhoto}" controls:Accessible.Role="Button">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding TakePhotoCommand}" />
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8" HorizontalOptions="Center" VerticalOptions="Center" Padding="12,6">
+                        <controls:Icon Data="{StaticResource IconCamera}" Size="18" Color="{StaticResource Pine}" />
+                        <Label Style="{StaticResource Heading}" Grid.Column="1" Text="{loc:Translate Results_TakePhoto}" TextColor="{StaticResource Pine}" VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+
+                <Border Style="{StaticResource Chip}" BackgroundColor="{StaticResource Sand}" StrokeShape="RoundRectangle 14" Padding="14,12" HorizontalOptions="Fill"
+                        IsVisible="{Binding Notice, Converter={StaticResource IsNotNull}}">
+                    <Label Style="{StaticResource Body}" Text="{Binding Notice}" controls:Accessible.Announce="True" TextColor="{StaticResource SandDeep}" />
+                </Border>
+
+                <!-- Search: by name, what it is, or the month it was added; and "Select", to choose results to share. -->
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8" IsVisible="{Binding CanSearch}">
+                    <Border Style="{StaticResource Field}" Padding="14,0">
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                            <controls:Icon Data="{StaticResource IconSearch}" Size="18" Color="{StaticResource Muted}" VerticalOptions="Center" />
+                            <Entry Keyboard="Text" Grid.Column="1" Text="{Binding SearchText}" Placeholder="{loc:Translate Results_Search}" TextColor="{StaticResource Ink}"
+                                   ClearButtonVisibility="WhileEditing" ReturnType="Search" SemanticProperties.Description="{loc:Translate Results_Search}"/>
+                        </Grid>
+                    </Border>
+                    <Button Grid.Column="1" Text="{loc:Translate Results_Select}" Style="{StaticResource OutlineButton}" CornerRadius="22" Padding="16,0"
+                            VerticalOptions="Center" Command="{Binding StartSelectingCommand}" IsVisible="{Binding CanStartSelecting}" />
+                </Grid>
+
+                <Label Text="{Binding EmptyText}" Style="{StaticResource Caption}" IsVisible="{Binding HasResults, Converter={StaticResource InvertedBool}}" />
+            </VerticalStackLayout>
+        </CollectionView.Header>
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="vm:ResultCard">
+                <!--
+                  A tap opens the result (or, while choosing, ticks it); holding it starts choosing with it ticked. Holding is
+                  Android's long press, which MAUI only reports as the start of a drag: the page cancels the drag and starts
+                  choosing instead (OnTileHeld).
+                -->
+                <Border Padding="10" StrokeThickness="0" Stroke="{StaticResource Pine}" StrokeShape="RoundRectangle 14" controls:Motions.Pop="True" controls:Motions.Press="True"
+                        BackgroundColor="{StaticResource CardSoft}" controls:Accessible.Role="Button" controls:Accessible.IsOn="{Binding IsSelected}">
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
+                            <Setter Property="StrokeThickness" Value="2.5" />
+                        </DataTrigger>
+                    </Border.Triggers>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenCommand, Source={RelativeSource AncestorType={x:Type vm:ResultsViewModel}}, x:DataType=vm:ResultsViewModel}"
+                                              CommandParameter="{Binding .}" />
+                        <DragGestureRecognizer CanDrag="True" DragStarting="OnTileHeld" />
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout Spacing="8">
+                        <Grid HeightRequest="70">
+                            <controls:ResultTile Kind="{Binding Kind}" IconSize="30" ShowArt="True" StrokeShape="RoundRectangle 14" />
+                            <!-- The photo, or the PDF's first page, once drawn (in memory only); the tile above shows until then. -->
+                            <Border StrokeThickness="0" StrokeShape="RoundRectangle 14" IsVisible="{Binding HasThumbnail}" InputTransparent="True">
+                                <Image Source="{Binding Thumbnail, Converter={StaticResource BytesToImage}}" Aspect="AspectFill" />
+                            </Border>
+                            <Border Style="{StaticResource Badge}" BackgroundColor="{StaticResource CardSoft}" Padding="7,2" Margin="6"
+                                    VerticalOptions="End" HorizontalOptions="Start">
+                                <Label Text="{Binding KindLabel}" Style="{StaticResource Label}" TextColor="{StaticResource Ink}" />
+                            </Border>
+                            <!-- While choosing: an empty circle, filled with a tick once chosen. -->
+                            <Grid WidthRequest="26" HeightRequest="26" Margin="6" HorizontalOptions="End" VerticalOptions="Start"
+                                  IsVisible="{Binding IsSelecting, Source={RelativeSource AncestorType={x:Type vm:ResultsViewModel}}, x:DataType=vm:ResultsViewModel}">
+                                <Ellipse Fill="{StaticResource White}" Stroke="{StaticResource Pine}" StrokeThickness="2">
+                                    <Ellipse.Triggers>
+                                        <DataTrigger TargetType="Ellipse" Binding="{Binding IsSelected}" Value="True">
+                                            <Setter Property="Fill" Value="{StaticResource Pine}" />
+                                        </DataTrigger>
+                                    </Ellipse.Triggers>
+                                </Ellipse>
+                                <controls:Icon Data="{StaticResource IconCheck}" Size="16" Color="{StaticResource White}"
+                                               HorizontalOptions="Center" VerticalOptions="Center" IsVisible="{Binding IsSelected}" />
+                            </Grid>
+                        </Grid>
+                        <VerticalStackLayout Spacing="1">
+                            <Label Style="{StaticResource Label}" Text="{Binding Name}"
+                                   TextColor="{StaticResource Ink}" LineBreakMode="TailTruncation" />
+                            <Label Style="{StaticResource Caption}" Text="{Binding Meta}" TextColor="{StaticResource Muted}" />
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+        <CollectionView.Footer>
+            <!-- Room under the last tiles for the share bar while she chooses. -->
+            <ContentView HeightRequest="28">
+                <ContentView.Triggers>
+                    <DataTrigger TargetType="ContentView" Binding="{Binding IsSelecting}" Value="True">
+                        <Setter Property="HeightRequest" Value="190" />
+                    </DataTrigger>
+                </ContentView.Triggers>
+            </ContentView>
+        </CollectionView.Footer>
+    </CollectionView>
+
+    <!-- Choosing results to share: how many, "Select all", ×, then "Share" and the word about the other app's copy. -->
+    <Border VerticalOptions="End" Margin="12,0,12,10" Padding="16,12" BackgroundColor="{StaticResource White}" Stroke="{StaticResource Line}"
+            StrokeThickness="1" StrokeShape="RoundRectangle 22" IsVisible="{Binding IsSelecting}" controls:Accessible.FocusWhenShown="True">
+        <Border.Shadow>
+            <Shadow Brush="{StaticResource Pine}" Offset="0,8" Radius="24" Opacity="0.12" />
+        </Border.Shadow>
+        <VerticalStackLayout Spacing="10">
+            <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="4">
+                <Label Text="{Binding SelectionText}" Style="{StaticResource Heading}" VerticalOptions="Center" controls:Accessible.Announce="True" />
+                <Button Grid.Column="1" Text="{loc:Translate Results_SelectAll}" Style="{StaticResource LinkButton}" MinimumHeightRequest="44"
+                        Command="{Binding SelectAllCommand}" />
+                <Border Grid.Column="2" WidthRequest="44" HeightRequest="44" StrokeThickness="0" BackgroundColor="Transparent"
+                        SemanticProperties.Description="{loc:Translate Results_StopSelecting}" controls:Accessible.Role="Button">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding StopSelectingCommand}" />
+                    </Border.GestureRecognizers>
+                    <controls:Icon Data="{StaticResource IconClose}" Size="18" Color="{StaticResource Muted}" />
+                </Border>
+            </Grid>
+            <Button Text="{loc:Translate Results_Share}" Style="{StaticResource PrimaryButton}" Command="{Binding ShareSelectedCommand}" Opacity="0.45">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding HasSelection}" Value="True">
+                        <Setter Property="Opacity" Value="1" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+            <Label Text="{loc:Translate Results_ShareNote}" Style="{StaticResource Caption}" />
+        </VerticalStackLayout>
+    </Border>
+    </Grid>
+</controls:MaiaPage>

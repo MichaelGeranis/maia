@@ -1,0 +1,30 @@
+<Project>
+  <!-- Central package management: every NuGet version lives here, projects reference packages without versions. -->
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <!--
+    The MAUI workload set CI and release.yml install (scripts/maui-workload.sh), so every build, signed ones included,
+    uses the same MAUI, Android bindings and toolchain. It belongs to the SDK band in global.json (10.0.4xx) and must
+    bring the MAUI version of Microsoft.Maui.Controls below: move the two together (README, "Getting started").
+  -->
+  <PropertyGroup>
+    <MaiaMauiWorkloadSet>10.0.400.1</MaiaMauiWorkloadSet>
+  </PropertyGroup>
+
+  <ItemGroup Label="App">
+    <!-- The MAUI version of the workload set above; CI fails when they differ (scripts/maui-workload.sh check). -->
+    <PackageVersion Include="Microsoft.Maui.Controls" Version="10.0.20" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Debug" Version="10.0.12" />
+    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <!-- Device calendar (CalendarContract / EventKit), see ADR 0004. -->
+  </ItemGroup>
+
+  <ItemGroup Label="Testing">
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
+    <PackageVersion Include="xunit" Version="2.9.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="4.0.0" />
+    <PackageVersion Include="coverlet.collector" Version="10.1.0" />
+  </ItemGroup>
+</Project>

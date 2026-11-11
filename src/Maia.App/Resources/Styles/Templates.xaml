@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Page frames used by MaiaPage: the misty background, and the bottom bar on main screens. -->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:controls="clr-namespace:Maia.App.Controls">
+
+    <ControlTemplate x:Key="PlainPageTemplate">
+        <Grid>
+            <controls:MaiaBackground />
+            <ContentPresenter />
+            <controls:CelebrationLayer />
+            <controls:ToastView />
+        </Grid>
+    </ControlTemplate>
+
+    <!-- The bar floats over the content, which ends just above it. -->
+    <ControlTemplate x:Key="TabPageTemplate">
+        <Grid>
+            <controls:MaiaBackground />
+            <!-- 78 = the bar's height (BottomBar.BarHeight); it goes to 0 while the keyboard is up and the bar hidden. -->
+            <ContentPresenter Margin="0,0,0,78" />
+            <controls:BottomBar VerticalOptions="End"
+                                Current="{Binding Tab, Source={RelativeSource TemplatedParent}, x:DataType=controls:MaiaPage}" />
+            <controls:CelebrationLayer />
+            <controls:ToastView />
+        </Grid>
+    </ControlTemplate>
+</ResourceDictionary>

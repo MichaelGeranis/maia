@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Your tasks (no screenshot; awaiting design sign-off). Pushed from Your week, with a Back pill and no bottom bar (as About Maia), from its "All tasks" line.
+  One virtualised list, so however many tasks she has only the rows on screen are built: each group's
+  heading (Earlier · This week · Later · No date) and its tasks, drawn as on Your week (TaskRowView).
+  Tasks she ticked off are not listed: they are deleted as the list loads.
+-->
+<controls:MaiaPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:loc="clr-namespace:Maia.App.Localization"
+                   xmlns:controls="clr-namespace:Maia.App.Controls"
+                   xmlns:views="clr-namespace:Maia.App.Views"
+                   xmlns:vm="clr-namespace:Maia.Presentation.Week;assembly=Maia.Presentation"
+                   x:Class="Maia.App.Views.TasksPage"
+                   x:DataType="vm:TasksViewModel">
+    <controls:MaiaPage.Resources>
+        <!-- A group's heading: its name. -->
+        <DataTemplate x:Key="GroupTemplate" x:DataType="vm:TaskGroupRow">
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8" Padding="10,22,4,6">
+                <Label Text="{Binding Title}" Style="{StaticResource GroupEyebrow}" VerticalOptions="Center" />
+            </Grid>
+        </DataTemplate>
+
+        <!-- A task: the same row as on Your week, ticked, changed or deleted in place. -->
+        <DataTemplate x:Key="TaskTemplate" x:DataType="vm:TaskItem">
+            <controls:TaskRowView />
+        </DataTemplate>
+
+        <views:TaskListTemplateSelector x:Key="RowTemplates"
+                                        Group="{StaticResource GroupTemplate}"
+                                        Task="{StaticResource TaskTemplate}" />
+    </controls:MaiaPage.Resources>
+
+    <!-- 10 dp in from the page edge, as each row's circle is centred in its first 44 dp: circles and headings line up. -->
+    <CollectionView x:Name="List" ItemsSource="{Binding Rows}" ItemTemplate="{StaticResource RowTemplates}" SelectionMode="None" Margin="10,0,20,0">
+        <CollectionView.Header>
+            <VerticalStackLayout Spacing="8" Padding="10,44,0,0" controls:Motions.Rise="True">
+                <controls:BackPill Command="{Binding BackCommand}" HorizontalOptions="Start" />
+                <Label Text="{loc:Translate Tasks_Title}" Style="{StaticResource Title}" />
+                <Label Text="{loc:Translate Tasks_Empty}" Style="{StaticResource Body}" IsVisible="{Binding IsEmpty}" />
+            </VerticalStackLayout>
+        </CollectionView.Header>
+        <CollectionView.Footer>
+            <ContentView HeightRequest="28" />
+        </CollectionView.Footer>
+    </CollectionView>
+</controls:MaiaPage>

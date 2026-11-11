@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  When an entry is, the same on Add and in Edit on Journey: choice pills for "Date and time", "Trimester" and "Week"
+  (only those offered, and only when there is more than one), then the fields for the one chosen: a date and a time, the
+  three trimesters and "After birth" as pills, or the week with a smaller and a larger step. Set its BindingContext to a
+  TimingDraft. Tasks without a date use it too, offering only the trimester or the week.
+-->
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:loc="clr-namespace:Maia.App.Localization"
+             xmlns:controls="clr-namespace:Maia.App.Controls"
+             xmlns:vm="clr-namespace:Maia.Presentation.Plan;assembly=Maia.Presentation"
+             x:Class="Maia.App.Controls.TimingFields"
+             x:DataType="vm:TimingDraft">
+    <VerticalStackLayout Spacing="10">
+        <FlexLayout Wrap="Wrap" IsVisible="{Binding ShowModes}">
+            <controls:ChoicePill Text="{loc:Translate Timing_DateTime}" IsSelected="{Binding IsDateTime}" IsVisible="{Binding OffersDateTime}"
+                                 Command="{Binding ChooseModeCommand}" CommandParameter="DateTime" MinimumHeightRequest="44" Margin="0,0,8,8" />
+            <controls:ChoicePill Text="{loc:Translate Timing_Trimester}" IsSelected="{Binding IsTrimester}"
+                                 Command="{Binding ChooseModeCommand}" CommandParameter="Trimester" MinimumHeightRequest="44" Margin="0,0,8,8" />
+            <controls:ChoicePill Text="{loc:Translate Timing_Week}" IsSelected="{Binding IsWeek}"
+                                 Command="{Binding ChooseModeCommand}" CommandParameter="Week" MinimumHeightRequest="44" Margin="0,0,8,8" />
+        </FlexLayout>
+
+        <!-- A day and a time: a booking, done once it has passed. -->
+        <Grid ColumnDefinitions="3*,2*" ColumnSpacing="8" IsVisible="{Binding IsDateTime}">
+            <Border Style="{StaticResource Field}">
+                <DatePicker Date="{Binding Date}" MinimumDate="{Binding MinimumDate}" MaximumDate="{Binding MaximumDate}"
+                            TextColor="{StaticResource Ink}" SemanticProperties.Description="{loc:Translate Book_Date}"/>
+            </Border>
+            <Border Grid.Column="1" Style="{StaticResource Field}">
+                <TimePicker Time="{Binding Time}" Format="HH:mm" TextColor="{StaticResource Ink}"
+                            SemanticProperties.Description="{loc:Translate Book_Time}"/>
+            </Border>
+        </Grid>
+
+        <!-- Only the trimester, or after birth. -->
+        <FlexLayout Wrap="Wrap" IsVisible="{Binding IsTrimester}" SemanticProperties.Description="{loc:Translate Timing_Trimester}">
+            <controls:ChoicePill Text="{loc:Translate Section_trimester1}" IsSelected="{Binding IsFirstTrimester}"
+                                 Command="{Binding ChooseTrimesterCommand}" CommandParameter="First" MinimumHeightRequest="44" Margin="0,0,8,8" />
+            <controls:ChoicePill Text="{loc:Translate Section_trimester2}" IsSelected="{Binding IsSecondTrimester}"
+                                 Command="{Binding ChooseTrimesterCommand}" CommandParameter="Second" MinimumHeightRequest="44" Margin="0,0,8,8" />
+            <controls:ChoicePill Text="{loc:Translate Section_trimester3}" IsSelected="{Binding IsThirdTrimester}"
+                                 Command="{Binding ChooseTrimesterCommand}" CommandParameter="Third" MinimumHeightRequest="44" Margin="0,0,8,8" />
+            <controls:ChoicePill Text="{loc:Translate Section_after_birth}" IsSelected="{Binding IsAfterBirth}"
+                                 Command="{Binding ChooseTrimesterCommand}" CommandParameter="AfterBirth" MinimumHeightRequest="44" Margin="0,0,8,8" />
+        </FlexLayout>
+
+        <!-- The pregnancy week, a step at a time. -->
+        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8" IsVisible="{Binding IsWeek}">
+            <Button Text="−" Style="{StaticResource OutlineButton}" CornerRadius="22" WidthRequest="44" HeightRequest="44" Padding="0"
+                    Command="{Binding EarlierWeekCommand}" SemanticProperties.Description="{loc:Translate Timing_EarlierWeek}" />
+            <Label Style="{StaticResource Heading}" Grid.Column="1" Text="{Binding WeekText}" TextColor="{StaticResource Ink}"
+                   HorizontalTextAlignment="Center" VerticalOptions="Center" controls:Accessible.Announce="True" />
+            <Button Grid.Column="2" Text="+" Style="{StaticResource OutlineButton}" CornerRadius="22" WidthRequest="44" HeightRequest="44" Padding="0"
+                    Command="{Binding LaterWeekCommand}" SemanticProperties.Description="{loc:Translate Timing_LaterWeek}" />
+        </Grid>
+    </VerticalStackLayout>
+</ContentView>

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "gr-standard",
+  "country": "GR",
+  "version": 1,
+  "reviewStatus": "Draft",
+  "reviewNotes": "Draft written by the product team from common private OB-GYN practice in Greece. Must be reviewed by a licensed clinician (content and Greek wording) before release.",
+  "checks": [
+    {
+      "id": "first-visit", "category": "Routine", "fromWeek": 6, "toWeek": 10, "includedByDefault": true,
+      "title": { "en": "First visit and early pregnancy scan", "el": "Πρώτη επίσκεψη και υπερηχογράφημα επιβεβαίωσης κύησης" },
+      "description": { "en": "Confirms the pregnancy and heartbeat, and starts your record.", "el": "Επιβεβαιώνει την κύηση και τον καρδιακό παλμό και ξεκινά τον φάκελό σου." }
+    },
+    {
+      "id": "bloods-t1", "category": "Routine", "fromWeek": 8, "toWeek": 12, "includedByDefault": true,
+      "title": { "en": "First-trimester blood and urine tests", "el": "Αιματολογικές εξετάσεις και εξέταση ούρων α' τριμήνου" },
+      "description": { "en": "Blood group, blood count, infection screening, thyroid and urine.", "el": "Ομάδα αίματος, γενική αίματος, έλεγχος λοιμώξεων, θυρεοειδής και ούρα." }
+    },
+    {
+      "id": "nipt", "category": "Offered", "fromWeek": 10, "toWeek": 14, "includedByDefault": false,
+      "title": { "en": "NIPT (cell-free DNA screening)", "el": "Μη επεμβατικός προγεννητικός έλεγχος (NIPT)" },
+      "description": { "en": "Optional blood test that screens for common chromosomal conditions.", "el": "Προαιρετική αιματολογική εξέταση που ελέγχει για συχνές χρωμοσωμικές ανωμαλίες." }
+    },
+    {
+      "id": "nt-scan", "category": "Routine", "fromWeek": 11, "toWeek": 14, "includedByDefault": true,
+      "title": { "en": "Nuchal translucency scan and combined screening", "el": "Υπερηχογράφημα αυχενικής διαφάνειας και συνδυαστικός έλεγχος" },
+      "description": { "en": "A scan plus a blood test that estimate the chance of chromosomal conditions.", "el": "Υπερηχογράφημα και αιματολογική εξέταση που εκτιμούν την πιθανότητα χρωμοσωμικών ανωμαλιών." }
+    },
+    {
+      "id": "checkup-16", "category": "Routine", "fromWeek": 16, "toWeek": 16, "includedByDefault": true,
+      "title": { "en": "Check-up with your OB-GYN", "el": "Επίσκεψη στον μαιευτήρα-γυναικολόγο" },
+      "description": { "en": "Blood pressure, weight, urine and your results so far.", "el": "Αρτηριακή πίεση, βάρος, ούρα και συζήτηση των αποτελεσμάτων." }
+    },
+    {
+      "id": "anomaly-scan", "category": "Routine", "fromWeek": 20, "toWeek": 24, "includedByDefault": true,
+      "title": { "en": "Anomaly scan (level II)", "el": "Υπερηχογράφημα β' επιπέδου" },
+      "description": { "en": "A detailed look at your baby's anatomy and growth.", "el": "Λεπτομερής έλεγχος της ανατομίας και της ανάπτυξης του μωρού." }
+    },
+    {
+      "id": "ogtt", "category": "Routine", "fromWeek": 24, "toWeek": 28, "includedByDefault": true,
+      "title": { "en": "Glucose tolerance test", "el": "Καμπύλη σακχάρου" },
+      "description": { "en": "Screens for gestational diabetes. Usually fasting from the night before; takes about two hours.", "el": "Έλεγχος για διαβήτη κύησης. Συνήθως με νηστεία από το προηγούμενο βράδυ· διαρκεί περίπου δύο ώρες." }
+    },
+    {
+      "id": "bloods-t3", "category": "Routine", "fromWeek": 28, "toWeek": 30, "includedByDefault": true,
+      "title": { "en": "Third-trimester blood tests", "el": "Αιματολογικές εξετάσεις γ' τριμήνου" },
+      "description": { "en": "Blood count and iron; anti-D if your blood group is Rh-negative.", "el": "Γενική αίματος και σίδηρος· anti-D αν η ομάδα αίματός σου είναι Rh αρνητική." }
+    },
+    {
+      "id": "growth-scan", "category": "Routine", "fromWeek": 30, "toWeek": 34, "includedByDefault": true,
+      "title": { "en": "Growth scan with Doppler", "el": "Υπερηχογράφημα ανάπτυξης με Doppler" },
+      "description": { "en": "Checks your baby's growth, position, fluid and blood flow.", "el": "Ελέγχει την ανάπτυξη, τη θέση, το αμνιακό υγρό και την αιμάτωση του μωρού." }
+    },
+    {
+      "id": "checkup-34", "category": "Routine", "fromWeek": 34, "toWeek": 34, "includedByDefault": true,
+      "title": { "en": "Check-up with your OB-GYN", "el": "Επίσκεψη στον μαιευτήρα-γυναικολόγο" },
+      "description": { "en": "Blood pressure, weight, urine and your birth preferences.", "el": "Αρτηριακή πίεση, βάρος, ούρα και οι επιθυμίες σου για τον τοκετό." }
+    },
+    {
+      "id": "gbs", "category": "Routine", "fromWeek": 35, "toWeek": 37, "includedByDefault": true,
+      "title": { "en": "Group B strep swab", "el": "Καλλιέργεια για στρεπτόκοκκο ομάδας Β" },
+      "description": { "en": "A swab that checks for group B streptococcus before labour.", "el": "Λήψη καλλιέργειας για στρεπτόκοκκο ομάδας Β πριν τον τοκετό." }
+    },
+    {
+      "id": "ctg", "category": "Routine", "fromWeek": 37, "toWeek": 40, "includedByDefault": true,
+      "title": { "en": "Fetal monitoring (CTG)", "el": "Καρδιοτοκογράφημα (ΚΤΓ)" },
+      "description": { "en": "Records your baby's heartbeat and any contractions.", "el": "Καταγράφει τον καρδιακό ρυθμό του μωρού και τυχόν συσπάσεις." }
+    },
+    {
+      "id": "checkup-38", "category": "Routine", "fromWeek": 38, "toWeek": 38, "includedByDefault": true,
+      "title": { "en": "Check-up with your OB-GYN", "el": "Επίσκεψη στον μαιευτήρα-γυναικολόγο" },
+      "description": { "en": "Blood pressure, your baby's position and the plan for the birth.", "el": "Αρτηριακή πίεση, θέση του μωρού και το πλάνο για τον τοκετό." }
+    },
+    {
+      "id": "due-date", "category": "Milestone", "fromWeek": 40, "toWeek": 40, "includedByDefault": true,
+      "title": { "en": "Due date", "el": "Πιθανή ημερομηνία τοκετού" },
+      "description": { "en": "Only about 1 in 20 babies arrive on this exact day.", "el": "Μόνο περίπου 1 στα 20 μωρά γεννιούνται ακριβώς αυτή τη μέρα." }
+    },
+    {
+      "id": "postnatal", "category": "Routine", "fromWeek": 46, "toWeek": 46, "includedByDefault": true,
+      "title": { "en": "Postnatal check-up", "el": "Επίσκεψη μετά τον τοκετό" },
+      "description": { "en": "About six weeks after birth, for your recovery.", "el": "Περίπου έξι εβδομάδες μετά τον τοκετό, για την ανάρρωσή σου." }
+    }
+  ]
+}

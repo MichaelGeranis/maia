@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Use cases and ports. Depends only on the domain. -->
+  <PropertyGroup>
+    <RootNamespace>Maia.Application</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Maia.Domain\Maia.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Maia.Application.Tests" />
+  </ItemGroup>
+</Project>

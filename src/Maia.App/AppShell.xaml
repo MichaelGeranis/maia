@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Setup (no bottom bar), then the main tabs. Shell's own tab bar is hidden: every main page draws Maia's five-slot bar
+  (Week · Journey · Add · Results · Settings) through its MaiaPage template. Add is a tab like the others; her care
+  team is a card in Settings.
+-->
+<Shell
+    x:Class="Maia.App.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:Maia.App.Views"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarIsVisible="False"
+    Title="Maia">
+
+    <!--
+      First screen unless Maia opens straight on Your week (her plan is stored and nothing comes first): decides between
+      setup and the main tabs, and says calmly when a stored plan can't be opened.
+    -->
+    <ShellContent Route="startup" ContentTemplate="{DataTemplate views:StartupPage}" FlyoutItemIsVisible="False" />
+
+    <ShellContent Route="setup" ContentTemplate="{DataTemplate views:SetupPage}" FlyoutItemIsVisible="False" />
+
+    <TabBar x:Name="Main" Route="main">
+        <ShellContent Route="week" ContentTemplate="{DataTemplate views:WeekPage}" />
+        <ShellContent Route="plan" ContentTemplate="{DataTemplate views:PlanPage}" />
+        <ShellContent Route="add" ContentTemplate="{DataTemplate views:AddEntryPage}" />
+        <ShellContent Route="results" ContentTemplate="{DataTemplate views:ResultsPage}" />
+        <ShellContent Route="settings" ContentTemplate="{DataTemplate views:SettingsPage}" />
+    </TabBar>
+</Shell>

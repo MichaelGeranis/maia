@@ -1,0 +1,1326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Maia</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&amp;family=Figtree:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Figtree',sans-serif;background:#F2F5EF}
+a{color:#2E5A4C}a:hover{color:#1E3D33}
+.serif{font-family:'Fraunces',serif;font-variation-settings:'SOFT' 100,'WONK' 0}
+.noscroll{scrollbar-width:none}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) backwards}
+@keyframes pop{0%{opacity:0;transform:scale(.9)}70%{opacity:1;transform:scale(1.02)}100%{opacity:1;transform:scale(1)}}
+.pop{animation:pop .5s cubic-bezier(.2,.7,.2,1) backwards}
+@keyframes drift1{0%,100%{transform:translate(0,0)}50%{transform:translate(36px,30px)}}
+@keyframes drift2{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,-38px)}}
+@keyframes fall{0%{transform:translate(0,-60px) rotate(0deg);opacity:0}10%{opacity:.55}50%{transform:translate(40px,420px) rotate(160deg)}90%{opacity:.5}100%{transform:translate(-10px,900px) rotate(320deg);opacity:0}}
+.leaf{animation:fall 22s linear infinite}
+@keyframes wave{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.wave1{animation:wave 9s linear infinite}.wave2{animation:wave 14s linear infinite reverse}
+@keyframes hills{0%,100%{transform:translateX(0)}50%{transform:translateX(-18px)}}
+.hills1{animation:hills 18s ease-in-out infinite}.hills2{animation:hills 12s ease-in-out infinite reverse}
+@keyframes sunrise{from{transform:translateY(70px);opacity:.3}to{transform:none;opacity:1}}
+.sun{animation:sunrise 2.4s .2s cubic-bezier(.2,.7,.2,1) backwards}
+@keyframes cloud{0%{transform:translateX(-80px)}100%{transform:translateX(420px)}}
+.cloud{animation:cloud 40s linear infinite}
+@keyframes walk{from{offset-distance:0%}}
+@keyframes drawpath{from{stroke-dashoffset:100}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(47,111,126,.45)}50%{box-shadow:0 0 0 10px rgba(47,111,126,0)}}
+.glow{animation:glow 2.4s ease-in-out infinite}
+@keyframes ripple{0%{transform:scale(.92);opacity:.5}100%{transform:scale(1.6);opacity:0}}
+.ripple{animation:ripple 3.2s ease-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+.sway{animation:sway 4s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes checkdraw{from{stroke-dashoffset:40}to{stroke-dashoffset:0}}
+.checkdraw{stroke-dasharray:40;animation:checkdraw .7s .15s ease-out both}
+@keyframes linegrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.linegrow{animation:linegrow 1.4s cubic-bezier(.2,.7,.2,1) backwards;transform-origin:top}
+@keyframes breathcycle{0%{transform:scale(.6)}40%{transform:scale(1)}100%{transform:scale(.6)}}
+.breath{animation:breathcycle 10s ease-in-out infinite}
+@keyframes inText{0%,36%{opacity:1}42%,100%{opacity:0}}
+@keyframes outText{0%,36%{opacity:0}42%,94%{opacity:1}100%{opacity:0}}
+.in-text{animation:inText 10s linear infinite}.out-text{animation:outText 10s linear infinite}
+@keyframes morph{0%,100%{border-radius:58% 42% 55% 45%/48% 55% 45% 52%}33%{border-radius:45% 55% 42% 58%/55% 45% 58% 42%}66%{border-radius:52% 48% 60% 40%/42% 58% 48% 52%}}
+.morph{animation:morph 12s ease-in-out infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{animation:spin 40s linear infinite}
+.lift{transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s ease}
+.lift:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(30,61,51,.12)}
+.press{transition:transform .15s ease}
+.press:active{transform:scale(.96)}
+.ease{transition:all .3s cubic-bezier(.2,.7,.2,1)}
+@keyframes sheetup{from{transform:translateY(100%)}to{transform:none}}
+.sheet{animation:sheetup .45s cubic-bezier(.2,.8,.2,1) both}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.fadein{animation:fadein .3s ease both}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: linear-gradient(180deg, #EEF4F1 0%, #F2F5EF 45%, #EDF3EA 100%); color: #1E2D29; font-family: 'Figtree', sans-serif; overflow: hidden">
+<div aria-hidden="true" style="position: absolute; width: 340px; height: 340px; left: -150px; top: -120px; border-radius: 50%; background: #CFE3E8; filter: blur(60px); opacity: 0.9; animation: drift1 18s ease-in-out infinite"></div>
+<div aria-hidden="true" style="position: absolute; width: 320px; height: 320px; right: -170px; top: 360px; border-radius: 50%; background: #D5E6D4; filter: blur(60px); opacity: 0.9; animation: drift2 21s ease-in-out infinite"></div>
+<div class="leaf" aria-hidden="true" style="position: absolute; left: 60px; top: 0; width: 14px; height: 14px; border-radius: 0 100% 0 100%; background: #9DBBA8"></div>
+<div class="leaf" aria-hidden="true" style="position: absolute; left: 250px; top: 0; width: 11px; height: 11px; border-radius: 0 100% 0 100%; background: #8FB4C0; animation-delay: -8s; animation-duration: 26s"></div>
+<div class="leaf" aria-hidden="true" style="position: absolute; left: 170px; top: 0; width: 9px; height: 9px; border-radius: 0 100% 0 100%; background: #B5CDB8; animation-delay: -15s; animation-duration: 30s"></div>
+
+<div class="noscroll" style="position: relative; z-index: 1; flex-grow: 1; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 44px 20px 28px; display: flex; flex-direction: column; gap: 16px">
+
+<sc-if value="{{toast}}" hint-placeholder-val="{{false}}">
+<div class="pop" style="display: flex; gap: 12px; align-items: center; padding: 13px 16px; border-radius: 18px; background: #2E5A4C; color: #FFFFFF; box-shadow: 0 12px 28px rgba(30,61,51,0.25)">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#CFE6D6" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="checkdraw" d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+<span style="flex-grow: 1; font-size: 14px; font-weight: 600; line-height: 1.4">{{toast}}</span>
+</div>
+</sc-if>
+
+<sc-if value="{{isSetup}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div class="rise" style="display: flex; gap: 6px"><span style="width: 28px; height: 6px; border-radius: 999px; background: #2E5A4C"></span><span style="width: 6px; height: 6px; border-radius: 999px; background: #C3D3C8"></span><span style="width: 6px; height: 6px; border-radius: 999px; background: #C3D3C8"></span></div>
+<div class="rise" style="animation-delay: 0.05s; position: relative; height: 210px; border-radius: 30px; overflow: hidden; background: linear-gradient(180deg, #CFE4EA 0%, #E3EFEA 70%, #EEF4EA 100%)">
+<div class="sun" aria-hidden="true" style="position: absolute; left: 212px; top: 44px; width: 70px; height: 70px; border-radius: 50%; background: radial-gradient(circle at 40% 40%, #F7E3A6, #E9C979); box-shadow: 0 0 60px rgba(233,201,121,0.7)"></div>
+<div class="cloud" aria-hidden="true" style="position: absolute; left: 0; top: 34px; width: 64px; height: 20px; border-radius: 999px; background: rgba(255,255,255,0.85)"></div>
+<div class="cloud" aria-hidden="true" style="position: absolute; left: 0; top: 70px; width: 44px; height: 14px; border-radius: 999px; background: rgba(255,255,255,0.7); animation-delay: -22s; animation-duration: 55s"></div>
+<svg class="hills1" aria-hidden="true" width="400" height="120" viewBox="0 0 400 120" style="position: absolute; left: -10px; bottom: 0"><path d="M0 70 C 60 30, 120 30, 190 62 S 320 20, 400 50 V120 H0 Z" fill="#A9C8B4"></path></svg>
+<svg class="hills2" aria-hidden="true" width="400" height="90" viewBox="0 0 400 90" style="position: absolute; left: -10px; bottom: 0"><path d="M0 50 C 80 20, 150 60, 230 40 S 350 30, 400 55 V90 H0 Z" fill="#6F9C86"></path></svg>
+<svg aria-hidden="true" width="390" height="50" viewBox="0 0 390 50" style="position: absolute; left: 0; bottom: 0"><path d="M0 34 C 90 18, 170 44, 260 30 S 360 24, 390 32 V50 H0 Z" fill="#2E5A4C"></path></svg>
+<svg class="sway" aria-hidden="true" width="26" height="44" viewBox="0 0 26 44" style="position: absolute; left: 54px; bottom: 22px"><path d="M13 44 V10" stroke="#2E5A4C" stroke-width="2"></path><path d="M13 22 C 4 20, 2 12, 4 6 C 10 8, 14 14, 13 22 Z" fill="#4E8A70"></path><path d="M13 16 C 22 14, 24 6, 22 0 C 16 2, 12 8, 13 16 Z" fill="#6FA88C"></path></svg>
+</div>
+<div class="rise" style="animation-delay: 0.12s">
+<div style="font-size: 15px; color: #56665F">Welcome to maia</div>
+<h1 class="serif" style="margin: 4px 0 0; font-size: 32px; font-weight: 500; line-height: 1.1">Let's organise your pregnancy</h1>
+<p style="margin: 10px 0 0; font-size: 15px; line-height: 1.5; color: #56665F">Tell Maia your due date. It suggests the checks most pregnancies need, and you adjust them as your doctor advises.</p>
+</div>
+<div class="rise" style="animation-delay: 0.2s; display: flex; flex-direction: column; gap: 8px; padding: 18px; border-radius: 22px; background: rgba(255,255,255,0.85); border: 1px solid #DDE7DF">
+<label for="datein" style="font-size: 14px; font-weight: 700">{{dateLabel}}</label>
+<input id="datein" type="date" value="{{dateValue}}" onChange="{{onDate}}" style="min-height: 50px; box-sizing: border-box; padding: 0 14px; border: 1px solid #C9D8CE; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 17px; color: #1E2D29">
+<button onClick="{{toggleDateMode}}" style="align-self: flex-start; min-height: 40px; padding: 0; border: 0; background: none; font-family: inherit; font-size: 14px; font-weight: 600; color: #2F6F7E; cursor: pointer; text-decoration: underline; text-underline-offset: 4px">{{dateModeLink}}</button>
+</div>
+<div class="rise" style="animation-delay: 0.26s; display: flex; gap: 12px; align-items: center; padding: 14px 16px; border-radius: 20px; background: #DCEBEE">
+<svg class="sway" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2F6F7E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21V11"></path><path d="M12 13C7 13 5 9 5 5c4 0 7 2 7 8z"></path><path d="M12 11c0-5 3-7 7-7 0 4-2 8-7 7z"></path></svg>
+<span style="font-size: 15px; font-weight: 600; line-height: 1.4; color: #1F4F5B">You're {{weeksWords}} today. Due {{dueText}}.</span>
+</div>
+<button onClick="{{goSetupPlan}}" class="rise press lift" style="animation-delay: 0.32s; min-height: 56px; border: 0; border-radius: 999px; background: #2E5A4C; color: #FFFFFF; font-family: inherit; font-size: 17px; font-weight: 700; cursor: pointer">Suggest my plan</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isSetupPlan}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div class="rise" style="display: flex; justify-content: space-between; align-items: center">
+<button onClick="{{goSetup}}" class="press" style="display: flex; align-items: center; gap: 4px; min-height: 44px; padding: 0 12px 0 6px; border: 1px solid #DDE7DF; border-radius: 999px; background: rgba(255,255,255,0.7); font-family: inherit; font-size: 14px; font-weight: 600; color: #2E5A4C; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg>Back</button>
+<div style="display: flex; gap: 6px"><span style="width: 6px; height: 6px; border-radius: 999px; background: #C3D3C8"></span><span style="width: 28px; height: 6px; border-radius: 999px; background: #2E5A4C"></span><span style="width: 6px; height: 6px; border-radius: 999px; background: #C3D3C8"></span></div>
+</div>
+<div class="rise" style="animation-delay: 0.05s">
+<h1 class="serif" style="margin: 0; font-size: 32px; font-weight: 500; line-height: 1.1">Here's a typical plan</h1>
+<p style="margin: 10px 0 0; font-size: 15px; line-height: 1.5; color: #56665F">Common checks for a pregnancy due {{dueText}}. Your doctor may suggest a different set. Switch off what doesn't apply; you can change it any time.</p>
+</div>
+<div class="rise" style="animation-delay: 0.1s; align-self: flex-start; display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: #DCEBEE; color: #1F4F5B; font-size: 14px; font-weight: 700">
+<span class="glow" style="width: 8px; height: 8px; border-radius: 50%; background: #2F6F7E"></span>{{planCount}} checks in your plan</div>
+<sc-for list="{{setupGroups}}" as="g" hint-placeholder-count="3">
+<div class="rise" style="animation-delay: {{g.delay}}; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: center; gap: 8px; margin-top: 4px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4E8A70" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14z"></path><path d="M5 19l7-7"></path></svg>
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #3E6B58">{{g.name}}</span>
+</div>
+<sc-for list="{{g.items}}" as="it" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 8px 12px 16px; border-radius: 18px; background: {{it.bg}}; border: 1px solid #DDE7DF" class="ease">
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px">
+<div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+<span style="font-size: 15px; font-weight: 700; color: {{it.titleColor}}">{{it.title}}</span>
+<span style="font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: {{it.tagBg}}; color: {{it.tagFg}}">{{it.tag}}</span>
+</div>
+<span style="font-size: 13px; color: #56665F">{{it.windowText}}</span>
+</div>
+<button onClick="{{it.toggle}}" aria-pressed="{{it.onStr}}" aria-label="Include {{it.title}}" style="flex-shrink: 0; width: 60px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; display: flex; align-items: center; justify-content: center">
+<span style="position: relative; width: 50px; height: 30px; border-radius: 999px; background: {{it.trackBg}}; transition: background .25s ease">
+<span style="position: absolute; top: 3px; left: {{it.knobLeft}}; width: 24px; height: 24px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 2px 6px rgba(0,0,0,0.18); transition: left .3s cubic-bezier(.2,.7,.2,1)"></span>
+</span>
+</button>
+</div>
+</sc-for>
+</div>
+</sc-for>
+<button onClick="{{goSetupCare}}" class="press lift" style="margin-top: 6px; min-height: 56px; border: 0; border-radius: 999px; background: #2E5A4C; color: #FFFFFF; font-family: inherit; font-size: 17px; font-weight: 700; cursor: pointer">Looks good</button>
+</div>
+</sc-if>
+
+
+<sc-if value="{{isSetupCare}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div class="rise" style="display: flex; justify-content: space-between; align-items: center">
+<button onClick="{{goSetupPlan}}" class="press" style="display: flex; align-items: center; gap: 4px; min-height: 44px; padding: 0 12px 0 6px; border: 1px solid #DDE7DF; border-radius: 999px; background: rgba(255,255,255,0.7); font-family: inherit; font-size: 14px; font-weight: 600; color: #2E5A4C; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg>Back</button>
+<div style="display: flex; gap: 6px"><span style="width: 6px; height: 6px; border-radius: 999px; background: #C3D3C8"></span><span style="width: 6px; height: 6px; border-radius: 999px; background: #C3D3C8"></span><span style="width: 28px; height: 6px; border-radius: 999px; background: #2E5A4C"></span></div>
+</div>
+<div class="rise" style="animation-delay: 0.05s">
+<h1 class="serif" style="margin: 0; font-size: 32px; font-weight: 500; line-height: 1.1">Your doctor and your calendar</h1>
+<p style="margin: 10px 0 0; font-size: 15px; line-height: 1.5; color: #56665F">Link your OB-GYN from your phone contacts, and Maia puts every booking in your calendar.</p>
+</div>
+<div class="rise" style="animation-delay: 0.1s; display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 22px; background: rgba(255,255,255,0.88); border: 1px solid #DDE7DF">
+<div style="display: flex; align-items: center; gap: 8px">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2E5A4C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v6a4 4 0 0 0 8 0V3"></path><path d="M10 13v2a5 5 0 0 0 10 0v-2"></path><circle cx="20" cy="11" r="2"></circle></svg>
+<span style="font-size: 16px; font-weight: 700">Your OB-GYN</span>
+</div>
+<sc-for list="{{obgynContacts}}" as="k" hint-placeholder-count="2">
+<div class="pop" style="display: flex; align-items: center; gap: 12px; padding: 8px 0">
+<span style="width: 40px; height: 40px; border-radius: 50%; background: {{k.avBg}}; color: {{k.avFg}}; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0">{{k.initials}}</span>
+<span style="flex-grow: 1; display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 15px; font-weight: 700">{{k.name}}</span><span style="font-size: 13px; color: #56665F">{{k.label}} · {{k.num}}</span></span>
+</div>
+</sc-for>
+<button onClick="{{openPickerObgyn}}" class="press" style="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; border: 1px dashed #9FC2B0; border-radius: 14px; background: #F2F7F2; color: #2E5A4C; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="8" r="4"></circle><path d="M3 20c0-4 3-6 7-6s7 2 7 6"></path><path d="M19 8v6M16 11h6"></path></svg>
+{{pickCta}}</button>
+</div>
+<div class="rise" style="animation-delay: 0.16s; display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 22px; background: rgba(255,255,255,0.88); border: 1px solid #DDE7DF">
+<div style="display: flex; align-items: center; gap: 8px">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F6F7E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg>
+<span style="font-size: 16px; font-weight: 700">Sync to your calendar</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{calProviders}}" as="p" hint-placeholder-count="2">
+<button onClick="{{p.pick}}" aria-pressed="{{p.onStr}}" class="press ease" style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-height: 76px; padding: 12px; border: 2px solid {{p.border}}; border-radius: 16px; background: {{p.bg}}; font-family: inherit; color: #1E2D29; cursor: pointer; text-align: left">
+<span style="display: flex; width: 100%; justify-content: space-between; align-items: center"><span style="width: 28px; height: 28px; border-radius: 8px; background: {{p.tile}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700">{{p.letter}}</span><span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid {{p.border}}; background: {{p.dot}}"></span></span>
+<span style="font-size: 14px; font-weight: 700">{{p.name}}</span>
+</button>
+</sc-for>
+</div>
+<span style="font-size: 13px; line-height: 1.4; color: #56665F">Maia adds a separate "Maia · Pregnancy" calendar, so your own events stay untouched.</span>
+</div>
+<button onClick="{{finishSetup}}" class="rise press lift" style="animation-delay: 0.22s; min-height: 56px; border: 0; border-radius: 999px; background: #2E5A4C; color: #FFFFFF; font-family: inherit; font-size: 17px; font-weight: 700; cursor: pointer">Start my plan</button>
+<button onClick="{{finishSetup}}" style="align-self: center; min-height: 44px; padding: 0 12px; border: 0; background: none; font-family: inherit; font-size: 15px; font-weight: 600; color: #56665F; cursor: pointer">Skip for now</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isHome}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div class="rise" style="display: flex; justify-content: space-between; align-items: center">
+<span class="serif" style="display: flex; align-items: center; gap: 6px; font-size: 28px; font-weight: 600; color: #2E5A4C">
+<svg class="sway" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4E8A70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21V11"></path><path d="M12 13C7 13 5 9 5 5c4 0 7 2 7 8z"></path><path d="M12 11c0-5 3-7 7-7 0 4-2 8-7 7z"></path></svg>maia</span>
+<div style="display: flex; align-items: center; gap: 8px">
+<span style="font-size: 13px; font-weight: 700; padding: 7px 12px; border-radius: 999px; background: rgba(255,255,255,0.8); border: 1px solid #DDE7DF; color: #2E5A4C">{{weekLabel}}</span>
+<button onClick="{{goCalendar}}" aria-label="Calendar sync" class="press" style="position: relative; width: 44px; height: 44px; border-radius: 50%; border: 1px solid #DDE7DF; background: rgba(255,255,255,0.8); cursor: pointer; display: flex; align-items: center; justify-content: center">
+<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#2E5A4C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg>
+<sc-if value="{{calConnected}}" hint-placeholder-val="{{true}}"><span class="glow" style="position: absolute; top: 8px; right: 8px; width: 9px; height: 9px; border-radius: 50%; background: #4E8A70; border: 2px solid #F2F5EF"></span></sc-if>
+</button>
+</div>
+</div>
+<div class="rise" style="animation-delay: 0.05s">
+<div style="font-size: 15px; color: #56665F">Good morning</div>
+<h1 class="serif" style="margin: 2px 0 0; font-size: 34px; font-weight: 500; line-height: 1.08">Here's your week</h1>
+</div>
+
+<div class="rise" style="animation-delay: 0.1s; padding: 16px 16px 12px; border-radius: 24px; background: rgba(255,255,255,0.75); border: 1px solid #DDE7DF">
+<div style="position: relative; width: 318px; height: 70px; margin: 0 auto">
+<svg width="318" height="70" viewBox="0 0 318 70" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+<path d="M8 50 C 60 10, 100 64, 160 36 S 262 8, 310 30" fill="none" stroke="#D2DFD6" stroke-width="6" stroke-linecap="round" stroke-dasharray="1 11"></path>
+<path d="M8 50 C 60 10, 100 64, 160 36 S 262 8, 310 30" pathLength="100" fill="none" stroke="#4E8A70" stroke-width="6" stroke-linecap="round" stroke-dasharray="100" stroke-dashoffset="{{pathOffset}}" style="animation: drawpath 2s .3s cubic-bezier(.2,.7,.2,1) backwards"></path>
+</svg>
+<div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 12px; height: 12px; border-radius: 50%; background: #FFFFFF; border: 3px solid #A9C8B4; offset-path: path('M8 50 C 60 10, 100 64, 160 36 S 262 8, 310 30'); offset-distance: 35%; offset-rotate: 0deg"></div>
+<div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 12px; height: 12px; border-radius: 50%; background: #FFFFFF; border: 3px solid #A9C8B4; offset-path: path('M8 50 C 60 10, 100 64, 160 36 S 262 8, 310 30'); offset-distance: 70%; offset-rotate: 0deg"></div>
+<div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 22px; height: 22px; offset-path: path('M8 50 C 60 10, 100 64, 160 36 S 262 8, 310 30'); offset-distance: 100%; offset-rotate: 0deg; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="#E9C979" stroke="#C9A24F" stroke-width="1.2"><circle cx="12" cy="12" r="7"></circle></svg></div>
+<div class="glow" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 20px; height: 20px; box-sizing: border-box; border-radius: 50%; background: #2F6F7E; border: 4px solid #FFFFFF; offset-path: path('M8 50 C 60 10, 100 64, 160 36 S 262 8, 310 30'); offset-distance: {{pathPct}}; offset-rotate: 0deg; animation: walk 2s .3s cubic-bezier(.2,.7,.2,1) backwards, glow 2.4s 2.4s ease-in-out infinite"></div>
+</div>
+<div style="display: flex; justify-content: space-between; margin-top: 6px; font-size: 12px; font-weight: 600; color: #56665F">
+<span>{{trimesterLabel}}</span><span style="color: #2F6F7E">{{daysToGo}} days to go</span><span>Due {{dueText}}</span>
+</div>
+</div>
+
+<div class="rise lift" style="animation-delay: 0.16s; position: relative; overflow: hidden; background: #2E5A4C; color: #FFFFFF; border-radius: 26px; padding: 20px 20px 56px; display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #BFE0CE">Next up · {{nextUpIn}}</div>
+<div class="serif" style="font-size: 27px; font-weight: 500; line-height: 1.15">{{nextUpTitle}}</div>
+<div style="font-size: 15px; color: #DCEDE3">{{nextUpWhen}}</div>
+<div style="font-size: 14px; color: #DCEDE3">with {{doctorName}}</div>
+<div style="position: relative; z-index: 1; display: flex; gap: 8px; margin-top: 8px">
+<button onClick="{{goQuestions}}" class="press" style="min-height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #F2F5EF; color: #2E5A4C; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer">{{openCount}} questions ready</button>
+<button onClick="{{callDoctor}}" aria-label="Call {{doctorName}}" class="press" style="width: 44px; height: 44px; border: 1px solid rgba(255,255,255,0.4); border-radius: 50%; background: rgba(255,255,255,0.12); color: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center">
+<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"></path></svg></button>
+</div>
+<sc-if value="{{nextInCal}}" hint-placeholder-val="{{true}}">
+<span style="position: absolute; top: 18px; right: 18px; display: flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 700; padding: 4px 9px; border-radius: 999px; background: rgba(255,255,255,0.14); color: #DCEDE3">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>In calendar</span>
+</sc-if>
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 48px; overflow: hidden">
+<svg class="wave1" width="700" height="48" viewBox="0 0 700 48" style="position: absolute; left: 0; bottom: 0"><path d="M0 22 Q 87.5 6 175 22 T 350 22 T 525 22 T 700 22 V 48 H 0 Z" fill="#3F7C68" fill-opacity="0.8"></path></svg>
+<svg class="wave2" width="700" height="48" viewBox="0 0 700 48" style="position: absolute; left: -175px; bottom: 0"><path d="M0 30 Q 87.5 16 175 30 T 350 30 T 525 30 T 700 30 V 48 H 0 Z" fill="#2F6F7E" fill-opacity="0.75"></path></svg>
+</div>
+</div>
+
+<sc-if value="{{hasNeedsBooking}}" hint-placeholder-val="{{true}}">
+<div class="rise lift" style="animation-delay: 0.22s; display: flex; gap: 14px; align-items: center; padding: 14px 14px 14px 16px; border-radius: 22px; background: #DCEBEE; border: 1px solid #C4DCE2">
+<div style="width: 44px; height: 44px; border-radius: 14px; background: #2F6F7E; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg>
+</div>
+<div style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<span style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #1F4F5B">Needs booking</span>
+<span style="font-size: 15px; font-weight: 700">{{needsTitle}}</span>
+<span style="font-size: 13px; color: #3C5A60">{{needsWhen}}</span>
+</div>
+<button onClick="{{bookNeeded}}" class="press" style="min-height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1F4F5B; color: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; flex-shrink: 0">Book</button>
+</div>
+</sc-if>
+
+<div class="rise" style="animation-delay: 0.28s; padding: 16px 16px 10px; border-radius: 22px; background: rgba(255,255,255,0.8); border: 1px solid #DDE7DF">
+<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px">
+<span style="font-size: 16px; font-weight: 700">To do this week</span>
+<span style="font-size: 13px; font-weight: 600; color: #56665F">{{todoLeft}} left</span>
+</div>
+<sc-for list="{{todos}}" as="t" hint-placeholder-count="3">
+<button onClick="{{t.toggle}}" aria-pressed="{{t.doneStr}}" class="pop" style="animation-delay: {{t.delay}}; width: 100%; display: flex; align-items: center; gap: 12px; min-height: 50px; padding: 8px 0; border: 0; border-top: 1px solid #EAF0EB; background: none; font-family: inherit; text-align: left; cursor: pointer">
+<span class="ease" style="width: 24px; height: 24px; flex-shrink: 0; box-sizing: border-box; border-radius: 50%; border: 2px solid {{t.ring}}; background: {{t.fill}}; display: flex; align-items: center; justify-content: center">
+<sc-if value="{{t.done}}" hint-placeholder-val="{{false}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="checkdraw" d="M5 12.5l4.5 4.5L19 7.5"></path></svg></sc-if>
+</span>
+<span style="flex-grow: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<span class="ease" style="font-size: 15px; line-height: 1.4; color: {{t.color}}; text-decoration: {{t.deco}}">{{t.text}}</span>
+<sc-if value="{{t.hasWhen}}" hint-placeholder-val="{{false}}">
+<span style="display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: #2F6F7E">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>{{t.when}}</span>
+</sc-if>
+</span>
+</button>
+</sc-for>
+<sc-if value="{{taskFormClosed}}" hint-placeholder-val="{{true}}">
+<button onClick="{{openTaskForm}}" style="width: 100%; display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 6px 0; border: 0; border-top: 1px solid #EAF0EB; background: none; font-family: inherit; font-size: 15px; font-weight: 700; color: #2F6F7E; cursor: pointer; text-align: left">
+<span style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 50%; border: 2px dashed #8FB4C0; display: flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span>Add a task</button>
+</sc-if>
+<sc-if value="{{taskFormOpen}}" hint-placeholder-val="{{false}}">
+<div class="pop" style="display: flex; flex-direction: column; gap: 8px; padding: 12px 0 6px; border-top: 1px solid #EAF0EB">
+<label for="tasktext" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Task</label>
+<input id="tasktext" type="text" placeholder="e.g. Call clinic about results" value="{{taskText}}" onChange="{{onTaskText}}" style="min-height: 44px; box-sizing: border-box; padding: 0 12px; border: 1px solid #C9D8CE; border-radius: 12px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1E2D29">
+<div style="display: flex; gap: 8px">
+<label for="taskdate" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Date</label>
+<input id="taskdate" type="date" value="{{taskDate}}" onChange="{{onTaskDate}}" style="flex-grow: 3; flex-basis: 0; min-width: 0; min-height: 44px; box-sizing: border-box; padding: 0 10px; border: 1px solid #C9D8CE; border-radius: 12px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1E2D29">
+<label for="tasktime" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Time</label>
+<input id="tasktime" type="time" value="{{taskTime}}" onChange="{{onTaskTime}}" style="flex-grow: 2; flex-basis: 0; min-width: 0; min-height: 44px; box-sizing: border-box; padding: 0 10px; border: 1px solid #C9D8CE; border-radius: 12px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1E2D29">
+</div>
+<div style="display: flex; gap: 8px; align-items: center">
+<button onClick="{{addTask}}" class="press" style="min-height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #2E5A4C; color: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Add task</button>
+<span style="font-size: 12.5px; color: #56665F">{{taskCalNote}}</span>
+</div>
+</div>
+</sc-if>
+</div>
+
+<div class="rise lift" style="animation-delay: 0.34s; padding: 16px; border-radius: 22px; background: rgba(255,255,255,0.8); border: 1px solid #DDE7DF; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<span style="font-size: 16px; font-weight: 700">Your plan</span>
+<button onClick="{{goJourney}}" style="min-height: 32px; padding: 0; border: 0; background: none; font-family: inherit; font-size: 14px; font-weight: 700; color: #2F6F7E; cursor: pointer">See all</button>
+</div>
+<div style="display: flex; gap: 4px">
+<sc-for list="{{segments}}" as="sg" hint-placeholder-count="12">
+<span class="pop" style="animation-delay: {{sg.delay}}; flex-grow: 1; flex-basis: 0; height: 10px; border-radius: 999px; background: {{sg.color}}"></span>
+</sc-for>
+</div>
+<div style="display: flex; gap: 14px; flex-wrap: wrap; font-size: 12.5px; font-weight: 600; color: #56665F">
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #4E8A70"></span>{{doneCount}} done</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #2F6F7E"></span>{{bookedCount}} booked</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #D9B865"></span>{{openBookCount}} to book</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #CFDAD2"></span>{{laterCount}} later</span>
+</div>
+</div>
+
+<div class="rise" style="animation-delay: 0.4s; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<button onClick="{{goQuestions}}" class="lift press" style="text-align: left; display: flex; flex-direction: column; gap: 8px; padding: 16px; min-height: 112px; background: #E1ECE3; border: 0; border-radius: 22px; font-family: inherit; color: #1E2D29; cursor: pointer">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2E5A4C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>
+<span style="font-size: 15px; font-weight: 700">Questions</span>
+<span style="font-size: 12.5px; color: #3E5A50">{{openCount}} for your next visit</span>
+</button>
+<button onClick="{{goBreathe}}" class="lift press" style="position: relative; overflow: hidden; text-align: left; display: flex; flex-direction: column; gap: 8px; padding: 16px; min-height: 112px; background: #DCEBEE; border: 0; border-radius: 22px; font-family: inherit; color: #1E2D29; cursor: pointer">
+<span style="position: relative; width: 26px; height: 26px"><span class="breath" style="position: absolute; left: 0; top: 0; width: 26px; height: 26px; border-radius: 50%; background: #2F6F7E; opacity: 0.8"></span></span>
+<span style="font-size: 15px; font-weight: 700">Breathe</span>
+<span style="font-size: 12.5px; color: #3C5A60">2 calm minutes</span>
+</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isJourney}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div class="rise">
+<div style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #2F6F7E">{{weekLabel}} · due {{dueText}}</div>
+<h1 class="serif" style="margin: 6px 0 0; font-size: 34px; font-weight: 500; line-height: 1.05">Your plan</h1>
+<p style="margin: 8px 0 0; font-size: 15px; line-height: 1.45; color: #56665F">Tap any check to book it with a time, keep its results, or remove it.</p>
+</div>
+<div class="rise" style="animation-delay: 0.06s; display: flex; gap: 8px">
+<button onClick="{{goUpdate}}" class="press lift" style="flex-grow: 1; display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; border: 0; border-radius: 999px; background: #2E5A4C; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4h6l1 2h3v14H5V6h3z"></path><path d="M9 13l2 2 4-4"></path></svg>Update after a visit</button>
+<button onClick="{{goCalendar}}" aria-label="Calendar sync" class="press lift" style="width: 48px; height: 48px; flex-shrink: 0; border: 1px solid #C9D8CE; border-radius: 50%; background: rgba(255,255,255,0.8); color: #2E5A4C; cursor: pointer; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg></button>
+</div>
+<sc-for list="{{journeyGroups}}" as="g" hint-placeholder-count="3">
+<div class="rise" style="animation-delay: {{g.delay}}; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: center; gap: 8px; margin-top: 6px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4E8A70" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14z"></path><path d="M5 19l7-7"></path></svg>
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #3E6B58">{{g.name}}</span>
+<span style="font-size: 12px; font-weight: 600; color: #56665F">{{g.summary}}</span>
+</div>
+<div style="position: relative; display: flex; flex-direction: column; gap: 6px">
+<div class="linegrow" aria-hidden="true" style="position: absolute; left: 13px; top: 18px; bottom: 18px; width: 2px; border-radius: 2px; background: #D2DFD6"></div>
+<sc-for list="{{g.items}}" as="j" hint-placeholder-count="3">
+<div style="position: relative; display: flex; gap: 12px; align-items: flex-start">
+<sc-if value="{{j.isHere}}" hint-placeholder-val="{{false}}">
+<div style="width: 28px; display: flex; justify-content: center; flex-shrink: 0; padding-top: 8px"><div class="glow" style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; background: #2F6F7E; border: 4px solid #F2F5EF"></div></div>
+<div style="flex-grow: 1; padding: 9px 14px; border-radius: 999px; background: #DCEBEE; color: #1F4F5B; font-size: 13px; font-weight: 700">You are here · {{weekLabel}}</div>
+</sc-if>
+<sc-if value="{{j.isItem}}" hint-placeholder-val="{{true}}">
+<div style="width: 28px; display: flex; justify-content: center; flex-shrink: 0; padding-top: 16px">
+<div style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; background: {{j.nodeBg}}; border: 2px solid {{j.nodeBorder}}; display: flex; align-items: center; justify-content: center">
+<sc-if value="{{j.isDone}}" hint-placeholder-val="{{false}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></sc-if>
+</div>
+</div>
+<div class="ease" style="flex-grow: 1; min-width: 0; border-radius: 18px; background: {{j.cardBg}}; border: 1px solid {{j.cardBorder}}; box-shadow: {{j.shadow}}; overflow: hidden">
+<button onClick="{{j.toggle}}" aria-expanded="{{j.expandedStr}}" style="width: 100%; display: flex; flex-direction: column; gap: 4px; padding: 13px 16px; border: 0; background: none; font-family: inherit; text-align: left; color: #1E2D29; cursor: pointer">
+<span style="width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px">
+<span style="font-size: 15.5px; font-weight: 700; color: {{j.titleColor}}">{{j.title}}</span>
+<span style="flex-shrink: 0; font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: {{j.chipBg}}; color: {{j.chipFg}}">{{j.chip}}</span>
+</span>
+<span style="font-size: 13px; line-height: 1.4; color: #56665F">{{j.sub}}</span>
+<sc-if value="{{j.hasBadges}}" hint-placeholder-val="{{false}}">
+<span style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 2px">
+<sc-if value="{{j.inCal}}" hint-placeholder-val="{{false}}"><span style="display: flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: #DCEBEE; color: #1F4F5B"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"></rect><path d="M3.5 10h17"></path></svg>In calendar</span></sc-if>
+<sc-if value="{{j.hasResults}}" hint-placeholder-val="{{false}}"><span style="display: flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: #E1ECE3; color: #2E5A4C"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.5 12.5 21a5 5 0 0 1-7-7L14 5.5a3.5 3.5 0 0 1 5 5L10.5 19a2 2 0 0 1-3-3L15 8.5"></path></svg>{{j.resultsLabel}}</span></sc-if>
+</span>
+</sc-if>
+</button>
+<sc-if value="{{j.expanded}}" hint-placeholder-val="{{false}}">
+<div class="pop" style="display: flex; flex-direction: column; gap: 10px; padding: 0 16px 16px">
+<p style="margin: 0; font-size: 13px; line-height: 1.45; color: #3E5A50">{{j.note}}</p>
+<sc-if value="{{j.canBook}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 14px; background: #F2F7F5">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #1F4F5B">{{j.bookHeading}}</span>
+<div style="display: flex; gap: 8px">
+<label for="bookdate" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Date</label>
+<input id="bookdate" type="date" value="{{bookDraft}}" onChange="{{onBookDraft}}" style="flex-grow: 3; flex-basis: 0; min-width: 0; min-height: 44px; box-sizing: border-box; padding: 0 10px; border: 1px solid #C9D8CE; border-radius: 12px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1E2D29">
+<label for="booktime" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Time</label>
+<input id="booktime" type="time" value="{{bookTime}}" onChange="{{onBookTime}}" style="flex-grow: 2; flex-basis: 0; min-width: 0; min-height: 44px; box-sizing: border-box; padding: 0 10px; border: 1px solid #C9D8CE; border-radius: 12px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1E2D29">
+</div>
+<button onClick="{{j.save}}" class="press" style="min-height: 46px; border: 0; border-radius: 12px; background: #2F6F7E; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer">{{j.saveLabel}}</button>
+<button onClick="{{callDoctor}}" class="press" style="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; border: 1px solid #C4DCE2; border-radius: 12px; background: #FFFFFF; color: #1F4F5B; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"></path></svg>Call {{bookingContact}} to book</button>
+</div>
+</sc-if>
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 14px; background: #F4F8F3">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #2E5A4C">Results</span>
+<sc-for list="{{j.results}}" as="f" hint-placeholder-count="1">
+<div class="pop" style="display: flex; align-items: center; gap: 10px">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: {{f.tileBg}}; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+<sc-if value="{{f.isImage}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3"></rect><circle cx="9" cy="10" r="1.8"></circle><path d="m5 18 5-5 3 3 2-2 4 4"></path></svg></sc-if>
+<sc-if value="{{f.isPdf}}" hint-placeholder-val="{{true}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2E5A4C" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"></path><path d="M14 3v5h5M10 13h6M10 17h6"></path></svg></sc-if>
+<sc-if value="{{f.isLink}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F4F5B" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1 1"></path><path d="M14 10a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1-1"></path></svg></sc-if>
+</span>
+<span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{f.name}}</span><span style="font-size: 12px; color: #56665F">{{f.meta}}</span></span>
+<button onClick="{{f.remove}}" aria-label="Remove {{f.name}}" style="width: 36px; height: 36px; flex-shrink: 0; border: 0; border-radius: 50%; background: none; color: #56665F; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+</div>
+</sc-for>
+<sc-if value="{{j.noResults}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #56665F">No results yet. Add the report, a photo of it, or a link to the lab portal.</span></sc-if>
+<div style="display: flex; gap: 8px">
+<label class="press" style="position: relative; flex-grow: 1; display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; border-radius: 12px; background: #2E5A4C; color: #FFFFFF; font-size: 14px; font-weight: 700; cursor: pointer; overflow: hidden">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"></path></svg>Upload file or photo
+<input type="file" accept="image/*,application/pdf" multiple="{{true}}" onChange="{{j.onFiles}}" style="position: absolute; left: 0; top: 0; width: 1px; height: 1px; opacity: 0">
+</label>
+<button onClick="{{j.toggleLink}}" class="press" style="min-height: 44px; padding: 0 14px; border: 1px solid #C9D8CE; border-radius: 12px; background: #FFFFFF; color: #2E5A4C; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Link</button>
+</div>
+<sc-if value="{{linkFormOpen}}" hint-placeholder-val="{{false}}">
+<div class="pop" style="display: flex; gap: 8px">
+<label for="linkurl" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Link to results</label>
+<input id="linkurl" type="url" placeholder="Paste the lab portal link" value="{{linkDraft}}" onChange="{{onLinkDraft}}" style="flex-grow: 1; min-width: 0; min-height: 44px; box-sizing: border-box; padding: 0 12px; border: 1px solid #C9D8CE; border-radius: 12px; background: #FFFFFF; font-family: inherit; font-size: 14px; color: #1E2D29">
+<button onClick="{{j.addLink}}" class="press" style="min-height: 44px; padding: 0 14px; border: 0; border-radius: 12px; background: #2F6F7E; color: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Save</button>
+</div>
+</sc-if>
+</div>
+<div style="display: flex; gap: 8px">
+<sc-if value="{{j.notDone}}" hint-placeholder-val="{{true}}"><button onClick="{{j.markDone}}" class="press" style="flex-grow: 1; min-height: 44px; border: 1px solid #A9C8B4; border-radius: 12px; background: #E1ECE3; color: #2E5A4C; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Mark done</button></sc-if>
+<button onClick="{{j.remove}}" class="press" style="flex-grow: 1; min-height: 44px; border: 1px solid #D5DDD7; border-radius: 12px; background: #FFFFFF; color: #56665F; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Not needed</button>
+</div>
+</div>
+</sc-if>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{isUpdate}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div class="rise">
+<div style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #2F6F7E">{{weekLabel}}</div>
+<h1 class="serif" style="margin: 6px 0 0; font-size: 34px; font-weight: 500; line-height: 1.05">After your visit</h1>
+<p style="margin: 8px 0 0; font-size: 15px; line-height: 1.45; color: #56665F">Tell Maia what changed. It takes a minute, and your plan stays in step with {{doctorName}}.</p>
+</div>
+
+<div class="rise" style="animation-delay: 0.06s; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 16px; font-weight: 700">1 · What did you get done?</div>
+<sc-for list="{{doneCandidates}}" as="d" hint-placeholder-count="2">
+<div class="ease" style="display: flex; align-items: center; gap: 12px; padding: 12px 12px 12px 16px; border-radius: 18px; background: {{d.bg}}; border: 1px solid #DDE7DF">
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 15px; font-weight: 700">{{d.title}}</span>
+<span style="font-size: 13px; color: #56665F">{{d.sub}}</span>
+</div>
+<sc-if value="{{d.notDone}}" hint-placeholder-val="{{true}}">
+<button onClick="{{d.markDone}}" class="press" style="min-height: 44px; padding: 0 16px; border: 1px solid #A9C8B4; border-radius: 999px; background: #FFFFFF; color: #2E5A4C; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; flex-shrink: 0">Done</button>
+</sc-if>
+<sc-if value="{{d.isDone}}" hint-placeholder-val="{{false}}">
+<span class="pop" style="width: 36px; height: 36px; border-radius: 50%; background: #4E8A70; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="checkdraw" d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+</sc-if>
+</div>
+</sc-for>
+</div>
+
+<div class="rise" style="animation-delay: 0.1s; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 16px; font-weight: 700">2 · Got any results?</div>
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: 18px; background: rgba(255,255,255,0.85); border: 1px solid #DDE7DF">
+<label for="restarget" style="font-size: 13px; font-weight: 600; color: #56665F">File them under</label>
+<select id="restarget" value="{{resTarget}}" onChange="{{onResTarget}}" style="min-height: 44px; box-sizing: border-box; padding: 0 10px; border: 1px solid #C9D8CE; border-radius: 12px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1E2D29">
+<sc-for list="{{resOptions}}" as="o" hint-placeholder-count="4"><option value="{{o.id}}">{{o.label}}</option></sc-for>
+</select>
+<label class="press" style="position: relative; display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 46px; border-radius: 12px; background: #2E5A4C; color: #FFFFFF; font-size: 14px; font-weight: 700; cursor: pointer; overflow: hidden">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"></path></svg>Upload files or photos
+<input type="file" accept="image/*,application/pdf" multiple="{{true}}" onChange="{{onResFiles}}" style="position: absolute; left: 0; top: 0; width: 1px; height: 1px; opacity: 0">
+</label>
+<sc-if value="{{hasRecentUploads}}" hint-placeholder-val="{{false}}"><span class="pop" style="font-size: 13px; font-weight: 600; color: #2E5A4C">{{recentUploads}}</span></sc-if>
+</div>
+</div>
+
+<div class="rise" style="animation-delay: 0.14s; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 16px; font-weight: 700">3 · Did your doctor ask for anything new?</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{suggestions}}" as="c" hint-placeholder-count="6">
+<button onClick="{{c.add}}" aria-pressed="{{c.addedStr}}" class="pop press" style="animation-delay: {{c.delay}}; display: flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px; border: 1px solid {{c.border}}; border-radius: 999px; background: {{c.bg}}; color: {{c.fg}}; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; transition: all .3s ease">{{c.icon}} {{c.title}}</button>
+</sc-for>
+</div>
+<div style="display: flex; gap: 8px; padding: 6px; border-radius: 999px; background: #FFFFFF; border: 1px solid #DDE7DF">
+<label for="customcheck" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Something else</label>
+<input id="customcheck" type="text" placeholder="Something else, e.g. iron infusion" value="{{customDraft}}" onChange="{{onCustomDraft}}" style="flex-grow: 1; min-width: 0; min-height: 44px; box-sizing: border-box; padding: 0 12px; border: 0; background: transparent; outline: none; font-family: inherit; font-size: 15px; color: #1E2D29">
+<button onClick="{{addCustom}}" class="press" style="min-height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #2F6F7E; color: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Add</button>
+</div>
+</div>
+
+<div class="rise" style="animation-delay: 0.18s; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 16px; font-weight: 700">4 · When is your next appointment?</div>
+<div style="display: flex; gap: 8px">
+<label for="nextvisit2" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Date</label>
+<input id="nextvisit2" type="date" value="{{nextVisit}}" onChange="{{onNextVisit}}" style="flex-grow: 3; flex-basis: 0; min-width: 0; min-height: 50px; box-sizing: border-box; padding: 0 12px; border: 1px solid #C9D8CE; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #1E2D29">
+<label for="nexttime" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Time</label>
+<input id="nexttime" type="time" value="{{nextTime}}" onChange="{{onNextTime}}" style="flex-grow: 2; flex-basis: 0; min-width: 0; min-height: 50px; box-sizing: border-box; padding: 0 12px; border: 1px solid #C9D8CE; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #1E2D29">
+</div>
+<span style="font-size: 13px; color: #56665F">{{calSaveNote}}</span>
+</div>
+
+<button onClick="{{saveUpdate}}" class="rise press lift" style="animation-delay: 0.24s; min-height: 56px; border: 0; border-radius: 999px; background: #2E5A4C; color: #FFFFFF; font-family: inherit; font-size: 17px; font-weight: 700; cursor: pointer">Save to my plan</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isResults}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div class="rise">
+<div style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #2F6F7E">{{resultCount}} files · filed by check</div>
+<h1 class="serif" style="margin: 6px 0 0; font-size: 34px; font-weight: 500; line-height: 1.05">Results</h1>
+<p style="margin: 8px 0 0; font-size: 15px; line-height: 1.45; color: #56665F">Every report, scan photo and lab link, in one place and ready to show your doctor.</p>
+</div>
+<div class="rise" style="animation-delay: 0.05s; display: flex; gap: 8px">
+<label class="press lift" style="position: relative; flex-grow: 1; display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; border-radius: 999px; background: #2E5A4C; color: #FFFFFF; font-size: 15px; font-weight: 700; cursor: pointer; overflow: hidden">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"></path></svg>Add results
+<input type="file" accept="image/*,application/pdf" multiple="{{true}}" onChange="{{onResFiles}}" style="position: absolute; left: 0; top: 0; width: 1px; height: 1px; opacity: 0">
+</label>
+<label for="restarget2" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">File under</label>
+<select id="restarget2" value="{{resTarget}}" onChange="{{onResTarget}}" style="width: 150px; min-height: 48px; box-sizing: border-box; padding: 0 10px; border: 1px solid #C9D8CE; border-radius: 999px; background: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 600; color: #1E2D29">
+<sc-for list="{{resOptions}}" as="o" hint-placeholder-count="4"><option value="{{o.id}}">{{o.label}}</option></sc-for>
+</select>
+</div>
+<div class="rise" style="animation-delay: 0.1s; display: flex; gap: 8px; flex-wrap: wrap">
+<sc-for list="{{resFilters}}" as="rf" hint-placeholder-count="4">
+<button onClick="{{rf.pick}}" aria-pressed="{{rf.onStr}}" class="press ease" style="min-height: 40px; padding: 0 14px; border: 1px solid {{rf.border}}; border-radius: 999px; background: {{rf.bg}}; color: {{rf.fg}}; font-family: inherit; font-size: 13.5px; font-weight: 700; cursor: pointer">{{rf.label}}</button>
+</sc-for>
+</div>
+<sc-for list="{{resultGroups}}" as="rg" hint-placeholder-count="3">
+<div class="rise lift" style="animation-delay: {{rg.delay}}; display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; border-radius: 20px; background: rgba(255,255,255,0.85); border: 1px solid #DDE7DF">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px">
+<span style="font-size: 15.5px; font-weight: 700">{{rg.title}}</span>
+<span style="font-size: 12px; font-weight: 600; color: #56665F; flex-shrink: 0">{{rg.when}}</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{rg.files}}" as="f" hint-placeholder-count="2">
+<div class="pop" style="position: relative; display: flex; flex-direction: column; gap: 8px; padding: 10px; border-radius: 14px; background: {{f.cardBg}}">
+<span style="position: relative; height: 70px; border-radius: 10px; overflow: hidden; background: {{f.tileBg}}; display: flex; align-items: center; justify-content: center">
+<sc-if value="{{f.isImage}}" hint-placeholder-val="{{false}}">
+<svg width="100%" height="70" viewBox="0 0 140 70" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position: absolute; left: 0; top: 0"><path d="M70 8 L22 70 H118 Z" fill="#1F3F48" fill-opacity="0.55"></path><ellipse cx="70" cy="44" rx="16" ry="11" fill="#CFE4EA" fill-opacity="0.7"></ellipse><circle cx="62" cy="40" r="5" fill="#E8F3F5" fill-opacity="0.8"></circle></svg>
+</sc-if>
+<sc-if value="{{f.isPdf}}" hint-placeholder-val="{{true}}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2E5A4C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"></path><path d="M14 3v5h5M10 13h6M10 17h6"></path></svg></sc-if>
+<sc-if value="{{f.isLink}}" hint-placeholder-val="{{false}}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1F4F5B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1 1"></path><path d="M14 10a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1-1"></path></svg></sc-if>
+<span style="position: absolute; left: 6px; bottom: 6px; font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 999px; background: rgba(255,255,255,0.9); color: #1E2D29">{{f.kindLabel}}</span>
+</span>
+<span style="font-size: 13px; font-weight: 700; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{f.name}}</span>
+<span style="font-size: 11.5px; color: #56665F">{{f.meta}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{noResultsShown}}" hint-placeholder-val="{{false}}"><p style="margin: 0; font-size: 14px; color: #56665F">Nothing here yet for this filter.</p></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{isTeam}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div class="rise">
+<div style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #2F6F7E">Linked from your phone</div>
+<h1 class="serif" style="margin: 6px 0 0; font-size: 34px; font-weight: 500; line-height: 1.05">Care team</h1>
+<p style="margin: 8px 0 0; font-size: 15px; line-height: 1.45; color: #56665F">Link contacts to the people and places in your pregnancy. Maia uses them to call, book and share results.</p>
+</div>
+<div class="rise lift" style="animation-delay: 0.06s; position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 10px; padding: 18px; border-radius: 24px; background: #FFFFFF; border: 1px solid #C9DDD0; box-shadow: 0 16px 34px rgba(30,61,51,0.08)">
+<div class="morph" aria-hidden="true" style="position: absolute; right: -40px; top: -40px; width: 130px; height: 130px; background: #E1ECE3"></div>
+<div style="position: relative; display: flex; align-items: center; justify-content: space-between">
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: #2E5A4C; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v6a4 4 0 0 0 8 0V3"></path><path d="M10 13v2a5 5 0 0 0 10 0v-2"></path><circle cx="20" cy="11" r="2"></circle></svg></span>
+<span style="display: flex; flex-direction: column"><span style="font-size: 17px; font-weight: 700">OB-GYN</span><span style="font-size: 12.5px; color: #56665F">Used for bookings, reminders and results</span></span>
+</div>
+<span style="font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: #E1ECE3; color: #2E5A4C">{{obgynCount}} linked</span>
+</div>
+<sc-for list="{{obgynContacts}}" as="k" hint-placeholder-count="2">
+<div class="pop" style="position: relative; display: flex; align-items: center; gap: 12px; padding: 10px 0; border-top: 1px solid #EAF0EB">
+<span style="width: 42px; height: 42px; border-radius: 50%; background: {{k.avBg}}; color: {{k.avFg}}; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0">{{k.initials}}</span>
+<span style="flex-grow: 1; display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 15px; font-weight: 700">{{k.name}}</span><span style="font-size: 13px; color: #56665F">{{k.label}} · {{k.num}}</span></span>
+<button onClick="{{k.call}}" aria-label="Call {{k.name}}" class="press" style="width: 40px; height: 40px; flex-shrink: 0; border: 0; border-radius: 50%; background: #DCEBEE; color: #1F4F5B; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"></path></svg></button>
+<button onClick="{{k.unlink}}" aria-label="Unlink {{k.name}}" class="press" style="width: 40px; height: 40px; flex-shrink: 0; border: 0; border-radius: 50%; background: none; color: #56665F; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+</div>
+</sc-for>
+<button onClick="{{openPickerObgyn}}" class="press" style="position: relative; display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; border: 1px dashed #9FC2B0; border-radius: 14px; background: #F2F7F2; color: #2E5A4C; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="8" r="4"></circle><path d="M3 20c0-4 3-6 7-6s7 2 7 6"></path><path d="M19 8v6M16 11h6"></path></svg>Link from contacts</button>
+</div>
+<div class="rise" style="animation-delay: 0.12s; display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #3E6B58">Coming next</span>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{laterRoles}}" as="r" hint-placeholder-count="4">
+<div class="pop" style="animation-delay: {{r.delay}}; display: flex; flex-direction: column; gap: 4px; padding: 14px; border-radius: 16px; background: rgba(255,255,255,0.55); border: 1px dashed #C9D8CE">
+<span style="font-size: 14.5px; font-weight: 700; color: #3E5A50">{{r.name}}</span>
+<span style="font-size: 12px; color: #56665F">{{r.use}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+<button onClick="{{goCalendar}}" class="rise lift press" style="animation-delay: 0.18s; display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 20px; background: #DCEBEE; border: 1px solid #C4DCE2; font-family: inherit; color: #1E2D29; cursor: pointer; text-align: left">
+<span style="width: 42px; height: 42px; border-radius: 12px; background: #2F6F7E; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg></span>
+<span style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700">Calendar sync</span><span style="font-size: 13px; color: #3C5A60">{{calStatus}}</span></span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F4F5B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
+</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isCalendar}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div class="rise" style="display: flex; justify-content: space-between; align-items: center">
+<button onClick="{{goBackFromCal}}" class="press" style="display: flex; align-items: center; gap: 4px; min-height: 44px; padding: 0 12px 0 6px; border: 1px solid #DDE7DF; border-radius: 999px; background: rgba(255,255,255,0.7); font-family: inherit; font-size: 14px; font-weight: 600; color: #2E5A4C; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg>Back</button>
+<span style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: {{calStatusColor}}"><span class="glow" style="width: 8px; height: 8px; border-radius: 50%; background: {{calStatusColor}}"></span>{{calStatusShort}}</span>
+</div>
+<div class="rise" style="animation-delay: 0.04s">
+<h1 class="serif" style="margin: 0; font-size: 34px; font-weight: 500; line-height: 1.05">Calendar sync</h1>
+<p style="margin: 8px 0 0; font-size: 15px; line-height: 1.45; color: #56665F">Everything you book or schedule in Maia appears in your phone's calendar, with reminders.</p>
+</div>
+<div class="rise" style="animation-delay: 0.08s; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{calProviders}}" as="p" hint-placeholder-count="2">
+<button onClick="{{p.pick}}" aria-pressed="{{p.onStr}}" class="press ease" style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-height: 84px; padding: 12px; border: 2px solid {{p.border}}; border-radius: 18px; background: {{p.bg}}; font-family: inherit; color: #1E2D29; cursor: pointer; text-align: left">
+<span style="display: flex; width: 100%; justify-content: space-between; align-items: center"><span style="width: 30px; height: 30px; border-radius: 9px; background: {{p.tile}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700">{{p.letter}}</span><span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid {{p.border}}; background: {{p.dot}}"></span></span>
+<span style="font-size: 14.5px; font-weight: 700">{{p.name}}</span>
+<span style="font-size: 12px; color: #56665F">{{p.state}}</span>
+</button>
+</sc-for>
+</div>
+<div class="rise" style="animation-delay: 0.12s; display: flex; flex-direction: column; padding: 4px 16px; border-radius: 20px; background: rgba(255,255,255,0.85); border: 1px solid #DDE7DF">
+<sc-for list="{{calOptions}}" as="co" hint-placeholder-count="2">
+<div style="display: flex; align-items: center; gap: 12px; min-height: 60px; border-bottom: 1px solid #EAF0EB">
+<span style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700">{{co.label}}</span><span style="font-size: 12.5px; color: #56665F">{{co.sub}}</span></span>
+<button onClick="{{co.toggle}}" aria-pressed="{{co.onStr}}" aria-label="{{co.label}}" style="flex-shrink: 0; width: 60px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; display: flex; align-items: center; justify-content: center">
+<span style="position: relative; width: 50px; height: 30px; border-radius: 999px; background: {{co.trackBg}}; transition: background .25s ease"><span style="position: absolute; top: 3px; left: {{co.knobLeft}}; width: 24px; height: 24px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 2px 6px rgba(0,0,0,0.18); transition: left .3s cubic-bezier(.2,.7,.2,1)"></span></span>
+</button>
+</div>
+</sc-for>
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 14px 0">
+<span style="font-size: 15px; font-weight: 700">Remind me</span>
+<div style="display: flex; gap: 6px; flex-wrap: wrap">
+<sc-for list="{{remindOpts}}" as="ro" hint-placeholder-count="3">
+<button onClick="{{ro.pick}}" aria-pressed="{{ro.onStr}}" class="press ease" style="min-height: 40px; padding: 0 12px; border: 1px solid {{ro.border}}; border-radius: 999px; background: {{ro.bg}}; color: {{ro.fg}}; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer">{{ro.label}}</button>
+</sc-for>
+</div>
+</div>
+</div>
+<div class="rise" style="animation-delay: 0.16s; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<span style="font-size: 16px; font-weight: 700">In your calendar</span>
+<span style="font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: #E1ECE3; color: #2E5A4C">Maia · Pregnancy</span>
+</div>
+<sc-for list="{{calDays}}" as="cd" hint-placeholder-count="3">
+<div class="pop" style="animation-delay: {{cd.delay}}; display: flex; gap: 12px">
+<div style="width: 46px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; padding-top: 6px">
+<span style="font-size: 11.5px; font-weight: 700; text-transform: uppercase; color: #56665F">{{cd.wd}}</span>
+<span class="serif" style="font-size: 24px; font-weight: 600; line-height: 1.1">{{cd.day}}</span>
+</div>
+<div style="flex-grow: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0">
+<sc-for list="{{cd.events}}" as="ev" hint-placeholder-count="1">
+<div style="display: flex; gap: 10px; padding: 10px 12px; border-radius: 14px; background: {{ev.bg}}">
+<span style="width: 4px; border-radius: 4px; background: {{ev.bar}}; flex-shrink: 0"></span>
+<span style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<span style="font-size: 14.5px; font-weight: 700">{{ev.title}}</span>
+<span style="font-size: 12.5px; color: #3E5A50">{{ev.time}}</span>
+</span>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{calEmpty}}" hint-placeholder-val="{{false}}"><p style="margin: 0; font-size: 14px; color: #56665F">{{calEmptyText}}</p></sc-if>
+</div>
+</div>
+</sc-if>
+
+
+<sc-if value="{{isBreathe}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div class="rise">
+<div style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #2F6F7E">Calm</div>
+<h1 class="serif" style="margin: 6px 0 0; font-size: 34px; font-weight: 500; line-height: 1.05">Breathe with Maia</h1>
+<p style="margin: 8px 0 0; font-size: 15px; line-height: 1.45; color: #56665F">In for 4, out for 6, like a slow tide. For busy days, tense moments, and practice for labour.</p>
+</div>
+<div class="rise" style="animation-delay: 0.1s; position: relative; width: 310px; height: 310px; align-self: center; display: flex; align-items: center; justify-content: center">
+<div class="spin" aria-hidden="true" style="position: absolute; left: 5px; top: 5px; width: 300px; height: 300px; box-sizing: border-box; border-radius: 50%; border: 1.5px dashed rgba(47,111,126,0.35)"></div>
+<div aria-hidden="true" style="position: absolute; left: 30px; top: 30px; width: 250px; height: 250px; box-sizing: border-box; border-radius: 50%; border: 1px solid rgba(78,138,112,0.3)"></div>
+<sc-if value="{{breathing}}" hint-placeholder-val="{{false}}">
+<div class="ripple" aria-hidden="true" style="position: absolute; left: 55px; top: 55px; width: 200px; height: 200px; box-sizing: border-box; border-radius: 50%; border: 2px solid rgba(47,111,126,0.4)"></div>
+<div class="breath" aria-hidden="true" style="position: absolute; left: 35px; top: 35px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #F3F9F8 0%, #BFDCE3 50%, #6FA3B0 100%); box-shadow: 0 30px 60px rgba(47,111,126,0.3)"></div>
+<div style="position: relative; width: 200px; height: 40px; text-align: center">
+<span class="serif in-text" style="position: absolute; left: 0; right: 0; top: 0; font-size: 28px; font-weight: 500; color: #163F49">Breathe in</span>
+<span class="serif out-text" style="position: absolute; left: 0; right: 0; top: 0; font-size: 28px; font-weight: 500; color: #163F49">Breathe out</span>
+</div>
+</sc-if>
+<sc-if value="{{notBreathing}}" hint-placeholder-val="{{true}}">
+<div class="morph" aria-hidden="true" style="position: absolute; left: 67px; top: 67px; width: 176px; height: 176px; background: radial-gradient(circle at 35% 30%, #F3F9F8 0%, #BFDCE3 50%, #6FA3B0 100%); box-shadow: 0 30px 60px rgba(47,111,126,0.25)"></div>
+<span class="serif" style="position: relative; font-size: 22px; font-weight: 500; color: #163F49">Ready when you are</span>
+</sc-if>
+</div>
+<button onClick="{{toggleBreath}}" class="rise press lift" style="animation-delay: 0.2s; align-self: center; min-width: 190px; min-height: 56px; padding: 0 28px; border: 0; border-radius: 999px; background: #2F6F7E; color: #FFFFFF; font-family: inherit; font-size: 17px; font-weight: 700; cursor: pointer">{{breathLabel}}</button>
+<p style="margin: 0; font-size: 13px; color: #56665F; text-align: center">Feeling dizzy? Stop and breathe normally.</p>
+</div>
+</sc-if>
+
+<sc-if value="{{isQuestions}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div class="rise">
+<div style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #2F6F7E">Next appointment · {{nextVisitText}}</div>
+<h1 class="serif" style="margin: 6px 0 0; font-size: 34px; font-weight: 500; line-height: 1.05">Questions for {{careName}}</h1>
+<p style="margin: 8px 0 0; font-size: 15px; line-height: 1.45; color: #56665F">Jot them down when they come up. Open this list at your appointment.</p>
+</div>
+<div class="rise" style="animation-delay: 0.08s; display: flex; gap: 8px; padding: 6px; border-radius: 999px; background: #FFFFFF; border: 1px solid #DDE7DF; box-shadow: 0 10px 26px rgba(30,61,51,0.07)">
+<label for="newq" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">New question</label>
+<input id="newq" type="text" placeholder="Type a question" value="{{qDraft}}" onChange="{{onQDraft}}" style="flex-grow: 1; min-width: 0; min-height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; background: transparent; outline: none; font-family: inherit; font-size: 16px; color: #1E2D29">
+<button onClick="{{addQuestion}}" aria-label="Add question" class="press" style="width: 44px; height: 44px; flex-shrink: 0; border: 0; border-radius: 50%; background: #2E5A4C; color: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+</button>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{questions}}" as="q" hint-placeholder-count="3">
+<label class="rise lift" style="animation-delay: {{q.delay}}; display: flex; align-items: flex-start; gap: 12px; padding: 15px 16px; min-height: 52px; box-sizing: border-box; background: {{q.bg}}; border: 1px solid #DDE7DF; border-radius: 18px; cursor: pointer">
+<input type="checkbox" checked="{{q.done}}" onChange="{{q.toggle}}" style="width: 20px; height: 20px; margin: 1px 0 0; accent-color: #2E5A4C; flex-shrink: 0">
+<span style="font-size: 15px; line-height: 1.45; text-decoration: {{q.deco}}; color: {{q.color}}">{{q.text}}</span>
+</label>
+</sc-for>
+</div>
+<p style="margin: 0; font-size: 13px; color: #56665F">{{openCount}} still to ask. Tick one off once it's answered.</p>
+</div>
+</sc-if>
+
+</div>
+
+<sc-if value="{{showNav}}" hint-placeholder-val="{{true}}">
+<nav aria-label="Main" style="position: relative; z-index: 2; display: flex; justify-content: space-around; align-items: flex-end; padding: 8px 6px 22px; background: rgba(246,249,244,0.88); backdrop-filter: blur(18px); border-top: 1px solid rgba(30,61,51,0.08)">
+<button onClick="{{goHome}}" class="press" style="display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 64px; min-height: 52px; padding: 4px 0; border: 0; background: none; font-family: inherit; font-size: 12px; font-weight: 700; color: {{nav.home}}; cursor: pointer">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path></svg>
+Week<span style="width: 5px; height: 5px; border-radius: 50%; background: {{dot.home}}"></span></button>
+<button onClick="{{goJourney}}" class="press" style="display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 64px; min-height: 52px; padding: 4px 0; border: 0; background: none; font-family: inherit; font-size: 12px; font-weight: 700; color: {{nav.journey}}; cursor: pointer">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="5" r="2.5"></circle><circle cx="18" cy="19" r="2.5"></circle><path d="M8.5 5H15a3.5 3.5 0 0 1 0 7H9a3.5 3.5 0 0 0 0 7h6.5"></path></svg>
+Plan<span style="width: 5px; height: 5px; border-radius: 50%; background: {{dot.journey}}"></span></button>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 72px">
+<div style="position: relative; width: 62px; height: 62px; margin-top: -30px">
+<div class="ripple" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 62px; height: 62px; box-sizing: border-box; border-radius: 50%; border: 2px solid #4E8A70"></div>
+<button onClick="{{goUpdate}}" aria-label="Update after a visit" class="press" style="position: absolute; left: 0; top: 0; width: 62px; height: 62px; border-radius: 50%; border: 4px solid #F2F5EF; background: radial-gradient(circle at 35% 30%, #4E8A70, #2E5A4C 70%); box-shadow: 0 12px 26px rgba(30,61,51,0.35); cursor: pointer; display: flex; align-items: center; justify-content: center">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+</button>
+</div>
+<span style="font-size: 12px; font-weight: 700; color: {{nav.update}}">Update</span>
+<span style="width: 5px; height: 5px; border-radius: 50%; background: {{dot.update}}"></span>
+</div>
+<button onClick="{{goResults}}" class="press" style="display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 64px; min-height: 52px; padding: 4px 0; border: 0; background: none; font-family: inherit; font-size: 12px; font-weight: 700; color: {{nav.results}}; cursor: pointer">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"></path><path d="M9 13.5l2 2 4-4"></path></svg>
+Results<span style="width: 5px; height: 5px; border-radius: 50%; background: {{dot.results}}"></span></button>
+<button onClick="{{goTeam}}" class="press" style="display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 64px; min-height: 52px; padding: 4px 0; border: 0; background: none; font-family: inherit; font-size: 12px; font-weight: 700; color: {{nav.team}}; cursor: pointer">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"></path><circle cx="17.5" cy="9" r="2.5"></circle><path d="M16 14.2c3.2-.4 5.5 1.7 5.5 4.8"></path></svg>
+Team<span style="width: 5px; height: 5px; border-radius: 50%; background: {{dot.team}}"></span></button>
+</nav>
+</sc-if>
+
+<sc-if value="{{pickerOpen}}" hint-placeholder-val="{{false}}">
+<div style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; z-index: 5; display: flex; flex-direction: column; justify-content: flex-end">
+<button onClick="{{closePicker}}" aria-label="Close contact picker" class="fadein" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; border: 0; background: rgba(20,40,34,0.38); cursor: pointer"></button>
+<div class="sheet" role="dialog" aria-label="Link contacts" style="position: relative; display: flex; flex-direction: column; gap: 12px; max-height: 660px; padding: 10px 20px 26px; background: #F7FAF5; border-radius: 28px 28px 0 0; box-shadow: 0 -20px 50px rgba(20,40,34,0.22)">
+<span style="align-self: center; width: 40px; height: 5px; border-radius: 999px; background: #C9D8CE"></span>
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px">
+<div>
+<h2 class="serif" style="margin: 0; font-size: 24px; font-weight: 500">Link to OB-GYN</h2>
+<p style="margin: 4px 0 0; font-size: 13.5px; line-height: 1.45; color: #56665F">Pick one or more. Maia only reads the contacts you choose.</p>
+</div>
+<button onClick="{{closePicker}}" aria-label="Close" style="width: 40px; height: 40px; flex-shrink: 0; border: 0; border-radius: 50%; background: #E6EEE8; color: #2E5A4C; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; padding: 0 12px; min-height: 46px; border-radius: 14px; background: #FFFFFF; border: 1px solid #DDE7DF">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#56665F" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+<label for="pickq" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Search contacts</label>
+<input id="pickq" type="search" placeholder="Search contacts" value="{{pickQ}}" onChange="{{onPickQ}}" style="flex-grow: 1; min-width: 0; min-height: 44px; border: 0; background: transparent; outline: none; font-family: inherit; font-size: 15px; color: #1E2D29">
+</div>
+<div class="noscroll" style="display: flex; flex-direction: column; overflow-y: auto; max-height: 380px">
+<sc-for list="{{pickList}}" as="pc" hint-placeholder-count="5">
+<button onClick="{{pc.toggle}}" aria-pressed="{{pc.onStr}}" class="rise" style="animation-delay: {{pc.delay}}; display: flex; align-items: center; gap: 12px; min-height: 62px; padding: 8px 4px; border: 0; border-bottom: 1px solid #EAF0EB; background: none; font-family: inherit; color: #1E2D29; text-align: left; cursor: pointer">
+<span style="width: 42px; height: 42px; border-radius: 50%; background: {{pc.avBg}}; color: {{pc.avFg}}; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0">{{pc.initials}}</span>
+<span style="flex-grow: 1; display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 15px; font-weight: 700">{{pc.name}}</span><span style="font-size: 13px; color: #56665F">{{pc.label}} · {{pc.num}}</span></span>
+<span class="ease" style="width: 26px; height: 26px; flex-shrink: 0; box-sizing: border-box; border-radius: 50%; border: 2px solid {{pc.ring}}; background: {{pc.fill}}; display: flex; align-items: center; justify-content: center">
+<sc-if value="{{pc.on}}" hint-placeholder-val="{{false}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="checkdraw" d="M5 12.5l4.5 4.5L19 7.5"></path></svg></sc-if>
+</span>
+</button>
+</sc-for>
+</div>
+<button onClick="{{savePick}}" class="press lift" style="min-height: 54px; border: 0; border-radius: 999px; background: #2E5A4C; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 700; cursor: pointer">{{pickSaveLabel}}</button>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"startScreen":{"editor":"enum","options":["setup","setupPlan","setupCare","home","journey","journeyOpen","update","results","team","picker","calendar","breathe","questions"],"default":"home"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var self = this;
+    var st = this.state || {};
+    var start = this.props.startScreen || 'home';
+    var set = function (o) { self.setState(o); };
+    var assign = function (a, b) { return Object.assign({}, a, b); };
+    var keyed = function (k, v) { var o = {}; o[k] = v; return o; };
+
+    var TODAY = Date.UTC(2026, 8, 30);
+    var DAY = 864e5;
+    var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    var isoOf = function (ms) { return new Date(ms).toISOString().slice(0, 10); };
+    var dayMonth = function (ms) { var d = new Date(ms); return d.getUTCDate() + ' ' + MON[d.getUTCMonth()]; };
+    var fmt = function (iso) { var d = new Date(Date.parse(iso)); return WD[d.getUTCDay()] + ' ' + d.getUTCDate() + ' ' + MON[d.getUTCMonth()]; };
+    var sizeOf = function (b) { return b > 1048576 ? (b / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB'; };
+
+    var PRESET = { journeyOpen: 'journey', picker: 'team' };
+    var screen = st.screen || PRESET[start] || start;
+
+    var dueMode = st.dueMode || 'due';
+    var due = st.due || '2027-01-17';
+    var dueMs = Date.parse(due);
+    if (isNaN(dueMs)) { dueMs = Date.UTC(2027, 0, 17); due = '2027-01-17'; }
+    var ga = Math.max(0, Math.min(300, 280 - Math.round((dueMs - TODAY) / DAY)));
+    var wk = Math.floor(ga / 7), wd = ga % 7, wkF = ga / 7;
+    var weekDate = function (w) { return dueMs - (40 - w) * 7 * DAY; };
+    var nextVisit = st.nextVisit || '2026-10-06';
+    var nextTime = st.nextTime || '10:30';
+
+    var CONTACTS = [
+      { id: 'c1', name: 'Dr. Eleni Papadaki', label: 'Mobile', num: '••• 4567', initials: 'EP', avBg: '#CFE3D6', avFg: '#1E3D33' },
+      { id: 'c2', name: 'Papadaki Clinic', label: 'Reception', num: '••• 2210', initials: 'PC', avBg: '#CFE4EA', avFg: '#163F49' },
+      { id: 'c3', name: 'Nikos', label: 'Mobile', num: '••• 8841', initials: 'N', avBg: '#E3DDEF', avFg: '#3A2E55' },
+      { id: 'c4', name: 'City Maternity Hospital', label: 'Main line', num: '••• 1000', initials: 'CM', avBg: '#DCEBEE', avFg: '#163F49' },
+      { id: 'c5', name: 'Central Diagnostic Lab', label: 'Work', num: '••• 3302', initials: 'CD', avBg: '#E1ECE3', avFg: '#1E3D33' },
+      { id: 'c6', name: 'Mom', label: 'Mobile', num: '••• 7713', initials: 'M', avBg: '#F3EAD0', avFg: '#4A3A10' },
+      { id: 'c7', name: 'Dr. Andreas Nikolaou', label: 'Work', num: '••• 5590', initials: 'AN', avBg: '#DDE7EE', avFg: '#1F3A4F' }
+    ];
+    var contactById = function (id) { return CONTACTS.filter(function (c) { return c.id === id; })[0]; };
+    var linked = st.linked || { obgyn: ['c1', 'c2'] };
+    var obgynIds = linked.obgyn || [];
+    var doctor = obgynIds.length ? contactById(obgynIds[0]) : null;
+    var doctorName = doctor ? doctor.name : 'your OB-GYN';
+    var bookingC = obgynIds.length > 1 ? contactById(obgynIds[1]) : doctor;
+    var bookingContact = bookingC ? bookingC.name : 'your OB-GYN';
+
+    var cal = assign({ provider: 'google', connected: true, checks: true, tasks: true, remind: 'evening' }, st.cal || {});
+    var calName = cal.provider === 'google' ? 'Google Calendar' : 'Apple Calendar';
+    var calOn = cal.connected;
+
+    var CATALOG = [
+      { id: 'booking', title: 'Booking visit and bloods', from: 8, to: 10, tag: 'Routine', on: true, note: 'Your history, blood group, iron and infection screening.' },
+      { id: 'dating', title: 'Dating scan', from: 11, to: 14, tag: 'Routine', on: true, note: 'Confirms your due date and how many babies.' },
+      { id: 'screening', title: 'Combined screening', from: 11, to: 14, tag: 'Offered', on: true, note: 'A blood test plus a scan measurement that screens for chromosomal conditions. Your choice.' },
+      { id: 'visit16', title: 'Check-up', from: 16, to: 16, tag: 'Routine', on: true, note: 'Blood pressure, urine and your blood test results.' },
+      { id: 'anomaly', title: 'Anomaly scan', from: 18, to: 21, tag: 'Routine', on: true, note: "A detailed look at your baby's organs and growth." },
+      { id: 'glucose', title: 'Glucose test', from: 24, to: 28, tag: 'Often offered', on: true, note: 'Screens for gestational diabetes. You usually fast from midnight and it takes about two hours.' },
+      { id: 'visit25', title: 'Check-up', from: 25, to: 25, tag: 'Routine', on: true, note: 'Blood pressure, urine and bump measured.' },
+      { id: 'bloods28', title: 'Bloods and anti-D', from: 28, to: 28, tag: 'Routine', on: true, note: 'Iron recheck, and anti-D if your blood group is Rh-negative.' },
+      { id: 'visit31', title: 'Check-up', from: 31, to: 31, tag: 'Routine', on: true, note: 'Blood pressure, urine and bump measured.' },
+      { id: 'growth', title: 'Growth scan', from: 32, to: 34, tag: 'If advised', on: false, note: "Checks your baby's size and the fluid around them." },
+      { id: 'visit34', title: 'Check-up', from: 34, to: 34, tag: 'Routine', on: true, note: 'Talk through your birth preferences.' },
+      { id: 'gbs', title: 'GBS swab', from: 35, to: 37, tag: 'Where offered', on: false, note: 'Checks for group B strep before labour.' },
+      { id: 'position', title: 'Position check and birth plan', from: 36, to: 36, tag: 'Routine', on: true, note: "Your baby's position, and your birth plan finalised." },
+      { id: 'visit38', title: 'Check-up', from: 38, to: 38, tag: 'Routine', on: true, note: 'Blood pressure, urine and bump measured.' },
+      { id: 'due', title: 'Due date', from: 40, to: 40, tag: 'Milestone', on: true, milestone: true, note: '' },
+      { id: 'newborn', title: "Baby's newborn checks", from: 41, to: 41, tag: 'Routine', on: true, label: 'First days after birth', note: 'Physical exam, hearing and heel-prick tests for your baby.' },
+      { id: 'postnatal', title: '6-week postnatal check', from: 46, to: 46, tag: 'Routine', on: true, note: 'For you and your baby, about six weeks after birth.' }
+    ];
+    var EXTRAS = [
+      { id: 'x-us', title: 'Extra ultrasound' }, { id: 'x-iron', title: 'Iron recheck' }, { id: 'x-urine', title: 'Urine culture' },
+      { id: 'x-doppler', title: 'Doppler scan' }, { id: 'x-thyroid', title: 'Thyroid test' }, { id: 'x-bp', title: 'Blood pressure checks' }
+    ];
+    var GROUPS = [
+      { name: '1st trimester', lo: 0, hi: 13 }, { name: '2nd trimester', lo: 14, hi: 27 },
+      { name: '3rd trimester', lo: 28, hi: 40 }, { name: 'After birth', lo: 41, hi: 99 }
+    ];
+    var groupOf = function (from) { for (var i = 0; i < GROUPS.length; i++) { if (from >= GROUPS[i].lo && from <= GROUPS[i].hi) { return i; } } return 3; };
+
+    var DEF_INC = {}; CATALOG.forEach(function (c) { DEF_INC[c.id] = c.on; });
+    var included = assign(DEF_INC, st.included || {});
+    var custom = st.custom || [];
+    var booked = assign({ visit25: '2026-10-06' }, st.booked || {});
+    var bookedTime = assign({ visit25: '10:30' }, st.bookedTime || {});
+    var done = st.done || {};
+    var results = st.results || {
+      booking: [{ id: 'r1', name: 'Booking bloods.pdf', kind: 'pdf', size: '240 KB' }],
+      dating: [{ id: 'r2', name: 'Dating scan.jpg', kind: 'image', size: '1.2 MB' }],
+      screening: [{ id: 'r3', name: 'Combined screening result.pdf', kind: 'pdf', size: '180 KB' }],
+      visit16: [{ id: 'r4', name: 'Urine results (lab portal)', kind: 'link', size: '' }],
+      anomaly: [{ id: 'r5', name: 'Anomaly scan report.pdf', kind: 'pdf', size: '410 KB' }, { id: 'r6', name: '20-week scan.jpg', kind: 'image', size: '2.3 MB' }]
+    };
+
+    var titleOf = function (c) { return c.title === 'Check-up' ? 'Check-up · week ' + c.from : c.title; };
+    var windowText = function (c) {
+      if (c.label) { return c.label; }
+      if (c.from === c.to) { return 'Week ' + c.from + ' · around ' + dayMonth(weekDate(c.from)); }
+      return 'Weeks ' + c.from + '–' + c.to + ' · ' + dayMonth(weekDate(c.from)) + ' – ' + dayMonth(weekDate(c.to + 1) - DAY);
+    };
+    var statusOf = function (c) {
+      if (c.milestone) { return 'milestone'; }
+      if (done[c.id]) { return 'done'; }
+      if (booked[c.id]) { return 'booked'; }
+      if (c.to < wkF - 0.5) { return 'done'; }
+      if (c.from <= wkF + 2) { return 'open'; }
+      return 'later';
+    };
+
+    var plan = CATALOG.filter(function (c) { return included[c.id]; }).concat(custom).slice().sort(function (a, b) { return a.from - b.from; });
+    var real = plan.filter(function (c) { return !c.milestone; });
+    var counts = { done: 0, booked: 0, open: 0, later: 0 };
+    real.forEach(function (c) { counts[statusOf(c)] += 1; });
+
+    var STY = {
+      done: { chip: 'Done', chipBg: '#E1ECE3', chipFg: '#2E5A4C', nodeBg: '#4E8A70', nodeBorder: '#4E8A70', cardBg: 'rgba(255,255,255,0.55)', cardBorder: '#DDE7DF', titleColor: '#3E5048', seg: '#4E8A70' },
+      booked: { chip: 'Booked', chipBg: '#DCEBEE', chipFg: '#1F4F5B', nodeBg: '#2F6F7E', nodeBorder: '#2F6F7E', cardBg: '#FFFFFF', cardBorder: '#C4DCE2', titleColor: '#1E2D29', seg: '#2F6F7E' },
+      open: { chip: 'Book now', chipBg: '#F5EAC8', chipFg: '#5C4611', nodeBg: '#F2F5EF', nodeBorder: '#D9B865', cardBg: '#FFFFFF', cardBorder: '#E6D29A', titleColor: '#1E2D29', seg: '#D9B865' },
+      later: { chip: 'Later', chipBg: '#EAF0EB', chipFg: '#4A5C55', nodeBg: '#F2F5EF', nodeBorder: '#C3D3C8', cardBg: 'rgba(255,255,255,0.7)', cardBorder: '#DDE7DF', titleColor: '#1E2D29', seg: '#CFDAD2' },
+      milestone: { chip: 'Due date', chipBg: '#F7EDCF', chipFg: '#5C4611', nodeBg: '#E9C979', nodeBorder: '#C9A24F', cardBg: '#FFFFFF', cardBorder: '#E9D9A6', titleColor: '#1E2D29', seg: '#E9C979' }
+    };
+
+    var clearNav = { toast: '', expanded: '', picker: '', linkOpen: false, taskForm: false };
+    var go = function (s) { return function () { set(assign(clearNav, { screen: s, prevScreen: screen })); }; };
+
+    var calSuffix = function (kind) { return calOn && (kind === 'task' ? cal.tasks : cal.checks) ? ' Added to ' + calName + '.' : ''; };
+    var subFor = function (c, s) {
+      if (s === 'booked') { return fmt(booked[c.id]) + (bookedTime[c.id] ? ', ' + bookedTime[c.id] : '') + ' · reminder ' + (cal.remind === '2h' ? '2 hours before' : 'the evening before'); }
+      if (s === 'milestone') { return fmt(due) + ' · ' + (Math.round((dueMs - TODAY) / DAY)) + ' days to go'; }
+      if (s === 'open') { return windowText(c) + ' · window open'; }
+      if (c.custom) { return 'Added after your visit · needs a date'; }
+      return windowText(c);
+    };
+    var defaultDraft = function (c) { return booked[c.id] || isoOf(Math.max(TODAY + DAY, weekDate(c.from))); };
+
+    var addResultItems = function (checkId, items, label) {
+      var list = (results[checkId] || []).concat(items);
+      var c = plan.filter(function (x) { return x.id === checkId; })[0];
+      set({ results: assign(results, keyed(checkId, list)), toast: label + ' added to ' + (c ? titleOf(c) : 'your results') + '.', recent: label + ' added to ' + (c ? titleOf(c) : 'your results') + '.' });
+    };
+    var filesHandler = function (checkId) {
+      return function (e) {
+        var fl = Array.prototype.slice.call((e && e.target && e.target.files) || []);
+        if (!fl.length) { return; }
+        var items = fl.map(function (f, i) { return { id: 'f' + Date.now() + '-' + i, name: f.name, kind: (f.type || '').indexOf('image') === 0 ? 'image' : 'pdf', size: sizeOf(f.size || 0), added: 'today' }; });
+        addResultItems(checkId, items, fl.length === 1 ? '1 file' : fl.length + ' files');
+        try { e.target.value = ''; } catch (err) {}
+      };
+    };
+    var fileVM = function (f, checkId) {
+      var kl = f.kind === 'image' ? 'Photo' : (f.kind === 'link' ? 'Link' : 'PDF');
+      return {
+        name: f.name, kindLabel: kl,
+        meta: kl + (f.size ? ' · ' + f.size : '') + (f.added ? ' · added ' + f.added : ''),
+        isImage: f.kind === 'image', isPdf: f.kind === 'pdf', isLink: f.kind === 'link',
+        tileBg: f.kind === 'image' ? 'linear-gradient(135deg, #6FA3B0, #2F6F7E)' : (f.kind === 'link' ? '#DCEBEE' : '#E1ECE3'),
+        cardBg: f.kind === 'image' ? '#EEF5F7' : '#F4F8F3',
+        remove: function () { set({ results: assign(results, keyed(checkId, (results[checkId] || []).filter(function (x) { return x.id !== f.id; }))) }); }
+      };
+    };
+
+    var removeItem = function (c) {
+      return function () {
+        if (c.custom) { set({ custom: custom.filter(function (x) { return x.id !== c.id; }), expanded: '', toast: c.title + ' removed from your plan.' }); }
+        else { set({ included: assign(st.included || {}, keyed(c.id, false)), expanded: '', toast: titleOf(c) + ' removed. Add it back any time from Update.' }); }
+      };
+    };
+    var markDoneItem = function (c) { return function () { set({ done: assign(done, keyed(c.id, true)), toast: titleOf(c) + ' marked as done. Add its results when you have them.' }); }; };
+    var saveBooking = function (c) {
+      return function () {
+        var date = st.bookDraft || defaultDraft(c);
+        var time = st.bookTime || bookedTime[c.id] || '09:00';
+        set({ booked: assign(st.booked || {}, keyed(c.id, date)), bookedTime: assign(st.bookedTime || {}, keyed(c.id, time)), expanded: '', toast: titleOf(c) + ' booked for ' + fmt(date) + ' at ' + time + '.' + calSuffix('check') });
+      };
+    };
+
+    var expandedId = st.expanded !== undefined ? st.expanded : (start === 'journeyOpen' ? 'anomaly' : '');
+    var journeyGroups = GROUPS.map(function (g, gi) {
+      var items = plan.filter(function (c) { return groupOf(c.from) === gi; });
+      var vm = [];
+      var hereGroup = groupOf(Math.floor(wkF)) === gi;
+      var placed = false;
+      items.forEach(function (c) {
+        if (hereGroup && !placed && c.from > wkF) { vm.push({ isHere: true, isItem: false }); placed = true; }
+        var s = statusOf(c), y = STY[s], exp = expandedId === c.id && s !== 'milestone';
+        var res = results[c.id] || [];
+        var inCal = s === 'booked' && calOn && cal.checks;
+        vm.push({
+          isHere: false, isItem: true, isDone: s === 'done', notDone: s !== 'done',
+          title: c.title, sub: subFor(c, s), note: c.note || 'Added from your doctor’s advice.',
+          chip: y.chip, chipBg: y.chipBg, chipFg: y.chipFg, nodeBg: y.nodeBg, nodeBorder: y.nodeBorder,
+          cardBg: exp ? '#FFFFFF' : y.cardBg, cardBorder: exp ? '#9FC2B0' : y.cardBorder, titleColor: y.titleColor,
+          shadow: exp ? '0 14px 30px rgba(30,61,51,0.12)' : 'none',
+          expanded: exp, expandedStr: exp ? 'true' : 'false',
+          canBook: s === 'open' || s === 'booked' || s === 'later',
+          bookHeading: s === 'booked' ? 'Move appointment' : 'Book appointment',
+          saveLabel: s === 'booked' ? 'Save new time' : (calOn && cal.checks ? 'Book and add to calendar' : 'Book'),
+          inCal: inCal, hasResults: res.length > 0, hasBadges: inCal || res.length > 0,
+          resultsLabel: res.length === 1 ? '1 result' : res.length + ' results',
+          results: res.map(function (f) { return fileVM(f, c.id); }), noResults: res.length === 0,
+          onFiles: filesHandler(c.id),
+          toggleLink: function () { set({ linkOpen: !st.linkOpen, linkDraft: '' }); },
+          addLink: function () {
+            var t = (st.linkDraft || '').trim(); if (!t) { return; }
+            var nm = t.replace(/^https?:\/\//, '').slice(0, 40);
+            addResultItems(c.id, [{ id: 'l' + Date.now(), name: nm, kind: 'link', size: '', added: 'today' }], '1 link');
+            set({ linkOpen: false, linkDraft: '' });
+          },
+          toggle: function () { if (s === 'milestone') { return; } set({ expanded: expandedId === c.id ? '' : c.id, bookDraft: defaultDraft(c), bookTime: bookedTime[c.id] || '09:00', toast: '', linkOpen: false }); },
+          save: saveBooking(c), markDone: markDoneItem(c), remove: removeItem(c)
+        });
+      });
+      if (hereGroup && !placed) { vm.push({ isHere: true, isItem: false }); }
+      var dn = items.filter(function (c) { return statusOf(c) === 'done'; }).length;
+      var rl = items.filter(function (c) { return !c.milestone; }).length;
+      return { name: g.name, summary: rl ? dn + ' of ' + rl + ' done' : '', items: vm, delay: (0.1 + gi * 0.08).toFixed(2) + 's', show: items.length > 0 };
+    }).filter(function (g) { return g.show; });
+
+    var setupGroups = GROUPS.map(function (g, gi) {
+      var items = CATALOG.filter(function (c) { return groupOf(c.from) === gi && !c.milestone; });
+      return {
+        name: g.name, delay: (0.14 + gi * 0.08).toFixed(2) + 's',
+        items: items.map(function (c) {
+          var on = !!included[c.id], past = c.to < wkF - 0.5;
+          return {
+            title: c.title, windowText: windowText(c),
+            tag: past ? 'Probably done' : c.tag,
+            tagBg: past ? '#E1ECE3' : (c.tag === 'Routine' ? '#EAF0EB' : '#DCEBEE'),
+            tagFg: past ? '#2E5A4C' : (c.tag === 'Routine' ? '#4A5C55' : '#1F4F5B'),
+            bg: on ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.4)',
+            titleColor: on ? '#1E2D29' : '#5E6E68',
+            onStr: on ? 'true' : 'false', trackBg: on ? '#4E8A70' : '#CBD6CE', knobLeft: on ? '23px' : '3px',
+            toggle: function () { set({ included: assign(st.included || {}, keyed(c.id, !on)) }); }
+          };
+        })
+      };
+    });
+
+    var nextBooked = Object.keys(booked).filter(function (k) { return Date.parse(booked[k]) >= TODAY && !done[k] && included[k] !== false; })
+      .sort(function (a, b) { return (booked[a] + (bookedTime[a] || '')).localeCompare(booked[b] + (bookedTime[b] || '')); });
+    var nextItem = nextBooked.length ? plan.filter(function (c) { return c.id === nextBooked[0]; })[0] : null;
+    var nextDate = nextItem ? booked[nextItem.id] : nextVisit;
+    var nextT = nextItem ? bookedTime[nextItem.id] : nextTime;
+    var daysAway = Math.round((Date.parse(nextDate) - TODAY) / DAY);
+    var needs = plan.filter(function (c) { return statusOf(c) === 'open'; })[0];
+
+    var doneCandidates = plan.filter(function (c) {
+      var s = statusOf(c);
+      return (st.doneNow || {})[c.id] || ((s === 'open' || s === 'booked') && c.from <= wkF + 1.5);
+    }).map(function (c) {
+      var isD = !!done[c.id];
+      return {
+        title: titleOf(c), sub: booked[c.id] ? 'Booked ' + fmt(booked[c.id]) + (bookedTime[c.id] ? ', ' + bookedTime[c.id] : '') : windowText(c),
+        isDone: isD, notDone: !isD, bg: isD ? '#E1ECE3' : 'rgba(255,255,255,0.85)',
+        markDone: function () { set({ done: assign(done, keyed(c.id, true)), doneNow: assign(st.doneNow || {}, keyed(c.id, true)), resTarget: c.id }); }
+      };
+    });
+
+    var addedNow = st.addedNow || {};
+    var suggestionSrc = CATALOG.filter(function (c) { return !c.milestone && (!included[c.id] || addedNow[c.id]) && c.to >= wkF; })
+      .map(function (c) { return { id: c.id, title: c.title, catalog: true }; })
+      .concat(EXTRAS.filter(function (x) { return addedNow[x.id] || !custom.some(function (c) { return c.id === x.id; }); }));
+    var suggestions = suggestionSrc.map(function (x, i) {
+      var isAdded = !!addedNow[x.id];
+      return {
+        title: x.title, icon: isAdded ? '✓' : '+', addedStr: isAdded ? 'true' : 'false',
+        bg: isAdded ? '#2E5A4C' : '#FFFFFF', fg: isAdded ? '#FFFFFF' : '#2E5A4C', border: isAdded ? '#2E5A4C' : '#C9D8CE',
+        delay: (0.16 + i * 0.04).toFixed(2) + 's',
+        add: function () {
+          if (isAdded) { return; }
+          if (x.catalog) { set({ included: assign(st.included || {}, keyed(x.id, true)), addedNow: assign(addedNow, keyed(x.id, true)) }); }
+          else { set({ custom: custom.concat([{ id: x.id, title: x.title, from: Math.floor(wkF), to: Math.floor(wkF) + 2, tag: 'From your doctor', custom: true, note: 'Added after your visit. Book a date when you have one.' }]), addedNow: assign(addedNow, keyed(x.id, true)) }); }
+        }
+      };
+    });
+
+    var resOptionsSrc = plan.filter(function (c) { return !c.milestone && statusOf(c) !== 'later'; });
+    var resTarget = st.resTarget || (resOptionsSrc.filter(function (c) { return c.id === 'glucose'; })[0] ? 'glucose' : (resOptionsSrc[0] ? resOptionsSrc[0].id : 'booking'));
+    var resFilter = st.resFilter || 'all';
+    var FILT = [{ id: 'all', label: 'All' }, { id: 'image', label: 'Scans & photos' }, { id: 'pdf', label: 'Reports' }, { id: 'link', label: 'Links' }];
+    var resultCount = 0; Object.keys(results).forEach(function (k) { resultCount += (results[k] || []).length; });
+    var resultGroups = plan.filter(function (c) { return (results[c.id] || []).some(function (f) { return resFilter === 'all' || f.kind === resFilter; }); })
+      .slice().reverse()
+      .map(function (c, i) {
+        var files = (results[c.id] || []).filter(function (f) { return resFilter === 'all' || f.kind === resFilter; });
+        return { title: titleOf(c), when: booked[c.id] ? fmt(booked[c.id]) : windowText(c).split(' · ')[0], files: files.map(function (f) { return fileVM(f, c.id); }), delay: (0.12 + i * 0.06).toFixed(2) + 's' };
+      });
+
+    var todosDef = [
+      { id: 't1', text: 'Call the clinic to book the glucose test', done: false, date: '2026-10-01', time: '09:00' },
+      { id: 't2', text: 'Write down questions for ' + fmt(nextVisit), done: false, date: '2026-10-05', time: '20:00' },
+      { id: 't3', text: 'Collect your blood test results', done: true }
+    ];
+    var todos = st.todos || todosDef;
+    var questions = st.questions || [
+      { id: 'd1', text: 'Is it still safe to cycle to work?', done: false },
+      { id: 'd2', text: 'When should the hospital bag be ready?', done: false },
+      { id: 'd3', text: 'Can we talk through pain relief options?', done: true }
+    ];
+
+    var events = [];
+    if (calOn && cal.checks) {
+      plan.forEach(function (c) { if (statusOf(c) === 'booked') { events.push({ date: booked[c.id], time: bookedTime[c.id] || '', title: titleOf(c), kind: 'check' }); } });
+      if (!nextBooked.length && nextVisit) { events.push({ date: nextVisit, time: nextTime, title: 'Appointment with ' + doctorName, kind: 'check' }); }
+    }
+    if (calOn && cal.tasks) { todos.forEach(function (t) { if (t.date && t.time && !t.done) { events.push({ date: t.date, time: t.time, title: t.text, kind: 'task' }); } }); }
+    events = events.filter(function (e) { var ms = Date.parse(e.date); return ms >= TODAY && ms <= TODAY + 30 * DAY; })
+      .sort(function (a, b) { return (a.date + a.time).localeCompare(b.date + b.time); });
+    var dayKeys = [];
+    events.forEach(function (e) { if (dayKeys.indexOf(e.date) < 0) { dayKeys.push(e.date); } });
+    var remindText = cal.remind === '2h' ? 'reminder 2 h before' : (cal.remind === 'both' ? 'reminders evening before + 2 h' : 'reminder evening before, 20:00');
+    var calDays = dayKeys.map(function (dk, i) {
+      var d = new Date(Date.parse(dk));
+      return {
+        wd: WD[d.getUTCDay()], day: String(d.getUTCDate()), delay: (0.2 + i * 0.06).toFixed(2) + 's',
+        events: events.filter(function (e) { return e.date === dk; }).map(function (e) {
+          return { title: e.title, time: (e.time || 'All day') + ' · ' + (e.kind === 'check' ? remindText : 'task'), bg: e.kind === 'check' ? '#E1ECE3' : '#DCEBEE', bar: e.kind === 'check' ? '#2E5A4C' : '#2F6F7E' };
+        })
+      };
+    });
+
+    var pickOpenPreset = st.picker === undefined && start === 'picker';
+    var pickerRole = st.picker !== undefined ? st.picker : (start === 'picker' ? 'obgyn' : '');
+    var pickSel = st.pickSel || (pickOpenPreset ? obgynIds.concat(['c7']) : obgynIds);
+    var pickQ = (st.pickQ || '').toLowerCase();
+    var breathing = !!st.breathing;
+    var pct = Math.min(100, Math.round(ga / 280 * 100));
+    var tri = wk < 14 ? '1st trimester' : (wk < 28 ? '2nd trimester' : (wk <= 40 ? '3rd trimester' : 'After birth'));
+    var NAVMAP = { journey: 'journey', update: 'update', results: 'results', team: 'team', calendar: 'team' };
+    var navKey = NAVMAP[screen] || 'home';
+    var navc = {}, dotc = {};
+    ['home', 'journey', 'update', 'results', 'team'].forEach(function (k) { navc[k] = k === navKey ? '#2E5A4C' : '#5E6E68'; dotc[k] = k === navKey ? '#4E8A70' : 'transparent'; });
+
+    var openPicker = function () { set({ picker: 'obgyn', pickSel: obgynIds.slice(), pickQ: '' }); };
+    var contactVM = function (c) {
+      return assign(c, {
+        call: function () { set({ toast: 'Calling ' + c.name + '…' }); },
+        unlink: function () { set({ linked: assign(linked, { obgyn: obgynIds.filter(function (x) { return x !== c.id; }) }), toast: c.name + ' unlinked.' }); }
+      });
+    };
+
+    return {
+      isSetup: screen === 'setup', isSetupPlan: screen === 'setupPlan', isSetupCare: screen === 'setupCare',
+      isHome: screen === 'home', isJourney: screen === 'journey', isUpdate: screen === 'update',
+      isResults: screen === 'results', isTeam: screen === 'team', isCalendar: screen === 'calendar',
+      isBreathe: screen === 'breathe', isQuestions: screen === 'questions',
+      showNav: screen !== 'setup' && screen !== 'setupPlan' && screen !== 'setupCare',
+      nav: navc, dot: dotc,
+      toast: st.toast || '',
+
+      goHome: go('home'), goJourney: go('journey'), goResults: go('results'), goTeam: go('team'), goCalendar: go('calendar'),
+      goBackFromCal: go(st.prevScreen && st.prevScreen !== 'calendar' ? st.prevScreen : 'team'),
+      goUpdate: function () { set(assign(clearNav, { screen: 'update', addedNow: {}, doneNow: {}, recent: '' })); },
+      goBreathe: function () { set(assign(clearNav, { screen: 'breathe', breathing: false })); }, goQuestions: go('questions'),
+      goSetup: go('setup'), goSetupPlan: go('setupPlan'), goSetupCare: go('setupCare'),
+      finishSetup: function () { set(assign(clearNav, { screen: 'home', toast: 'Your plan is ready. ' + counts.open + ' check' + (counts.open === 1 ? '' : 's') + ' to book now.' })); },
+
+      dateLabel: dueMode === 'due' ? 'When is your baby due?' : 'First day of your last period',
+      dateValue: dueMode === 'due' ? due : isoOf(dueMs - 280 * DAY),
+      dateModeLink: dueMode === 'due' ? 'Not sure? Use your last period instead' : 'I know my due date',
+      toggleDateMode: function () { set({ dueMode: dueMode === 'due' ? 'lmp' : 'due' }); },
+      onDate: function (e) { var v = e.target.value; var ms = Date.parse(v); if (isNaN(ms)) { return; } set({ due: dueMode === 'due' ? v : isoOf(ms + 280 * DAY) }); },
+      weeksWords: wk + ' weeks and ' + wd + ' day' + (wd === 1 ? '' : 's'),
+      dueText: fmt(due),
+      setupGroups: setupGroups,
+      planCount: real.length,
+
+      doctorName: doctorName, bookingContact: bookingContact,
+      callDoctor: function () { set({ toast: 'Calling ' + bookingContact + '…' }); },
+      obgynContacts: obgynIds.map(function (id) { return contactVM(contactById(id)); }),
+      obgynCount: obgynIds.length,
+      pickCta: obgynIds.length ? 'Link another contact' : 'Choose from contacts',
+      openPickerObgyn: openPicker,
+      laterRoles: [
+        { name: 'Midwife', use: 'Home visits and advice' }, { name: 'Partner', use: 'Share your plan' },
+        { name: 'Hospital', use: 'Labour and emergencies' }, { name: 'Lab', use: 'Results and bookings' },
+        { name: "Baby's doctor", use: 'After birth' }, { name: 'Family', use: 'Birth updates' }
+      ].map(function (r, i) { return assign(r, { delay: (0.14 + i * 0.05).toFixed(2) + 's' }); }),
+
+      pickerOpen: !!pickerRole,
+      pickQ: st.pickQ || '',
+      onPickQ: function (e) { set({ pickQ: e.target.value }); },
+      closePicker: function () { set({ picker: '' }); },
+      pickList: CONTACTS.filter(function (c) { return !pickQ || c.name.toLowerCase().indexOf(pickQ) >= 0; }).map(function (c, i) {
+        var on = pickSel.indexOf(c.id) >= 0;
+        return assign(c, {
+          on: on, onStr: on ? 'true' : 'false', ring: on ? '#2E5A4C' : '#B7C7BD', fill: on ? '#2E5A4C' : 'transparent',
+          delay: (0.08 + i * 0.04).toFixed(2) + 's',
+          toggle: function () { set({ pickSel: on ? pickSel.filter(function (x) { return x !== c.id; }) : pickSel.concat([c.id]) }); }
+        });
+      }),
+      pickSaveLabel: pickSel.length ? 'Link ' + pickSel.length + ' contact' + (pickSel.length === 1 ? '' : 's') : 'Link no contacts',
+      savePick: function () { set({ linked: assign(linked, { obgyn: pickSel.slice() }), picker: '', toast: pickSel.length + ' contact' + (pickSel.length === 1 ? '' : 's') + ' linked to your OB-GYN.' }); },
+
+      calConnected: calOn,
+      calStatus: calOn ? 'Syncing to ' + calName : 'Not connected',
+      calStatusShort: calOn ? 'Syncing' : 'Off',
+      calStatusColor: calOn ? '#4E8A70' : '#8A9A94',
+      calProviders: [{ id: 'google', name: 'Google Calendar', letter: 'G', tile: '#2F6F7E' }, { id: 'apple', name: 'Apple Calendar', letter: 'A', tile: '#2E5A4C' }].map(function (p) {
+        var on = calOn && cal.provider === p.id;
+        return assign(p, {
+          onStr: on ? 'true' : 'false', border: on ? '#2E5A4C' : '#DDE7DF', bg: on ? '#FFFFFF' : 'rgba(255,255,255,0.6)', dot: on ? '#2E5A4C' : 'transparent',
+          state: on ? 'Connected' : 'Tap to connect',
+          pick: function () { set({ cal: assign(cal, on ? { connected: false } : { provider: p.id, connected: true }), toast: on ? p.name + ' disconnected.' : 'Connected to ' + p.name + '. Your bookings will appear there.' }); }
+        });
+      }),
+      calOptions: [
+        { k: 'checks', label: 'Booked checks', sub: 'Scans, tests and check-ups, with time and place' },
+        { k: 'tasks', label: 'Tasks with a time', sub: 'Your to-dos that have a date and time' }
+      ].map(function (o) {
+        var on = !!cal[o.k];
+        return assign(o, { onStr: on ? 'true' : 'false', trackBg: on ? '#4E8A70' : '#CBD6CE', knobLeft: on ? '23px' : '3px', toggle: function () { set({ cal: assign(cal, keyed(o.k, !on)) }); } });
+      }),
+      remindOpts: [{ id: 'evening', label: 'Evening before' }, { id: '2h', label: '2 hours before' }, { id: 'both', label: 'Both' }].map(function (r) {
+        var on = cal.remind === r.id;
+        return assign(r, { onStr: on ? 'true' : 'false', bg: on ? '#2E5A4C' : '#FFFFFF', fg: on ? '#FFFFFF' : '#2E5A4C', border: on ? '#2E5A4C' : '#C9D8CE', pick: function () { set({ cal: assign(cal, { remind: r.id }) }); } });
+      }),
+      calDays: calDays,
+      calEmpty: calDays.length === 0,
+      calEmptyText: calOn ? 'Nothing booked in the next 30 days yet.' : 'Connect a calendar to see your bookings here.',
+      calSaveNote: calOn && cal.checks ? 'Maia adds it to ' + calName + ' with a reminder.' : 'Connect a calendar to get reminders on your phone.',
+      nextInCal: calOn && cal.checks,
+
+      nextVisit: nextVisit, nextVisitText: fmt(nextVisit), nextTime: nextTime,
+      onNextVisit: function (e) { if (e.target.value) { set({ nextVisit: e.target.value }); } },
+      onNextTime: function (e) { if (e.target.value) { set({ nextTime: e.target.value }); } },
+
+      weekLabel: 'Week ' + wk + ' + ' + wd,
+      trimesterLabel: tri,
+      daysToGo: Math.max(0, Math.round((dueMs - TODAY) / DAY)),
+      pathPct: pct + '%',
+      pathOffset: 100 - pct,
+      nextUpIn: daysAway === 0 ? 'today' : (daysAway === 1 ? 'tomorrow' : 'in ' + daysAway + ' days'),
+      nextUpTitle: nextItem ? (nextItem.title === 'Check-up' ? 'Check-up' : nextItem.title) : 'Appointment',
+      nextUpWhen: fmt(nextDate) + (nextT ? ' at ' + nextT : ''),
+      hasNeedsBooking: !!needs,
+      needsTitle: needs ? needs.title : '',
+      needsWhen: needs ? 'Book before ' + dayMonth(weekDate(needs.to + 1) - DAY) : '',
+      bookNeeded: function () { if (!needs) { return; } set({ screen: 'journey', expanded: needs.id, bookDraft: defaultDraft(needs), bookTime: '09:00', toast: '' }); },
+
+      todos: todos.map(function (t, i) {
+        return {
+          text: t.text, done: t.done, doneStr: t.done ? 'true' : 'false', delay: (0.3 + i * 0.05).toFixed(2) + 's',
+          hasWhen: !!t.date, when: t.date ? fmt(t.date) + (t.time ? ' · ' + t.time : '') + (calOn && cal.tasks && t.time ? ' · in calendar' : '') : '',
+          ring: t.done ? '#4E8A70' : '#A9BDB1', fill: t.done ? '#4E8A70' : 'transparent',
+          color: t.done ? '#5E6E68' : '#1E2D29', deco: t.done ? 'line-through' : 'none',
+          toggle: function () { set({ todos: todos.map(function (x) { return x.id === t.id ? assign(x, { done: !x.done }) : x; }) }); }
+        };
+      }),
+      todoLeft: todos.filter(function (t) { return !t.done; }).length,
+      taskFormOpen: !!st.taskForm, taskFormClosed: !st.taskForm,
+      openTaskForm: function () { set({ taskForm: true, taskText: '', taskDate: isoOf(TODAY + DAY), taskTime: '09:00' }); },
+      taskText: st.taskText || '', taskDate: st.taskDate || isoOf(TODAY + DAY), taskTime: st.taskTime || '09:00',
+      onTaskText: function (e) { set({ taskText: e.target.value }); },
+      onTaskDate: function (e) { set({ taskDate: e.target.value }); },
+      onTaskTime: function (e) { set({ taskTime: e.target.value }); },
+      taskCalNote: calOn && cal.tasks ? 'Goes to ' + calName : 'Stays in Maia',
+      addTask: function () {
+        var t = (st.taskText || '').trim(); if (!t) { return; }
+        var d = st.taskDate || isoOf(TODAY + DAY), tm = st.taskTime || '09:00';
+        set({ todos: todos.concat([{ id: 'tk' + Date.now(), text: t, done: false, date: d, time: tm }]), taskForm: false, toast: 'Task added for ' + fmt(d) + ' at ' + tm + '.' + calSuffix('task') });
+      },
+
+      segments: real.map(function (c, i) { return { color: STY[statusOf(c)].seg, delay: (0.4 + i * 0.04).toFixed(2) + 's' }; }),
+      doneCount: counts.done, bookedCount: counts.booked, openBookCount: counts.open, laterCount: counts.later,
+
+      journeyGroups: journeyGroups,
+      bookDraft: st.bookDraft || (expandedId ? defaultDraft(plan.filter(function (c) { return c.id === expandedId; })[0] || plan[0]) : ''),
+      bookTime: st.bookTime || '09:00',
+      onBookDraft: function (e) { set({ bookDraft: e.target.value }); },
+      onBookTime: function (e) { set({ bookTime: e.target.value }); },
+      linkFormOpen: !!st.linkOpen,
+      linkDraft: st.linkDraft || '',
+      onLinkDraft: function (e) { set({ linkDraft: e.target.value }); },
+
+      doneCandidates: doneCandidates,
+      suggestions: suggestions,
+      customDraft: st.customDraft || '',
+      onCustomDraft: function (e) { set({ customDraft: e.target.value }); },
+      addCustom: function () {
+        var t = (st.customDraft || '').trim(); if (!t) { return; }
+        set({ custom: custom.concat([{ id: 'c' + Date.now(), title: t, from: Math.floor(wkF), to: Math.floor(wkF) + 2, tag: 'From your doctor', custom: true, note: 'Added after your visit. Book a date when you have one.' }]), customDraft: '', toast: t + ' added to your plan.' });
+      },
+      saveUpdate: function () { set(assign(clearNav, { screen: 'journey', toast: 'Plan updated. Next appointment ' + fmt(nextVisit) + ' at ' + nextTime + '.' + calSuffix('check') })); },
+
+      resTarget: resTarget,
+      onResTarget: function (e) { set({ resTarget: e.target.value }); },
+      resOptions: resOptionsSrc.map(function (c) { return { id: c.id, label: titleOf(c) }; }),
+      onResFiles: filesHandler(resTarget),
+      hasRecentUploads: !!st.recent, recentUploads: st.recent || '',
+      resultCount: resultCount,
+      resFilters: FILT.map(function (f) {
+        var on = resFilter === f.id;
+        return assign(f, { onStr: on ? 'true' : 'false', bg: on ? '#2E5A4C' : 'rgba(255,255,255,0.8)', fg: on ? '#FFFFFF' : '#2E5A4C', border: on ? '#2E5A4C' : '#C9D8CE', pick: function () { set({ resFilter: f.id }); } });
+      }),
+      resultGroups: resultGroups,
+      noResultsShown: resultGroups.length === 0,
+
+      breathing: breathing, notBreathing: !breathing,
+      breathLabel: breathing ? 'Pause' : 'Start breathing',
+      toggleBreath: function () { set({ breathing: !breathing }); },
+
+      careName: doctorName,
+      questions: questions.map(function (item, i) {
+        return {
+          text: item.text, done: item.done, delay: (0.12 + i * 0.06).toFixed(2) + 's',
+          bg: item.done ? 'rgba(255,255,255,0.45)' : '#FFFFFF',
+          deco: item.done ? 'line-through' : 'none', color: item.done ? '#5E6E68' : '#1E2D29',
+          toggle: function () { set({ questions: questions.map(function (x) { return x.id === item.id ? assign(x, { done: !x.done }) : x; }) }); }
+        };
+      }),
+      openCount: questions.filter(function (x) { return !x.done; }).length,
+      qDraft: st.qDraft || '',
+      onQDraft: function (e) { set({ qDraft: e.target.value }); },
+      addQuestion: function () {
+        var t = (st.qDraft || '').trim(); if (!t) { return; }
+        set({ questions: questions.concat([{ id: 'u' + Date.now(), text: t, done: false }]), qDraft: '' });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

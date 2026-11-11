@@ -1,0 +1,227 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+# Third-party actions are pinned to full commit SHAs (the tag is in the comment); Dependabot keeps them current.
+jobs:
+  core:
+    name: Core libraries and tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          global-json-file: global.json
+
+      # The MAUI app is built in its own job; everything else must build and pass tests on plain .NET, with every
+      # line and branch of the core libraries covered (scripts/coverage.sh).
+      - name: Test, with 100% coverage of the core libraries
+        shell: bash
+        run: ./scripts/coverage.sh
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: test-results
+          path: TestResults
+          retention-days: 14
+
+  android:
+    name: App (Android Release APK)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          global-json-file: global.json
+
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: microsoft
+          java-version: '17'
+
+      # The workload set named in Directory.Packages.props (MaiaMauiWorkloadSet), not whatever is newest today.
+      - name: Install the pinned MAUI Android workload
+        shell: bash
+        run: bash scripts/maui-workload.sh install
+
+      - name: MAUI workload matches Microsoft.Maui.Controls
+        shell: bash
+        run: bash scripts/maui-workload.sh check
+
+      # ADR 0003: only a personal APK built outside CI may use Draft plan templates (MaiaAllowDraftTemplates).
+      # Each clause of MaiaStoreGate is probed on its own: CI (GITHUB_ACTIONS sets ContinuousIntegrationBuild), an
+      # AAB and a platform other than Android, the last two with ContinuousIntegrationBuild=false so only the clause
+      # under test can refuse. The gate runs in every configuration but Debug, so a Staging AAB is refused like a
+      # Release one. The one build it lets through, a personal APK outside CI, proves the probes fail for their clause
+      # and not for everything.
+      - name: Store builds keep draft templates off
+        shell: bash
+        run: |
+          set -euo pipefail
+          project=src/Maia.App/Maia.App.csproj
+          value="$(dotnet msbuild "$project" -p:TargetFramework=net10.0-android -p:Configuration=Release -getProperty:MaiaAllowDraftTemplates)"
+          if [ "$value" != "false" ]; then
+            echo "::error::MaiaAllowDraftTemplates is '$value' for a Release Android build; it must default to false."
+            exit 1
+          fi
+
+          gate() {
+            dotnet msbuild "$project" -t:MaiaStoreGate -p:MaiaAllowDraftTemplates=true -nologo "$@" > gate.log 2>&1
+          }
+
+          refuses() {
+            local what="$1"
+            shift
+            if gate "$@"; then
+              cat gate.log
+              echo "::error::MaiaStoreGate let $what turn on Draft plan templates."
+              exit 1
+            fi
+            if ! grep -q MAIA0001 gate.log; then
+              cat gate.log
+              echo "::error::MaiaStoreGate failed for $what, but not with MAIA0001."
+              exit 1
+            fi
+            echo "Refused (MAIA0001): $what."
+          }
+
+          refuses "a CI build" -p:TargetFramework=net10.0-android -p:Configuration=Release -p:AndroidPackageFormat=apk
+          refuses "an AAB built outside CI" -p:TargetFramework=net10.0-android -p:Configuration=Release \
+            -p:AndroidPackageFormat=aab -p:ContinuousIntegrationBuild=false
+          refuses "an iOS build outside CI" -p:TargetFramework=net10.0-ios -p:Configuration=Release \
+            -p:AndroidPackageFormat=apk -p:ContinuousIntegrationBuild=false
+          refuses "a Staging AAB built outside CI" -p:TargetFramework=net10.0-android -p:Configuration=Staging \
+            -p:AndroidPackageFormat=aab -p:ContinuousIntegrationBuild=false
+
+          if ! gate -p:TargetFramework=net10.0-android -p:Configuration=Release -p:AndroidPackageFormat=apk \
+               -p:ContinuousIntegrationBuild=false; then
+            cat gate.log
+            echo "::error::MaiaStoreGate refused a personal APK built outside CI, so the probes above prove nothing."
+            exit 1
+          fi
+          echo "Draft templates are off by default, and MaiaStoreGate refuses them on CI, in an AAB and off Android, in every configuration but Debug (MAIA0001)."
+
+      # Debug-signed, for testing only; signed store builds come from release.yml.
+      - name: Publish Release APK
+        shell: bash
+        run: |
+          dotnet publish src/Maia.App/Maia.App.csproj -f net10.0-android -c Release \
+            -p:AndroidPackageFormat=apk -p:AndroidSdkDirectory="$ANDROID_SDK_ROOT" -o artifacts/android
+
+      - name: Check 16 KB page alignment
+        shell: bash
+        run: |
+          set -euo pipefail
+          zipalign="$(find "$ANDROID_SDK_ROOT/build-tools" -mindepth 2 -maxdepth 2 -name zipalign | sort -V | tail -n 1)"
+          if ! "$zipalign" -c -P 16 -v 4 artifacts/android/com.michailgeranis.maia-Signed.apk > zipalign.log; then
+            grep -v "(OK" zipalign.log | tail -n 40
+            echo "::error::The Release APK is not 16 KB aligned."
+            exit 1
+          fi
+          tail -n 1 zipalign.log
+
+      - name: Upload Release APK
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: maia-android-release-apk
+          path: artifacts/android/com.michailgeranis.maia-Signed.apk
+          if-no-files-found: error
+          retention-days: 14
+
+      # Not blocking: Release hides trim warnings (TrimMode=partial, SuppressTrimAnalysisWarnings=true). This lists
+      # every IL2xxx/IL3xxx warning full trimming would raise, in the job summary, before anyone turns it on.
+      - name: Trim analysis (full trimming, report only)
+        continue-on-error: true
+        shell: bash
+        run: |
+          set +e
+          dotnet build src/Maia.App/Maia.App.csproj -f net10.0-android -c Release -r android-arm64 --no-incremental \
+            -p:AndroidPackageFormat=apk -p:TrimMode=full -p:SuppressTrimAnalysisWarnings=false \
+            -p:TrimmerSingleWarn=false -p:TreatWarningsAsErrors=false \
+            -p:AndroidSdkDirectory="$ANDROID_SDK_ROOT" > trim.log 2>&1
+          status=$?
+          warnings="$(grep -Eo 'warning IL[23][0-9]{3}:.*' trim.log | sed -E 's/ \[[^]]*\]$//' | sort -u)"
+          count="$(printf '%s' "$warnings" | grep -c .)"
+          {
+            echo "### Trim analysis (TrimMode=full)"
+            echo ""
+            echo "$count distinct IL2xxx/IL3xxx warnings; build exit code $status."
+            if [ "$count" -gt 0 ]; then
+              echo ""
+              echo '```'
+              printf '%s\n' "$warnings" | head -n 200
+              echo '```'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$count" -gt 0 ]; then
+            echo "::warning::Full trimming raises $count distinct IL2xxx/IL3xxx warnings; see the job summary."
+          fi
+          if [ "$status" -ne 0 ]; then
+            tail -n 60 trim.log
+          fi
+          exit "$status"
+
+  smoke:
+    name: App (Release APK on an emulator)
+    needs: android
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: maia-android-release-apk
+          path: artifacts/android
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      # A CI build refuses Draft plan templates, so Maia stops at setup step 1: enough to prove the Release-only
+      # paths (trimming, AOT, R8, the assembly store) start up and stay up.
+      - name: Launch Maia and watch for crashes
+        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
+        with:
+          api-level: 34
+          arch: x86_64
+          target: google_apis
+          disable-animations: true
+          script: bash scripts/smoke-android.sh artifacts/android/com.michailgeranis.maia-Signed.apk smoke 30
+
+      - name: Upload smoke logs and screen
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: smoke-android
+          path: smoke
+          if-no-files-found: ignore
+          retention-days: 14
