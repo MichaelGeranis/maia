@@ -22,7 +22,7 @@ $abi = (adb -s $serial shell getprop ro.product.cpu.abi).Trim()
 $rid = if ($abi -eq 'arm64-v8a') { 'android-arm64' } else { 'android-x64' }
 Write-Host "Release build for $serial ($abi)..."
 
-& dotnet build src/Maia.App/Maia.App.csproj -t:Run -f net10.0-android -c Release -nologo `
+& dotnet build src/Maia.App/Maia.App.csproj -t:Run -f net11.0-android -c Release -nologo `
     "-p:RuntimeIdentifier=$rid" -p:AndroidPackageFormat=apk -p:MaiaAllowDraftTemplates=true "-p:AdbTarget=-s $serial"
 if ($LASTEXITCODE -ne 0) {
     throw "The Release build or install failed (exit $LASTEXITCODE)."

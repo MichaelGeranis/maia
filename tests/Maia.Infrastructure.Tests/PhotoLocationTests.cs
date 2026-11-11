@@ -260,6 +260,19 @@ public sealed class PhotoLocationTests
     }
 
     [Fact]
+    public void Nothing_after_a_jpeg_s_end_of_image_is_read_or_changed()
+    {
+        var (jpeg, _, _) = JpegWithLocation(littleEndian: true);
+        byte[] photo = [0xFF, 0xD8, 0xFF, 0xD9, .. jpeg[2..]]; // the image ends before its Exif
+        var before = (byte[])photo.Clone();
+
+        var cleaned = PhotoLocation.Remove("image/jpeg", photo);
+
+        Assert.Same(photo, cleaned);
+        Assert.Equal(before, cleaned);
+    }
+
+    [Fact]
     public void A_jpeg_segment_with_an_impossible_length_ends_the_search()
     {
         var (jpeg, _, _) = JpegWithLocation(littleEndian: true);

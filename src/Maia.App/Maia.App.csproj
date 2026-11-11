@@ -4,9 +4,9 @@
     Screen logic lives in Maia.Presentation so it can be unit-tested without a device.
   -->
   <PropertyGroup>
-    <TargetFrameworks>net10.0-android</TargetFrameworks>
-    <TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('linux'))">$(TargetFrameworks);net10.0-ios</TargetFrameworks>
-    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
+    <TargetFrameworks>net11.0-android</TargetFrameworks>
+    <TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('linux'))">$(TargetFrameworks);net11.0-ios</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net11.0-windows10.0.19041.0</TargetFrameworks>
 
     <OutputType>Exe</OutputType>
     <RootNamespace>Maia.App</RootNamespace>
@@ -20,6 +20,12 @@
       XAML-bound types must be public (CA1515). Platform entry points are instantiated by the OS (CA1812).
     -->
     <NoWarn>$(NoWarn);CA2007;CA1515;CA1812</NoWarn>
+    <!--
+      XA1006 and XA4211: AndroidManifest.xml keeps targetSdkVersion 36 while .NET 11 compiles against API 37. Targeting
+      below the compile SDK is allowed and deliberate: the target moves on its own change, after a check of API 37's
+      behaviour changes.
+    -->
+    <NoWarn Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">$(NoWarn);XA1006;XA4211</NoWarn>
 
     <ApplicationTitle>Maia</ApplicationTitle>
     <ApplicationId>com.michailgeranis.maia</ApplicationId>

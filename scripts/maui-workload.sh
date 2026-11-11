@@ -10,7 +10,7 @@
 #   scripts/maui-workload.sh check     fails unless the installed set is the pinned one and the MAUI it brings is the
 #                                      version of Microsoft.Maui.Controls (as the workload list and the app build see it)
 #
-# The set belongs to the SDK band in global.json (10.0.4xx): a set from another band can't be installed on it. It is not
+# The set belongs to the SDK band in global.json (11.0.1xx): a set from another band can't be installed on it. It is not
 # pinned in global.json itself (sdk.workloadVersion): the SDK then refuses every build, even of the core libraries, on a
 # machine that doesn't have exactly that set.
 set -euo pipefail
@@ -43,7 +43,7 @@ case "${1:-}" in
       fail "The installed workload set is '$installed', but $props pins $pinned (MaiaMauiWorkloadSet). Run: bash scripts/maui-workload.sh install"
     fi
 
-    # "maui-android   10.0.20/10.0.100   SDK 10.0.400": the MAUI version comes before the slash.
+    # "maui-android   11.0.0/11.0.100   SDK 11.0.100": the MAUI version comes before the slash.
     manifest="$(dotnet workload list | tr -d '\r' | awk '$1 == "maui-android" { print $2; exit }')"
     [ -n "$manifest" ] || fail "The maui-android workload is not installed. Run: bash scripts/maui-workload.sh install"
     maui="${manifest%%/*}"
@@ -52,7 +52,7 @@ case "${1:-}" in
     fi
 
     # What the app build itself picks up from the workload.
-    built="$(dotnet msbuild src/Maia.App/Maia.App.csproj -p:TargetFramework=net10.0-android -getProperty:MauiVersion | tr -d '\r[:space:]')"
+    built="$(dotnet msbuild src/Maia.App/Maia.App.csproj -p:TargetFramework=net11.0-android -getProperty:MauiVersion | tr -d '\r[:space:]')"
     if [ "$built" != "$controls" ]; then
       fail "The app builds with MAUI '$built' from the workload, but Microsoft.Maui.Controls is $controls."
     fi

@@ -5,7 +5,7 @@
   -->
   <PropertyGroup>
     <!-- The MAUI app multi-targets platforms in its own project file. -->
-    <TargetFramework Condition="'$(MSBuildProjectName)' != 'Maia.App'">net10.0</TargetFramework>
+    <TargetFramework Condition="'$(MSBuildProjectName)' != 'Maia.App'">net11.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
