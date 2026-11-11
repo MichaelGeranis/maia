@@ -223,8 +223,9 @@ that collects nothing must complete the form and link a privacy policy.
 - **Permissions:** no restricted permissions (no SMS, call log, all-files, background location, exact alarms or
   photo/video media permissions; Maia uses the system pickers). No calendar permissions. `POST_NOTIFICATIONS` is
   runtime, asked only when she turns reminders on; `USE_BIOMETRIC`, `RECEIVE_BOOT_COMPLETED`
-  and `VIBRATE` (Breathing's gentle vibration) are normal, granted at install. Target SDK is 36 (the .NET 10 Android
-  default).
+  and `VIBRATE` (Breathing's gentle vibration) are normal, granted at install. Target SDK is 36, set in
+  `AndroidManifest.xml` (.NET 11 compiles against API 37 and would otherwise target it); minimum SDK 24. MAUI 11 brings
+  AndroidX Biometric, whose `USE_FINGERPRINT` the manifest removes again, so the permission list is unchanged.
 - **Privacy policy:** a public, non-geofenced URL (not a PDF) in the Console, and the policy (or a link) in the app.
 - **App category:** owner to choose (Health & Fitness, Medical or Parenting); "Medical" makes the account-type question
   more likely to bite.
