@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <!--
+      Target SDK 36, as with .NET 10. .NET 11 compiles against API 37 and would raise the target to it by default;
+      that changes how Android treats the app (new behaviour changes, Play review), so it moves on its own, on purpose.
+      minSdk stays SupportedOSPlatformVersion (24) in Maia.App.csproj.
+    -->
+    <uses-sdk android:targetSdkVersion="36" />
     <!--
       Backup is off: the plan is encrypted with a key held in the Android Keystore, which is neither backed up nor
       moved to a new phone. Files copied without the key would leave the parent with an unreadable plan.
@@ -24,6 +30,11 @@
       (Android 11 and later), which needs this install-time permission. Maia never sees the PIN, pattern or fingerprint.
     -->
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <!--
+      MAUI 11 brings AndroidX Biometric, whose manifest asks for the old USE_FINGERPRINT. Maia's lock uses the platform's
+      own prompt (Android 11 and later), never that library, so the permission is taken back out.
+    -->
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" tools:node="remove" />
     <!--
       Breathe's gentle vibration at the start of each breath in and out (on until she turns it off on Breathe). An
       install-time permission; Breathe never vibrates on silent or in Do not disturb.

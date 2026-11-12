@@ -22,7 +22,7 @@ test, screenshot or log.**
 
 ## Development setup
 
-You need the .NET 10 SDK (`global.json`). The core libraries and their tests
+You need the .NET 11 SDK (`global.json`). The core libraries and their tests
 run on any OS without the MAUI workload:
 
 ```bash

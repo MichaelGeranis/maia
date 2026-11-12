@@ -33,14 +33,14 @@ jobs:
           fetch-depth: 0 # the versionCode is the number of commits
           persist-credentials: false
 
-      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+      - uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
         with:
           global-json-file: global.json
 
-      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+      - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
         with:
           distribution: microsoft
-          java-version: '17'
+          java-version: '21' # .NET 11's Android toolchain needs JDK 21
 
       # The workload set named in Directory.Packages.props (MaiaMauiWorkloadSet), so a signed build of a commit is the
       # same whenever it runs.
@@ -51,6 +51,14 @@ jobs:
       - name: MAUI workload matches Microsoft.Maui.Controls
         shell: bash
         run: bash scripts/maui-workload.sh check
+
+      # The Android platform and build-tools the app compiles against (API 37 for .NET 11), whether or not the runner
+      # image has them yet; the SDK licences are accepted for this machine only.
+      - name: Android SDK for the app
+        shell: bash
+        run: |
+          dotnet build src/Maia.App/Maia.App.csproj -t:InstallAndroidDependencies -f net11.0-android -nologo \
+            -p:AndroidSdkDirectory="$ANDROID_SDK_ROOT" -p:JavaSdkDirectory="$JAVA_HOME" -p:AcceptAndroidSDKLicenses=true
 
       - name: Version and keystore
         id: prep
@@ -78,7 +86,7 @@ jobs:
               exit 1
             fi
           else
-            name="$(dotnet msbuild src/Maia.App/Maia.App.csproj -p:TargetFramework=net10.0-android -getProperty:ApplicationDisplayVersion)"
+            name="$(dotnet msbuild src/Maia.App/Maia.App.csproj -p:TargetFramework=net11.0-android -getProperty:ApplicationDisplayVersion)"
           fi
           if [ -z "$name" ]; then
             echo "::error::No version name: tag the release v1.2.3 or set ApplicationDisplayVersion in Maia.App.csproj."
@@ -95,7 +103,7 @@ jobs:
           VERSION: ${{ steps.prep.outputs.version }}
           NAME: ${{ steps.prep.outputs.name }}
         run: |
-          dotnet publish src/Maia.App/Maia.App.csproj -f net10.0-android -c Release \
+          dotnet publish src/Maia.App/Maia.App.csproj -f net11.0-android -c Release \
             -p:AndroidPackageFormat=aab -p:ApplicationVersion="$VERSION" -p:ApplicationDisplayVersion="$NAME" \
             -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="$KEYSTORE" -p:AndroidSigningKeyAlias="$MAIA_KEY_ALIAS" \
             -p:AndroidSigningKeyPass=env:MAIA_KEY_PASS -p:AndroidSigningStorePass=env:MAIA_KEY_PASS \
@@ -110,7 +118,7 @@ jobs:
           VERSION: ${{ steps.prep.outputs.version }}
           NAME: ${{ steps.prep.outputs.name }}
         run: |
-          dotnet publish src/Maia.App/Maia.App.csproj -f net10.0-android -c Release -r android-arm64 \
+          dotnet publish src/Maia.App/Maia.App.csproj -f net11.0-android -c Release -r android-arm64 \
             -p:AndroidPackageFormat=apk -p:ApplicationVersion="$VERSION" -p:ApplicationDisplayVersion="$NAME" \
             -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="$KEYSTORE" -p:AndroidSigningKeyAlias="$MAIA_KEY_ALIAS" \
             -p:AndroidSigningKeyPass=env:MAIA_KEY_PASS -p:AndroidSigningStorePass=env:MAIA_KEY_PASS \
@@ -147,7 +155,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload AAB
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: maia-${{ steps.prep.outputs.version }}-aab
           path: |
@@ -157,7 +165,7 @@ jobs:
           retention-days: 30
 
       - name: Upload APK
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: maia-${{ steps.prep.outputs.version }}-arm64-apk
           path: release/maia-${{ steps.prep.outputs.version }}-arm64.apk

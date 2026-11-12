@@ -5,6 +5,10 @@ already builds a Release APK, starts it on an emulator and refuses draft templat
 [`architecture.md`](architecture.md), Build, CI and release). Store and privacy items are in
 [`compliance.md`](compliance.md).
 
+A machine that builds a release, yours or `release.yml`'s, needs the .NET 11 SDK from `global.json`, the pinned MAUI
+workload set (`bash scripts/maui-workload.sh install`, then `check`), JDK 21 and the Android SDK platform 37 (README,
+Getting started).
+
 ## One-time setup: signing
 
 1. Create the upload keystore once (outside the repo, for example `%USERPROFILE%\keys\maia.keystore`) and keep an

@@ -1,6 +1,6 @@
 # Working on Maia
 
-Maia is a .NET 10 / .NET MAUI app that organises a pregnancy: a plan of checks, bookings, results, reminders.
+Maia is a .NET 11 / .NET MAUI 11 app that organises a pregnancy: a plan of checks, bookings, results, reminders.
 
 Read before working:
 
@@ -46,7 +46,7 @@ Read before working:
 ```bash
 for p in tests/*.Tests; do dotnet test "$p"; done    # core + presentation tests
 ./scripts/coverage.sh                                 # the same tests, failing below 100% line/branch coverage (as CI does)
-dotnet build src/Maia.App -f net10.0-android          # the app
+dotnet build src/Maia.App -f net11.0-android          # the app
 ./scripts/capture-screens.ps1                         # every screen into docs/design/screens (PowerShell)
 ```
 

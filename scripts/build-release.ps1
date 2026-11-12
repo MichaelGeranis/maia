@@ -60,7 +60,7 @@ $ErrorActionPreference = 'Stop'
 
 $repo = Split-Path -Parent $PSScriptRoot
 $project = Join-Path $repo 'src\Maia.App\Maia.App.csproj'
-$publishDir = Join-Path $repo "src\Maia.App\bin\Release\net10.0-android\$RuntimeIdentifier\publish"
+$publishDir = Join-Path $repo "src\Maia.App\bin\Release\net11.0-android\$RuntimeIdentifier\publish"
 $sdk = if ($env:ANDROID_HOME) { $env:ANDROID_HOME } else { Join-Path $env:LOCALAPPDATA 'Android\Sdk' }
 
 if (-not (Test-Path -LiteralPath $KeyStore)) {
@@ -90,7 +90,7 @@ if ($ownsPassword) {
 }
 
 try {
-    & dotnet publish $project -f net10.0-android -c Release -r $RuntimeIdentifier -nologo `
+    & dotnet publish $project -f net11.0-android -c Release -r $RuntimeIdentifier -nologo `
         -p:AndroidPackageFormat=apk "-p:ApplicationVersion=$Version" `
         -p:AndroidKeyStore=true "-p:AndroidSigningKeyStore=$KeyStore" "-p:AndroidSigningKeyAlias=$KeyAlias" `
         -p:AndroidSigningKeyPass=env:MAIA_KEY_PASS -p:AndroidSigningStorePass=env:MAIA_KEY_PASS @draftArgs

@@ -502,6 +502,10 @@ ADR 0007.
 
 - Warnings are errors; the .NET analyzers run in Recommended mode. Package versions are central
   (`Directory.Packages.props`).
+- **Toolchain.** .NET 11 and MAUI 11 (`net11.0`, `net11.0-android`, `net11.0-ios`, `net11.0-windows10.0.19041.0`),
+  from the MAUI workload set pinned next to `Microsoft.Maui.Controls`. Android builds compile against API 37 with
+  JDK 21; the app targets API 36 (`targetSdkVersion` in `AndroidManifest.xml`, so XA1006/XA4211 are silenced on
+  purpose) and supports API 24 and later (`SupportedOSPlatformVersion`).
 - **Draft templates** (ADR 0003). Debug builds may use Draft templates. Release builds refuse them, except a personal
   Android APK built outside CI with `-p:MaiaAllowDraftTemplates=true` (`scripts/build-release.ps1 -AllowDraftTemplates`),
   which is named "Maia (internal)" on the home screen. The `MaiaStoreGate` target fails with `MAIA0001` if that switch
@@ -521,7 +525,8 @@ ADR 0007.
   hand off a branch keeps the project's `ApplicationDisplayVersion`, and a tag that isn't a version stops the release),
   checked for a non-debug signature and 16 KB alignment, kept as run artifacts for 30 days. Secrets and steps: README and [`releasing.md`](releasing.md).
 - Actions are pinned to full commit SHAs and checkouts use `persist-credentials: false`. Dependabot updates NuGet
-  packages, actions and the SDK in `global.json`.
+  packages, actions and the SDK in `global.json`, weekly, in one grouped pull request per ecosystem. It leaves
+  `Microsoft.Maui.Controls` alone: that moves only with the workload set.
 
 ## Testing
 

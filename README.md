@@ -76,8 +76,10 @@ The MAUI app references Presentation and Infrastructure and provides the platfor
 
 ## Getting started
 
-Requirements: the .NET 10 SDK, 10.0.400 or a later 10.0.4xx patch (`global.json`), and for the app the MAUI workload
-set the repository pins.
+Requirements: the .NET 11 SDK, 11.0.100 or a later 11.0.1xx patch (`global.json`), and for the app the MAUI workload
+set the repository pins, JDK 21 and the Android SDK platform 37. `dotnet build src/Maia.App -f net11.0-android
+-t:InstallAndroidDependencies -p:AndroidSdkDirectory=<your Android SDK> -p:AcceptAndroidSDKLicenses=true` installs
+the platform (and, with `-p:JavaSdkDirectory=<a folder of yours>`, JDK 21) when they are missing.
 
 The everyday commands (tests, builds, the emulator, running the app, signed release APKs) are in the `Makefile`: run
 `make` to list them. It needs GNU make (`winget install ezwinports.make`) and works from PowerShell, cmd or Git Bash.
@@ -92,18 +94,19 @@ dotnet test tests/Maia.Presentation.Tests
 # The app, with the pinned MAUI workload set (MaiaMauiWorkloadSet in Directory.Packages.props)
 bash scripts/maui-workload.sh install      # dotnet workload install maui-android --version <that set>
 bash scripts/maui-workload.sh check        # the installed set and Microsoft.Maui.Controls match
-dotnet build src/Maia.App -f net10.0-android
-dotnet build src/Maia.App -f net10.0-windows10.0.19041.0   # Windows only (also needs maui-windows), for a quick UI check
+dotnet build src/Maia.App -f net11.0-android
+dotnet build src/Maia.App -f net11.0-windows10.0.19041.0   # Windows only (also needs maui-windows), for a quick UI check
 ```
 
 **The MAUI workload is pinned.** `Directory.Packages.props` names the workload set (`MaiaMauiWorkloadSet`, today
-10.0.400.1, which brings MAUI 10.0.20) right next to `Microsoft.Maui.Controls`. CI and `release.yml` install exactly
+11.0.100.1, which brings MAUI 11.0.0) right next to `Microsoft.Maui.Controls`. CI and `release.yml` install exactly
 that set instead of whatever is newest that day, so a signed build of a commit uses the same MAUI, Android bindings and
 toolchain whenever it runs, and both fail at `scripts/maui-workload.sh check` when the installed set or the MAUI
 version it brings differs from `Microsoft.Maui.Controls`. To move MAUI forward, pick a newer set for the SDK band
 (`dotnet workload search version`), then change `MaiaMauiWorkloadSet` and `Microsoft.Maui.Controls` together; a set
-from another band (10.0.5xx, say) needs the `global.json` SDK moved too. A Dependabot pull request that bumps only
-`Microsoft.Maui.Controls` fails that check on purpose. The set is not pinned in `global.json` (`sdk.workloadVersion`):
+from another band (11.0.2xx, say) needs the `global.json` SDK moved too. A newer `Microsoft.Maui.Controls` can reach
+NuGet before any workload set brings it (11.0.10 did); it waits for the set. Dependabot ignores
+`Microsoft.Maui.Controls`, and a bump of it alone fails that check on purpose. The set is not pinned in `global.json` (`sdk.workloadVersion`):
 the SDK then refuses every build, the core libraries and tests included, on a machine without exactly that set.
 
 iOS builds need a Mac (or a paired Mac from Windows). Open `Maia.slnx` in Visual Studio or VS Code with the

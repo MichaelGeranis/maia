@@ -57,9 +57,9 @@ foreach ($scale in 'window_animation_scale', 'transition_animation_scale', 'anim
 
 # A Debug build that runs without the IDE: its assemblies inside the APK.
 if (-not $NoBuild) {
-    dotnet build (Join-Path $root 'src/Maia.App') -f net10.0-android -c Debug -p:EmbedAssembliesIntoApk=true -nologo -v q
+    dotnet build (Join-Path $root 'src/Maia.App') -f net11.0-android -c Debug -p:EmbedAssembliesIntoApk=true -nologo -v q
 }
-$apk = Join-Path $root "src/Maia.App/bin/Debug/net10.0-android/$package-Signed.apk"
+$apk = Join-Path $root "src/Maia.App/bin/Debug/net11.0-android/$package-Signed.apk"
 Invoke-Adb install -r $apk | Out-Null
 Invoke-Adb shell pm clear $package | Out-Null
 $activity = (Invoke-Adb shell cmd package resolve-activity --brief $package | Select-Object -Last 1).Trim()

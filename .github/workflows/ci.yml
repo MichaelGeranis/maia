@@ -27,7 +27,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+      - uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
         with:
           global-json-file: global.json
 
@@ -39,7 +39,7 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: test-results
           path: TestResults
@@ -54,14 +54,14 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+      - uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
         with:
           global-json-file: global.json
 
-      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+      - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
         with:
           distribution: microsoft
-          java-version: '17'
+          java-version: '21' # .NET 11's Android toolchain needs JDK 21
 
       # The workload set named in Directory.Packages.props (MaiaMauiWorkloadSet), not whatever is newest today.
       - name: Install the pinned MAUI Android workload
@@ -71,6 +71,14 @@ jobs:
       - name: MAUI workload matches Microsoft.Maui.Controls
         shell: bash
         run: bash scripts/maui-workload.sh check
+
+      # The Android platform and build-tools the app compiles against (API 37 for .NET 11), whether or not the runner
+      # image has them yet; the SDK licences are accepted for this machine only.
+      - name: Android SDK for the app
+        shell: bash
+        run: |
+          dotnet build src/Maia.App/Maia.App.csproj -t:InstallAndroidDependencies -f net11.0-android -nologo \
+            -p:AndroidSdkDirectory="$ANDROID_SDK_ROOT" -p:JavaSdkDirectory="$JAVA_HOME" -p:AcceptAndroidSDKLicenses=true
 
       # ADR 0003: only a personal APK built outside CI may use Draft plan templates (MaiaAllowDraftTemplates).
       # Each clause of MaiaStoreGate is probed on its own: CI (GITHUB_ACTIONS sets ContinuousIntegrationBuild), an
@@ -83,7 +91,7 @@ jobs:
         run: |
           set -euo pipefail
           project=src/Maia.App/Maia.App.csproj
-          value="$(dotnet msbuild "$project" -p:TargetFramework=net10.0-android -p:Configuration=Release -getProperty:MaiaAllowDraftTemplates)"
+          value="$(dotnet msbuild "$project" -p:TargetFramework=net11.0-android -p:Configuration=Release -getProperty:MaiaAllowDraftTemplates)"
           if [ "$value" != "false" ]; then
             echo "::error::MaiaAllowDraftTemplates is '$value' for a Release Android build; it must default to false."
             exit 1
@@ -109,15 +117,15 @@ jobs:
             echo "Refused (MAIA0001): $what."
           }
 
-          refuses "a CI build" -p:TargetFramework=net10.0-android -p:Configuration=Release -p:AndroidPackageFormat=apk
-          refuses "an AAB built outside CI" -p:TargetFramework=net10.0-android -p:Configuration=Release \
+          refuses "a CI build" -p:TargetFramework=net11.0-android -p:Configuration=Release -p:AndroidPackageFormat=apk
+          refuses "an AAB built outside CI" -p:TargetFramework=net11.0-android -p:Configuration=Release \
             -p:AndroidPackageFormat=aab -p:ContinuousIntegrationBuild=false
-          refuses "an iOS build outside CI" -p:TargetFramework=net10.0-ios -p:Configuration=Release \
+          refuses "an iOS build outside CI" -p:TargetFramework=net11.0-ios -p:Configuration=Release \
             -p:AndroidPackageFormat=apk -p:ContinuousIntegrationBuild=false
-          refuses "a Staging AAB built outside CI" -p:TargetFramework=net10.0-android -p:Configuration=Staging \
+          refuses "a Staging AAB built outside CI" -p:TargetFramework=net11.0-android -p:Configuration=Staging \
             -p:AndroidPackageFormat=aab -p:ContinuousIntegrationBuild=false
 
-          if ! gate -p:TargetFramework=net10.0-android -p:Configuration=Release -p:AndroidPackageFormat=apk \
+          if ! gate -p:TargetFramework=net11.0-android -p:Configuration=Release -p:AndroidPackageFormat=apk \
                -p:ContinuousIntegrationBuild=false; then
             cat gate.log
             echo "::error::MaiaStoreGate refused a personal APK built outside CI, so the probes above prove nothing."
@@ -129,7 +137,7 @@ jobs:
       - name: Publish Release APK
         shell: bash
         run: |
-          dotnet publish src/Maia.App/Maia.App.csproj -f net10.0-android -c Release \
+          dotnet publish src/Maia.App/Maia.App.csproj -f net11.0-android -c Release \
             -p:AndroidPackageFormat=apk -p:AndroidSdkDirectory="$ANDROID_SDK_ROOT" -o artifacts/android
 
       - name: Check 16 KB page alignment
@@ -145,7 +153,7 @@ jobs:
           tail -n 1 zipalign.log
 
       - name: Upload Release APK
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: maia-android-release-apk
           path: artifacts/android/com.michailgeranis.maia-Signed.apk
@@ -159,7 +167,7 @@ jobs:
         shell: bash
         run: |
           set +e
-          dotnet build src/Maia.App/Maia.App.csproj -f net10.0-android -c Release -r android-arm64 --no-incremental \
+          dotnet build src/Maia.App/Maia.App.csproj -f net11.0-android -c Release -r android-arm64 --no-incremental \
             -p:AndroidPackageFormat=apk -p:TrimMode=full -p:SuppressTrimAnalysisWarnings=false \
             -p:TrimmerSingleWarn=false -p:TreatWarningsAsErrors=false \
             -p:AndroidSdkDirectory="$ANDROID_SDK_ROOT" > trim.log 2>&1
@@ -195,7 +203,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: maia-android-release-apk
           path: artifacts/android
@@ -219,7 +227,7 @@ jobs:
 
       - name: Upload smoke logs and screen
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: smoke-android
           path: smoke

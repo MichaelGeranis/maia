@@ -14,11 +14,11 @@ VERSION ?=
 KEYSTORE ?=
 
 APP := src/Maia.App
-ANDROID := net10.0-android
-WINDOWS := net10.0-windows10.0.19041.0
+ANDROID := net11.0-android
+WINDOWS := net11.0-windows10.0.19041.0
 TESTS := $(wildcard tests/*.Tests)
-PHONE_APK := src/Maia.App/bin/Release/net10.0-android/android-arm64/publish/com.michailgeranis.maia-Signed.apk
-PHONE_APK_FOLDER := src\Maia.App\bin\Release\net10.0-android\android-arm64\publish
+PHONE_APK := src/Maia.App/bin/Release/net11.0-android/android-arm64/publish/com.michailgeranis.maia-Signed.apk
+PHONE_APK_FOLDER := src\Maia.App\bin\Release\net11.0-android\android-arm64\publish
 
 RELEASE := powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-release.ps1
 RELEASE_OPTIONS := $(if $(VERSION),-Version $(VERSION)) $(if $(KEYSTORE),-KeyStore "$(KEYSTORE)")

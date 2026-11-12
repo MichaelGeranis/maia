@@ -1,17 +1,22 @@
 version: 2
+# One pull request per ecosystem per week: every update of an ecosystem is grouped into it.
 updates:
   - package-ecosystem: nuget
     directory: /
     schedule:
       interval: weekly
     groups:
-      testing:
-        patterns: ["xunit*", "Microsoft.NET.Test.Sdk", "coverlet*"]
+      nuget:
+        patterns: ["*"]
+    ignore:
+      # Moves only together with MaiaMauiWorkloadSet in Directory.Packages.props (README, "The MAUI workload is
+      # pinned"); a bump of the package alone fails scripts/maui-workload.sh check.
+      - dependency-name: Microsoft.Maui.Controls
   # Workflows pin actions to full commit SHAs; Dependabot moves the SHA and its version comment together.
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: monthly
+      interval: weekly
     groups:
       actions:
         patterns: ["*"]
@@ -19,4 +24,7 @@ updates:
   - package-ecosystem: dotnet-sdk
     directory: /
     schedule:
-      interval: monthly
+      interval: weekly
+    groups:
+      dotnet-sdk:
+        patterns: ["*"]

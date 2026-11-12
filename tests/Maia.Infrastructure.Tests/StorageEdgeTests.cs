@@ -19,8 +19,11 @@ public sealed class PlanStorageEdgeTests : TempFolderTest
     {
         Directory.CreateDirectory(MainPath); // something that is not a file stands where the plan goes
 
-        await Assert.ThrowsAnyAsync<IOException>(() => new EncryptedPlanRepository(Folder, Cipher).SaveAsync(TestData.Plan(), CancellationToken.None));
+        var error = await Assert.ThrowsAnyAsync<Exception>(() => new EncryptedPlanRepository(Folder, Cipher).SaveAsync(TestData.Plan(), CancellationToken.None));
 
+        // The OS decides which: an IOException on Linux and Android, an UnauthorizedAccessException on Windows from
+        // .NET 11. PlanService handles both as a failed save.
+        Assert.True(error is IOException or UnauthorizedAccessException, error.GetType().Name);
         Assert.Empty(Directory.GetFiles(Folder));
     }
 

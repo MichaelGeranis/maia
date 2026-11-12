@@ -104,7 +104,8 @@ internal static class AccessibleNodes
             if (role is ControlRole.Switch or ControlRole.CheckBox or ControlRole.Radio)
             {
                 info.Checkable = true;
-                info.Checked = on;
+                // AndroidX Core 1.19 made checked a tri-state (true, false or partial); Maia's are only ever on or off.
+                info.Checked = on ? AccessibilityNodeInfoCompat.CheckedStateTrue : AccessibilityNodeInfoCompat.CheckedStateFalse;
             }
 
             if (ScreenReaderText.RoleName(role) is { } name)
